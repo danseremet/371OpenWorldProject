@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -Wextra  -Wpedantic -Wno-unused-parameter -g   CMakeFiles/LAB03.dir/main/main.cpp.o  -o LAB03  ../libs/glew-2.1.0/lib/libGLEW.a -lglfw -lGL -lX11 -lpthread -lXi -ldl 

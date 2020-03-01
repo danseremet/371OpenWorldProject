@@ -1,3 +1,0 @@
-/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab03_SRC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab03_SRC/cmake-build-debug/CMakeFiles/LAB03.dir
-/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab03_SRC/cmake-build-debug/CMakeFiles/edit_cache.dir
