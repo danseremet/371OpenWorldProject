@@ -2,6 +2,9 @@
 
 An open world project implemented using OpenGL for COMP 371
 
+### Instructions
+To build and run execute:
+`./build-and-run.sh` in a terminal in this project's root folder.
 
 <h3> Class Information </h3>
 
