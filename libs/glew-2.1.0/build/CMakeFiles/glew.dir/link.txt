@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libGLEW.so.2.1 -o lib/libGLEW.so.2.1.0 CMakeFiles/glew.dir/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/src/glew.c.o  -lGL -lGLU 

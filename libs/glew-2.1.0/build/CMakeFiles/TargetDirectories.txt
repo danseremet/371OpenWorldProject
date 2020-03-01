@@ -1,0 +1,11 @@
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/install/strip.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/install/local.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/install.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/list_install_components.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/rebuild_cache.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/glew_s.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/glew.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/glewinfo.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/visualinfo.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/uninstall.dir
+/media/danseremet/DATA/P/C-CPP/clion-workspace/COMP371LABS/Lab01_SRC/libs/glew-2.1.0/build/CMakeFiles/edit_cache.dir
