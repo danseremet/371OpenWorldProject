@@ -339,7 +339,7 @@ int main(int argc, char*argv[])
         // Each frame, reset color of each pixel to glClearColor
 
         // @TODO 1 - Clear Depth Buffer Bit as well
-        // Add the GL_DEPTH_BUFFER_BIT to glClear – TODO 1
+        // Add the GL_DEPTH_BUFFER_BIT to glClear ï¿½ TODO 1
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         
