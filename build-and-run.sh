@@ -4,7 +4,7 @@
 # Dan Seremet - 29/Jan/2020
 
 builddir=cmake-build-debug
-project_name=LAB03
+project_name=openworld
 
 mkdir -p $builddir && cd $builddir || exit
 cmake ../ || exit
