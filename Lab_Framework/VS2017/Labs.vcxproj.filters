@@ -18,6 +18,18 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{88876fa3-1e9f-4223-8d1d-570a59edf1cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{bbdc4c3f-22cf-487e-89c8-4b047a8e6282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shader">
+      <UniqueIdentifier>{292e44ea-bdc2-4388-9047-1e0b4f9ba3ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\basic">
+      <UniqueIdentifier>{66a7f166-1fca-4355-859f-29158b585313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\main">
+      <UniqueIdentifier>{1a7a0b9e-9bd4-40a8-a9d1-4e2b293e51b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shaders\BlueColor.fragmentshader">
@@ -53,6 +65,12 @@
     <None Include="..\Assets\Shaders\Texture.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\..\shaders\basic\fs.glsl">
+      <Filter>Source Files\shaders\basic</Filter>
+    </None>
+    <None Include="..\..\shaders\basic\vs.glsl">
+      <Filter>Source Files\shaders\basic</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Assets\Textures\BillboardTest.bmp">
@@ -63,8 +81,16 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\main\main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\shader\Shader.cpp">
+      <Filter>Source Files\shader</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\main\main.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\shader\Shader.h">
+      <Filter>Source Files\shader</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

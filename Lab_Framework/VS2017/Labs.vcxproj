@@ -99,6 +99,8 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\shaders\basic\fs.glsl" />
+    <None Include="..\..\shaders\basic\vs.glsl" />
     <None Include="..\Assets\Scenes\AnimatedScene.scene" />
     <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene" />
     <None Include="..\Assets\Scenes\CoordinateSystem.scene" />
@@ -117,6 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\main\main.cpp" />
+    <ClCompile Include="..\..\shader\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\shader\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

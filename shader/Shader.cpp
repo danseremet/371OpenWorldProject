@@ -4,23 +4,19 @@ Shader::Shader(const char *shaderName) {
     std::string path{"../shaders/" + std::string{shaderName}};
 
     createShader(std::string{path + "/vs.glsl"}.c_str(),
-                 std::string{path + "/fs.glsl"}.c_str(),
-                 nullptr);
+                 std::string{path + "/fs.glsl"}.c_str());
 }
 
-void Shader::createShader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
+void Shader::createShader(const char *vertexPath, const char *fragmentPath, const char* geometryPath) {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
-    std::string geometryCode;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
-    std::ifstream gShaderFile;
 
     // ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
     try {
         // open files
@@ -37,19 +33,11 @@ void Shader::createShader(const char *vertexPath, const char *fragmentPath, cons
         // convert stream into string
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
-        if (geometryPath != nullptr) {
-            gShaderFile.open(geometryPath);
-            std::stringstream gShaderStream;
-            gShaderStream << gShaderFile.rdbuf();
-            gShaderFile.close();
-            geometryCode = gShaderStream.str();
-        }
 
     } catch (std::ifstream::failure &e) {
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ\n";
         std::cout << "Vertex Path: " << vertexPath << '\n';
         std::cout << "Fragment Path: " << fragmentPath << '\n';
-        std::cout << "Geometry Path: " << geometryPath << '\n';
     }
     const char *vShaderCode = vertexCode.c_str();
     const char *fShaderCode = fragmentCode.c_str();
@@ -66,30 +54,16 @@ void Shader::createShader(const char *vertexPath, const char *fragmentPath, cons
     glShaderSource(fragment, 1, &fShaderCode, nullptr);
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
-    // geometry if given
-    if (geometryPath != nullptr) {
-        const char * gShaderCode = geometryCode.c_str();
-        geometry = glCreateShader(GL_GEOMETRY_SHADER);
-        glShaderSource(geometry, 1, &gShaderCode, nullptr);
-        glCompileShader(geometry);
-        checkCompileErrors(geometry, "GEOMETRY");
-    }
     // shader program
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
-    if (geometryPath != nullptr) {
-        glAttachShader(ID, geometry);
-    }
     glLinkProgram(ID);
     checkCompileErrors(ID, "PROGRAM");
 
     // shader_programs are already linked so we can delete them
     glDeleteShader(vertex);
     glDeleteShader(fragment);
-    if (geometryPath != nullptr) {
-        glDeleteShader(fragment);
-    }
 }
 
 Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {

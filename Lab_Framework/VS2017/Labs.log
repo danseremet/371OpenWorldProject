@@ -1,6 +1,11 @@
 ﻿  main.cpp
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(315,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(336,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(451,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(452,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(185,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(201,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(300,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(301,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  Shader.cpp
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\shader\Shader.cpp(46,36): warning C4101: 'geometry': unreferenced local variable
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\shader\Shader.cpp(37,38): warning C4101: 'e': unreferenced local variable
+C:\Users\leams\Documents\COMP 371\371OpenWorldProject\shader\Shader.cpp(82,65): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+  Generating Code...
   Labs.vcxproj -> C:\Users\leams\Documents\COMP 371\371OpenWorldProject\Lab_Framework\VS2017\/../Bin/Labs-Debug.exe
