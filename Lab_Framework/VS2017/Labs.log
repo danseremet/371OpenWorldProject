@@ -1,6 +1,0 @@
-﻿  main.cpp
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(315,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(336,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(451,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\leams\Documents\COMP 371\371OpenWorldProject\main\main.cpp(452,62): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-  Labs.vcxproj -> C:\Users\leams\Documents\COMP 371\371OpenWorldProject\Lab_Framework\VS2017\/../Bin/Labs-Debug.exe
