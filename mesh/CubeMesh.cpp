@@ -63,8 +63,8 @@ void CubeMesh::loadVertices() {
 
 void CubeMesh::draw() {
     mat4 baseplate{ mat4(1.0f) };
-    baseplate = translate(baseplate, vec3(0.0f, 3.0f, 0.0f));
-    baseplate = scale(baseplate, vec3(6.0f, 6.0f, 6.0f));
+    baseplate = translate(baseplate, vec3(0.0f, 2.0f, 0.0f));
+    baseplate = scale(baseplate, vec3(4.0f, 4.0f, 4.0f));
 
 
     shadersMap["basic"]->use();

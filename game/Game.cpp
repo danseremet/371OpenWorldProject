@@ -67,6 +67,7 @@ Game::~Game() {
 void Game::gameLoop() {
     frameSetup();
     drawModels();
+    shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
     frameEnd();
 }
 

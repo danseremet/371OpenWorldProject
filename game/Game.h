@@ -74,7 +74,7 @@ private:
     Shader *shader;
 
     Model *terrainModel;
-    Model* cubeModel;
+    Model *cubeModel;
 
     GLfloat lastFrameTime;
 
