@@ -99,30 +99,35 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\Assets\Scenes\AnimatedScene.scene" />
-    <None Include="..\Assets\Scenes\AnimatedSceneWithParticles.scene" />
-    <None Include="..\Assets\Scenes\CoordinateSystem.scene" />
-    <None Include="..\Assets\Scenes\StaticScene.scene" />
-    <None Include="..\Assets\Shaders\BlueColor.fragmentshader" />
-    <None Include="..\Assets\Shaders\PathLines.fragmentshader" />
-    <None Include="..\Assets\Shaders\PathLines.vertexshader" />
-    <None Include="..\Assets\Shaders\SolidColor.fragmentshader" />
-    <None Include="..\Assets\Shaders\SolidColor.vertexshader" />
-    <None Include="..\Assets\Shaders\Texture.fragmentshader" />
-    <None Include="..\Assets\Shaders\Texture.vertexshader" />
     <None Include="..\shaders\basic\fs.glsl" />
     <None Include="..\shaders\basic\vs.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Assets\Textures\BillboardTest.bmp" />
-    <Image Include="..\Assets\Textures\Particle.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="..\camera\Camera.cpp" />
+    <ClCompile Include="..\game\Game.cpp" />
+    <ClCompile Include="..\keyboard\Keyboard.cpp" />
     <ClCompile Include="..\main\main.cpp" />
+    <ClCompile Include="..\mesh\Mesh.cpp" />
+    <ClCompile Include="..\mesh\TerrainMesh.cpp" />
+    <ClCompile Include="..\model\Model.cpp" />
+    <ClCompile Include="..\model\TerrainModel.cpp" />
     <ClCompile Include="..\shader\Shader.cpp" />
+    <ClCompile Include="..\texture\Texture.cpp" />
+    <ClCompile Include="..\window\WindowException.cpp" />
+    <ClCompile Include="..\window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\camera\Camera.h" />
+    <ClInclude Include="..\game\Game.h" />
+    <ClInclude Include="..\keyboard\Keyboard.h" />
+    <ClInclude Include="..\mesh\Mesh.h" />
+    <ClInclude Include="..\mesh\TerrainMesh.h" />
+    <ClInclude Include="..\model\Model.h" />
+    <ClInclude Include="..\model\TerrainModel.h" />
     <ClInclude Include="..\shader\Shader.h" />
+    <ClInclude Include="..\texture\Texture.h" />
+    <ClInclude Include="..\window\WindowException.h" />
+    <ClInclude Include="..\window\WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
