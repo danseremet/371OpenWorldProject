@@ -20,7 +20,7 @@ void WindowManager::createWindow() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // Create Window and rendering context using GLFW
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Comp371 - Assignment 2", nullptr, nullptr);
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Comp371 - OpenWorld", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();
