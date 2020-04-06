@@ -3,10 +3,25 @@
 An open world project implemented using OpenGL for COMP 371
 
 ### Instructions
+#### On Linux
 To build and run execute:
 `./build-and-run.sh` in a terminal in this project's root folder.
 
-<h3> Class Information </h3>
+#### On Windows
+"Insert instructions"
+
+### Keys
+#### Camera Rotation
+- Left mouse click & up-down movement: Zoom in - Zoom out
+- Middle mouse click & up-down movement: Tilt up - Tilt down
+- Right mouse click & left-right movement: Pan left - Pan right
+### Camera Movement
+- Numpad 8: Move camera forward
+- Numpad 5: Move camera backward
+- Numpad 4: Move camera left
+- Numpad 6: Move camera right
+
+### Class Information
 
 Instructors: Prof. Kaustubha Mendhurwar and Prof. Sudhir Mudur
 
@@ -14,9 +29,8 @@ Instructors: Prof. Kaustubha Mendhurwar and Prof. Sudhir Mudur
 Semester: Winter 2020
 
 
-<h3> Team Members </h3>
-
-Yomna Abdelkawy  |  40041892 </br>
-Joanna Lin     |    40055253 </br>
-Mael Semler     |   40061228 </br>
-Daniel Seremet   |  40054114 </br>
+### Team Members
+- Yomna Abdelkawy 40041892
+- Joanna Lin 40055253
+- Mael Semler 40061228
+- Daniel Seremet 40054114

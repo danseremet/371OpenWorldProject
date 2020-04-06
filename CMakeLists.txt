@@ -12,13 +12,23 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra  -Wpedantic -Wno-unused-pa
 # Project source files
 set(SOURCE_FILES
         main/main.cpp
-        shader/Shader.cpp)
+        shader/Shader.cpp
+        camera/Camera.cpp
+        game/Game.cpp
+        model/Model.cpp
+        model/TerrainModel.cpp
+        mesh/Mesh.cpp
+        mesh/TerrainMesh.cpp
+        texture/Texture.cpp
+        window/WindowManager.cpp
+        window/WindowException.cpp
+        keyboard/Keyboard.cpp)
 
 # Executables
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Include directories (ALL STATIC)
-set(INCLUDE_DIRECTORIES libs/glfw-3.3/include libs/glew-2.1.0/include libs/glm libs/FreeImage/Dist)
+set(INCLUDE_DIRECTORIES libs/glfw-3.3/include libs/glew-2.1.0/include libs/glm)
 target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDE_DIRECTORIES})
 
 # Link libraries
