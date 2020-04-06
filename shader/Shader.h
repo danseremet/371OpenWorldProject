@@ -1,6 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#define GLEW_STATIC 1 // necessary for glew
+
 #include <GL/glew.h>    // Include GLEW - OpenGL Extension Wrangler
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
