@@ -13,7 +13,12 @@ class TerrainMesh: public Mesh {
 private:
     void loadVertices() override;
 
+    void setupVertices() override;
+
     GLboolean showTexture{true};
+
+    GLuint instanceVBO{};
+    std::vector<glm::vec3> translations;
 
 public:
     TerrainMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);

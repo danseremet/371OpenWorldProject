@@ -33,47 +33,47 @@ void Mesh::loadVertices() {
             //
             // positions          // normals           // texture coords
             // BACK
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(0.0f,  0.0f)}, // F
-            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(1.0f,  1.0f)},  // B
-            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(1.0f,  0.0f)},  // E
-            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(1.0f,  1.0f)},  // B
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(0.0f,  0.0f)}, // F
-            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f), glm::vec2(0.0f,  1.0f)}, // C
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
+            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)},  // B
+            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)},  // E
+            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)},  // B
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
+            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  0.0f, -1.0f)}, // C
             // FRONT
-            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(0.0f,  0.0f)}, // G
-            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(1.0f,  0.0f)},  // H
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(1.0f,  1.0f)},  // A
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(1.0f,  1.0f)},  // A
-            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(0.0f,  1.0f)}, // D
-            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f), glm::vec2(0.0f,  0.0f)}, // G
+            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)}, // G
+            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)},  // H
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)},  // A
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)},  // A
+            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)}, // D
+            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f,  0.0f,  1.0f)}, // G
             // LEFT
-            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  0.0f)},// D
-            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  1.0f)},// C
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  1.0f)},// F
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  1.0f)},// F
-            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  0.0f)},// G
-            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  0.0f)},// D
+            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// D
+            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// C
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// F
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// F
+            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// G
+            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(-1.0f,  0.0f,  0.0f)},// D
             // RIGHT
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // A
-            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  1.0f)},  // E
-            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  1.0f)},  // B
-            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  1.0f)},  // E
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // A
-            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f), glm::vec2(0.0f,  0.0f)},  // H
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // A
+            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // E
+            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // B
+            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // E
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // A
+            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(1.0f,  0.0f,  0.0f)},  // H
             // BOTTOM
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(0.0f,  1.0f)}, // F
-            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(1.0f,  1.0f)},  // E
-            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // H
-            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // H
-            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(0.0f,  0.0f)}, // G
-            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f), glm::vec2(0.0f,  1.0f)}, // F
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)}, // F
+            {glm::vec3(0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)},  // E
+            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)},  // H
+            {glm::vec3(0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)},  // H
+            {glm::vec3(-0.5f, -0.5f,  0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)}, // G
+            {glm::vec3(-0.5f, -0.5f, -0.5f), BLUE, glm::vec3(0.0f, -1.0f,  0.0f)}, // F
             // UP
-            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(0.0f,  1.0f)}, // C
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // A
-            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(1.0f,  1.0f)},  // B
-            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(1.0f,  0.0f)},  // A
-            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(0.0f,  1.0f)}, // C
-            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f), glm::vec2(0.0f,  0.0f)}  // D
+            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)}, // C
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)},  // A
+            {glm::vec3(0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)},  // B
+            {glm::vec3(0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)},  // A
+            {glm::vec3(-0.5f,  0.5f, -0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)}, // C
+            {glm::vec3(-0.5f,  0.5f,  0.5f), BLUE, glm::vec3(0.0f,  1.0f,  0.0f)}  // D
     };
 }
 
@@ -94,9 +94,7 @@ void Mesh::setupVertices() { // cube mesh
     // vertex normal
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
     glEnableVertexAttribArray(2);
-    // vertex uv
-    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(glm::vec3)));
-    glEnableVertexAttribArray(3);
+
 
     glBindVertexArray(0);
 }
