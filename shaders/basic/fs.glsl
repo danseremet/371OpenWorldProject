@@ -1,12 +1,12 @@
 #version 330 core
 
 uniform vec3 lightColor = vec3(1.0, 1.0, 1.0);
-uniform vec3 lightPos = vec3(5.0, 10.0, 5.0);
+uniform vec3 lightDirection = vec3(-0.3, -1.0, -0.4);
 
 uniform vec3 viewPos;
 
-uniform float ambientStrength = 0.1;
-uniform float diffuseStrength = 0.8;
+uniform float ambientStrength = 0.2;
+uniform float diffuseStrength = 0.85;
 uniform float specularStrength = 0.5;
 
 in vec3 FragPos;
@@ -33,7 +33,7 @@ vec3 specular(vec3 viewDir, vec3 reflectDir) {
 
 void main() {
    vec3 norm = normalize(Normal);
-   vec3 lightDir = normalize(lightPos - FragPos);
+   vec3 lightDir = normalize(-lightDirection);
    vec3 viewDir = normalize(viewPos - FragPos);
    vec3 reflectDir = reflect(-lightDir, norm);
 
