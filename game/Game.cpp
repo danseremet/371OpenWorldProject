@@ -34,6 +34,8 @@ Game::Game() {
     // Model creation
     terrainModel = new TerrainModel{shadersMap, texturesMap};
     terrainModel->loadModel();
+    cubeModel = new CubeModel{ shadersMap, texturesMap };
+    cubeModel->loadModel();
 
     // For frame time
     dt = 0.0f;
@@ -79,6 +81,7 @@ void Game::frameSetup() {
 
 void Game::drawModels() {
     terrainModel->draw();
+    cubeModel->draw();
 }
 
 void Game::frameEnd() {
