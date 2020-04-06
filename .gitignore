@@ -356,3 +356,4 @@ MigrationBackup/
 
 /Build/
 /Bin/
+/VS2017/*.log
