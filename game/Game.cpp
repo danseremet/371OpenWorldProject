@@ -35,6 +35,9 @@ Game::Game() {
     terrainModel = new TerrainModel{shadersMap, texturesMap};
     terrainModel->loadModel();
 
+    treeModel = new TreeModel{ shadersMap, texturesMap };
+    treeModel->loadModel();
+
     // For frame time
     dt = 0.0f;
     lastFrameTime = glfwGetTime();
@@ -79,6 +82,7 @@ void Game::frameSetup() {
 
 void Game::drawModels() {
     terrainModel->draw();
+    treeModel->draw();
 }
 
 void Game::frameEnd() {

@@ -19,6 +19,7 @@
 #include "../camera/Camera.h"
 #include "../model/Model.h"
 #include "../model/TerrainModel.h"
+#include "../model/TreeModel.h"
 #include "../texture/Texture.h"
 
 
@@ -73,6 +74,8 @@ private:
     Shader *shader;
 
     Model *terrainModel;
+
+    Model* treeModel;
 
     GLfloat lastFrameTime;
 
