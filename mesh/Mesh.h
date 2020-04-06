@@ -5,6 +5,7 @@
 #ifndef OPENWORLD_MESH_H
 #define OPENWORLD_MESH_H
 
+#define GLEW_STATIC 1 // necessary for glew
 
 #include <iostream>
 #include <vector>

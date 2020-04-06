@@ -5,6 +5,7 @@
 #ifndef OPENWORLD_TEXTURE_H
 #define OPENWORLD_TEXTURE_H
 
+#define GLEW_STATIC 1 // necessary for glew
 
 #include <GL/glew.h>
 
