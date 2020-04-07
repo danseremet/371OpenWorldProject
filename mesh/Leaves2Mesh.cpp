@@ -1,5 +1,5 @@
 //
-// Created by danseremet on 2020-04-04.
+// Created by Mael Semler on 2020-04-06.
 //
 
 #include "Leaves2Mesh.h"
@@ -9,27 +9,15 @@
 
 using namespace glm;
 
-Leaves2Mesh::Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)) {
+Leaves2Mesh::Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions) {
 }
 
 void Leaves2Mesh::loadVertices() {
     glm::vec3 BROWN = glm::vec3(0.0f, 0.35f, 0.25f);
     vertices = {
-        //  CUBE VERTICES
-        //
-        //      C ------- B
-        //     /|        /|
-        //    / |       / |
-        //   /  |      /  |
-        //  D --|---- A   |
-        //  |   F ----|-- E
-        //  |  /      |  /
-        //  | /       | /
-        //  |/        |/
-        //  G ------- H
-        //
-        // positions          // normals           // texture coords
+       
+        // positions          // normals           
         // BACK
         {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
         {glm::vec3(0.0f,  0.5f, 0.0f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // A
@@ -58,20 +46,40 @@ void Leaves2Mesh::loadVertices() {
 
 void Leaves2Mesh::draw() {
     
-    float size = 457454 % 4 + 1;
-    float numberOfLeaves = 20 % 5 + 1;
+    float leavesSize;
+    float size;
+    int numberOfLeaves;
+
     mat4 baseplate{ mat4(1.0f) };
-
-
     shadersMap["basic"]->use();
-    for (int i = 0; i < numberOfLeaves; i++) {
-        baseplate = mat4(1.0f);
-        baseplate = translate(baseplate, vec3(0.0f, 3.5f + i, 0.0f));
-        baseplate = scale(baseplate, vec3(size, size, size));
+    float xPos;
+    float yPos;
+    float zPos;
 
-        shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-        Mesh::draw();
+    for (GLuint i{ 0 }; i < allPositions.size(); i++) {
+        if (seed[i] % 2 != 0) {
+            xPos = allPositions[i].x;
+            yPos = allPositions[i].y;
+            zPos = allPositions[i].z;
+
+            leavesSize = (seed[i] % 4) + 1;
+            size = seed[i] % 2 + 1;
+            numberOfLeaves = ((seed[i] / 10) % 5) + 1;
+
+            for (int i = 1; i <= numberOfLeaves; i++) {
+                baseplate = mat4(1.0f);
+                baseplate = translate(baseplate, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 1.0f, zPos));
+                baseplate = scale(baseplate, vec3(leavesSize, leavesSize, leavesSize));
+
+                shadersMap["basic"]->setMat4("worldMatrix", baseplate);
+                Mesh::draw();
+            }
+        }
+        
+
     }
+    
+    
 
 }
 

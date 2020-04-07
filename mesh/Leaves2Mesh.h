@@ -1,5 +1,5 @@
 //
-// Created by danseremet on 2020-04-04.
+//Created by Mael Semler on 2020-04-06.
 //
 
 #ifndef OPENWORLD_LEAVES2MODEL_H
@@ -15,8 +15,12 @@ private:
 
     GLboolean showTexture{true};
 
+    std::vector<glm::vec3> allPositions;
+
 public:
-    Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
+    Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
+
+    std::vector<int>  seed;
 
     void draw() override;
 

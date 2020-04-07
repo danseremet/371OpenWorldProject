@@ -19,6 +19,7 @@
 #include "../camera/Camera.h"
 #include "../model/Model.h"
 #include "../model/TerrainModel.h"
+#include "../model/CubeModel.h"
 #include "../model/TreeModel.h"
 #include "../texture/Texture.h"
 
@@ -41,6 +42,7 @@ public:
 
     GLint vbo;
 
+
     GLint polygonMode;
 
     void launch();
@@ -56,6 +58,8 @@ public:
     void setScrWidth(GLuint scrWidth);
 
     void setScrHeight(GLuint scrHeight);
+
+    Model* getTreeModel() const;
 
     void updateAspectRatio();
 
@@ -74,8 +78,11 @@ private:
     Shader *shader;
 
     Model *terrainModel;
+    Model *cubeModel;
 
     Model* treeModel;
+
+    GLint treeSeed;
 
     GLfloat lastFrameTime;
 

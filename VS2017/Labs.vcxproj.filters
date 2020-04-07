@@ -103,6 +103,10 @@
       <Filter>Source Files\model</Filter>
     </ClCompile>
     <ClCompile Include="..\mesh\Leaves2Mesh.cpp">
+    <ClCompile Include="..\model\CubeModel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mesh\CubeMesh.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,6 +154,10 @@
       <Filter>Source Files\model</Filter>
     </ClInclude>
     <ClInclude Include="..\mesh\Leaves2Mesh.h">
+    <ClInclude Include="..\model\CubeModel.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\CubeMesh.h">
       <Filter>Source Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>

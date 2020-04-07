@@ -17,8 +17,10 @@ set(SOURCE_FILES
         game/Game.cpp
         model/Model.cpp
         model/TerrainModel.cpp
+        model/CubeModel.cpp
         mesh/Mesh.cpp
         mesh/TerrainMesh.cpp
+        mesh/CubeMesh.cpp
         texture/Texture.cpp
         window/WindowManager.cpp
         window/WindowException.cpp

@@ -1,5 +1,5 @@
 //
-// Created by danseremet on 2020-04-04.
+// Created by Mael Semler on 2020-04-06.
 //
 
 #ifndef OPENWORLD_TREEMODEL_H
@@ -15,11 +15,16 @@
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, GLint tNumber);
-
-    GLint treeNumber;
+    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, std::vector<int>  tNumber, std::vector<glm::vec3> positions);
 
     void loadMeshes() override;
+
+    void setTreeNumber();
+
+private:
+    std::vector<int>  treeNumber;
+
+    std::vector<glm::vec3> allPositions;
 };
 
 

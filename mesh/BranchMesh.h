@@ -1,5 +1,5 @@
 //
-// Created by danseremet on 2020-04-04.
+// Created by Mael Semler on 2020-04-06.
 //
 
 #ifndef OPENWORLD_BRANCHMESH_H
@@ -15,8 +15,15 @@ private:
 
     GLboolean showTexture{true};
 
+    GLboolean onlyTrunk;
+
+    std::vector<int>  seed;
+
+    std::vector<glm::vec3> allPositions;
+
 public:
-    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
+    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, GLboolean oTrunk);
+
 
     void draw() override;
 

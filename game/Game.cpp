@@ -35,8 +35,22 @@ Game::Game() {
     // Model creation
     terrainModel = new TerrainModel{shadersMap, texturesMap};
     terrainModel->loadModel();
+    cubeModel = new CubeModel{ shadersMap, texturesMap };
+    cubeModel->loadModel();
 
-    treeModel = new TreeModel{ shadersMap, texturesMap , 2};
+    std::vector<glm::vec3> treeVector;
+    treeVector.push_back(glm::vec3(10.0f, 2.0f, 10.0f));
+    treeVector.push_back(glm::vec3(5.0f, 10.0f, 10.0f));
+    treeVector.push_back(glm::vec3(120.0f, 5.0f, 10.0f));
+    treeVector.push_back(glm::vec3(50.0f, -3.0f, 10.0f));
+    treeVector.push_back(glm::vec3(15.0f, 2.0f, 10.0f));
+    std::vector<int> treeSeed;
+    treeSeed.push_back(3846345);
+    treeSeed.push_back(567567);
+    treeSeed.push_back(384657);
+    treeSeed.push_back(384674);
+    treeSeed.push_back(635234634);
+    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector};
     treeModel->loadModel();
 
     // For frame time
@@ -84,6 +98,7 @@ void Game::frameSetup() {
 
 void Game::drawModels() {
     terrainModel->draw();
+    cubeModel->draw();
     treeModel->draw();
 }
 
@@ -139,6 +154,10 @@ void Game::setScrHeight(GLuint newScrHeight) {
     this->scrHeight = newScrHeight;
 }
 
+Model* Game::getTreeModel() const {
+    return treeModel;
+}
+
 void Game::updateAspectRatio() {
     this->aspect = computeAspectRatio();
 }
@@ -152,6 +171,7 @@ void Game::setupBasicShader() {
     shadersMap["basic"]->setMat4("projectionMatrix", projectionMatrix);
     viewMatrix = camera->getViewMatrix();
     shadersMap["basic"]->setMat4("viewMatrix", viewMatrix);
+    shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
 }
 
 void Game::setupTerrainShader() {

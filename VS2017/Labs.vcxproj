@@ -109,11 +109,13 @@
     <ClCompile Include="..\game\Game.cpp" />
     <ClCompile Include="..\keyboard\Keyboard.cpp" />
     <ClCompile Include="..\main\main.cpp" />
+    <ClCompile Include="..\mesh\CubeMesh.cpp" />
     <ClCompile Include="..\mesh\BranchMesh.cpp" />
     <ClCompile Include="..\mesh\Leaves2Mesh.cpp" />
     <ClCompile Include="..\mesh\LeavesMesh.cpp" />
     <ClCompile Include="..\mesh\Mesh.cpp" />
     <ClCompile Include="..\mesh\TerrainMesh.cpp" />
+    <ClCompile Include="..\model\CubeModel.cpp" />
     <ClCompile Include="..\model\Model.cpp" />
     <ClCompile Include="..\model\TerrainModel.cpp" />
     <ClCompile Include="..\model\TreeModel.cpp" />
@@ -129,8 +131,10 @@
     <ClInclude Include="..\mesh\BranchMesh.h" />
     <ClInclude Include="..\mesh\Leaves2Mesh.h" />
     <ClInclude Include="..\mesh\LeavesMesh.h" />
+    <ClInclude Include="..\mesh\CubeMesh.h" />
     <ClInclude Include="..\mesh\Mesh.h" />
     <ClInclude Include="..\mesh\TerrainMesh.h" />
+    <ClInclude Include="..\model\CubeModel.h" />
     <ClInclude Include="..\model\Model.h" />
     <ClInclude Include="..\model\TerrainModel.h" />
     <ClInclude Include="..\model\TreeModel.h" />

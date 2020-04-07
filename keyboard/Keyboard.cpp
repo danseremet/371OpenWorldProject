@@ -8,6 +8,8 @@ Keyboard::Keyboard() = default;
 
 GLboolean Keyboard::monitorCounted = false;
 
+GLboolean Keyboard::randomTreeSeed = false;
+
 void Keyboard::processInput(Game *game) {
     // Handle keyboard inputs
 
@@ -118,6 +120,11 @@ void Keyboard::processInput(Game *game) {
     }
     if (glfwGetKey(window, GLFW_KEY_KP_4) == GLFW_PRESS) { // left A
         camera->cameraPosition -= cameraSideVector * dt * currentCameraSpeed;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) { // R
+        auto *tree = (TreeModel *) game->getTreeModel();
+        tree->setTreeNumber();
     }
 
     // Return Home
