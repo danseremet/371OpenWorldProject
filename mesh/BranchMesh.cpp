@@ -14,7 +14,7 @@ BranchMesh::BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std:
 }
 
 void BranchMesh::loadVertices() {
-    glm::vec3 BROWN = glm::vec3(0.5f, 0.2f, 0.1f);
+    glm::vec3 BROWN = glm::vec3(0.545f, 0.27f, 0.07f);
     vertices = {
             //  CUBE VERTICES
             //

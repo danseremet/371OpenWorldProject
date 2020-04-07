@@ -36,7 +36,7 @@ Game::Game() {
     terrainModel = new TerrainModel{shadersMap, texturesMap};
     terrainModel->loadModel();
 
-    treeModel = new TreeModel{ shadersMap, texturesMap , 1};
+    treeModel = new TreeModel{ shadersMap, texturesMap , 2};
     treeModel->loadModel();
 
     // For frame time

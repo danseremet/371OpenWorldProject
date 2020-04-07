@@ -15,7 +15,9 @@
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int treeNumber);
+    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, GLint tNumber);
+
+    GLint treeNumber;
 
     void loadMeshes() override;
 };

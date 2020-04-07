@@ -14,7 +14,7 @@ Leaves2Mesh::Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<st
 }
 
 void Leaves2Mesh::loadVertices() {
-    glm::vec3 BROWN = glm::vec3(0.7f, 0.5f, 0.2f);
+    glm::vec3 BROWN = glm::vec3(0.0f, 0.35f, 0.25f);
     vertices = {
         //  CUBE VERTICES
         //
@@ -32,7 +32,7 @@ void Leaves2Mesh::loadVertices() {
         // positions          // normals           // texture coords
         // BACK
         {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
-        {glm::vec3(0.0f,  0.5f, 0.0f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // B
+        {glm::vec3(0.0f,  0.5f, 0.0f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // A
         {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // E
         // FRONT
         {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(0.0f,  0.0f,  1.0f)}, // G
@@ -41,7 +41,7 @@ void Leaves2Mesh::loadVertices() {
         // LEFT
         {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// F
         {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// G
-        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// D
+        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// A
         // RIGHT
         {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(1.0f,  0.0f,  0.0f)},  // E
         {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(1.0f,  0.0f,  0.0f)},  // A
@@ -57,15 +57,22 @@ void Leaves2Mesh::loadVertices() {
 }
 
 void Leaves2Mesh::draw() {
-    mat4 baseplate{mat4(1.0f)};
-    baseplate = translate(baseplate, vec3(0.0f, 4.0f, 0.0f));
-    baseplate = scale(baseplate, vec3(2.0f, 2.0f, 2.0f));
+    
+    float size = 457454 % 4 + 1;
+    float numberOfLeaves = 20 % 5 + 1;
+    mat4 baseplate{ mat4(1.0f) };
 
 
     shadersMap["basic"]->use();
-    shadersMap["basic"]->setMat4("worldMatrix", baseplate);
+    for (int i = 0; i < numberOfLeaves; i++) {
+        baseplate = mat4(1.0f);
+        baseplate = translate(baseplate, vec3(0.0f, 3.5f + i, 0.0f));
+        baseplate = scale(baseplate, vec3(size, size, size));
 
-    Mesh::draw();
+        shadersMap["basic"]->setMat4("worldMatrix", baseplate);
+        Mesh::draw();
+    }
+
 }
 
 void Leaves2Mesh::toggleShowTexture() {
