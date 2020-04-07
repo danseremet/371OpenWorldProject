@@ -17,6 +17,14 @@ private:
 
     std::vector<glm::vec3> allPositions;
 
+    float leavesSize;
+
+    float size;
+
+    int numberOfLeaves;
+
+    float angleTree;
+
 public:
     Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
 

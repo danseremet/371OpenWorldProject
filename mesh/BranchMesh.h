@@ -20,6 +20,16 @@ private:
 
     std::vector<glm::vec3> allPositions;
 
+    int numberOfBranches;
+
+    float size;
+
+    float angleOfBranchY;
+
+    float angleOfBranchX;
+
+    float angleTree;
+
 public:
     BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
 

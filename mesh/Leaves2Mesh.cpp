@@ -45,11 +45,6 @@ void Leaves2Mesh::loadVertices() {
 }
 
 void Leaves2Mesh::draw() {
-    
-    float leavesSize;
-    float size;
-    int numberOfLeaves;
-
     mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
     float xPos;
@@ -65,10 +60,12 @@ void Leaves2Mesh::draw() {
             leavesSize = (seed[i] % 4) + 1;
             size = seed[i] % 3 + 1;
             numberOfLeaves = ((seed[i] / 10) % 5) + 1;
+            angleTree = (seed[i] / 17) % 90;
 
             for (int i = 1; i <= numberOfLeaves; i++) {
                 baseplate = mat4(1.0f);
                 baseplate = translate(baseplate, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 2.0f, zPos));
+                baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
                 baseplate = scale(baseplate, vec3(leavesSize, leavesSize, leavesSize));
 
                 shadersMap["basic"]->setMat4("worldMatrix", baseplate);

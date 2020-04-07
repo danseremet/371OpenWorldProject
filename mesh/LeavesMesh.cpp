@@ -77,11 +77,6 @@ void LeavesMesh::loadVertices() {
 }
 
 void LeavesMesh::draw() {
-    int numberOfLeaves;
-    float size;
-    float angleOfBranchY;
-    float angleOfBranchX;
-
     mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
 
@@ -99,9 +94,11 @@ void LeavesMesh::draw() {
             size = seed[i] % 3 + 1;
             angleOfBranchY = (seed[i] / 9) % 360;
             angleOfBranchX = ((seed[i] / 11) % 80) + 10;
+            angleTree = (seed[i] / 17) % 90;
 
             //main leaves
             baseplate = translate(baseplate, vec3(xPos, yPos + (size * 2.0f), zPos));
+            baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
             baseplate = scale(baseplate, vec3(size * 2, size * 2, size * 2));
             shadersMap["basic"]->setMat4("worldMatrix", baseplate);
             Mesh::draw();

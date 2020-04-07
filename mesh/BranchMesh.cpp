@@ -76,11 +76,6 @@ void BranchMesh::loadVertices() {
 
 void BranchMesh::draw() {
 
-    int numberOfBranches;
-    float size;
-    float angleOfBranchY;
-    float angleOfBranchX;
-
     mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
     
@@ -97,10 +92,13 @@ void BranchMesh::draw() {
         size = seed[i] % 3 + 1;
         angleOfBranchY = (seed[i] / 9) % 360;
         angleOfBranchX = ((seed[i] / 11) % 80) + 10;
+        angleTree = (seed[i] / 17) % 90;
         
         //This is the trunk
         baseplate = translate(baseplate, vec3(xPos, yPos, zPos));
+        baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
         baseplate = scale(baseplate, vec3(size / 2, size * 3, size / 2));
+        
 
        
         shadersMap["basic"]->setMat4("worldMatrix", baseplate);
