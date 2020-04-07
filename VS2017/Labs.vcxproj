@@ -110,6 +110,7 @@
     <ClCompile Include="..\keyboard\Keyboard.cpp" />
     <ClCompile Include="..\main\main.cpp" />
     <ClCompile Include="..\mesh\BranchMesh.cpp" />
+    <ClCompile Include="..\mesh\Leaves2Mesh.cpp" />
     <ClCompile Include="..\mesh\LeavesMesh.cpp" />
     <ClCompile Include="..\mesh\Mesh.cpp" />
     <ClCompile Include="..\mesh\TerrainMesh.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\game\Game.h" />
     <ClInclude Include="..\keyboard\Keyboard.h" />
     <ClInclude Include="..\mesh\BranchMesh.h" />
+    <ClInclude Include="..\mesh\Leaves2Mesh.h" />
     <ClInclude Include="..\mesh\LeavesMesh.h" />
     <ClInclude Include="..\mesh\Mesh.h" />
     <ClInclude Include="..\mesh\TerrainMesh.h" />

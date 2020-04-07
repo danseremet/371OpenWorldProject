@@ -10,11 +10,12 @@
 #include "Model.h"
 #include "../mesh/BranchMesh.h"
 #include "../mesh/LeavesMesh.h"
+#include "../mesh/Leaves2Mesh.h"
 #include "../texture/Texture.h"
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
+    TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int treeNumber);
 
     void loadMeshes() override;
 };

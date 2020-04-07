@@ -6,7 +6,7 @@
 
 #include <utility>
 
-TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap) :
+TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int treeNumber) :
         Model(std::move(shadersMap), std::move(texturesMap)) {
 }
 
@@ -15,7 +15,7 @@ void TreeModel::loadMeshes() {
     branchMesh->loadMesh();
     meshes.push_back(branchMesh);
 
-    auto* leaveMesh = new LeavesMesh{shadersMap, texturesMap};
+    auto* leaveMesh = new Leaves2Mesh{shadersMap, texturesMap};
     leaveMesh->loadMesh();
     meshes.push_back(leaveMesh);
 }

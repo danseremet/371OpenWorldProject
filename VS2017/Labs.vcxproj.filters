@@ -102,6 +102,9 @@
     <ClCompile Include="..\model\TreeModel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\mesh\Leaves2Mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\shader\Shader.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\model\TreeModel.h">
       <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\Leaves2Mesh.h">
+      <Filter>Source Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
