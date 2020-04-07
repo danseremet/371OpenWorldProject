@@ -93,6 +93,12 @@
     <ClCompile Include="..\window\WindowManager.cpp">
       <Filter>Source Files\window</Filter>
     </ClCompile>
+    <ClCompile Include="..\model\CubeModel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mesh\CubeMesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\shader\Shader.h">
@@ -127,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="..\window\WindowManager.h">
       <Filter>Source Files\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\model\CubeModel.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\CubeMesh.h">
+      <Filter>Source Files\mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

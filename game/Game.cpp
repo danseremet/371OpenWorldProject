@@ -35,6 +35,8 @@ Game::Game() {
     // Model creation
     terrainModel = new TerrainModel{shadersMap, texturesMap};
     terrainModel->loadModel();
+    cubeModel = new CubeModel{ shadersMap, texturesMap };
+    cubeModel->loadModel();
 
     // For frame time
     dt = 0.0f;
@@ -81,6 +83,7 @@ void Game::frameSetup() {
 
 void Game::drawModels() {
     terrainModel->draw();
+    cubeModel->draw();
 }
 
 void Game::frameEnd() {
@@ -148,6 +151,7 @@ void Game::setupBasicShader() {
     shadersMap["basic"]->setMat4("projectionMatrix", projectionMatrix);
     viewMatrix = camera->getViewMatrix();
     shadersMap["basic"]->setMat4("viewMatrix", viewMatrix);
+    shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
 }
 
 void Game::setupTerrainShader() {
