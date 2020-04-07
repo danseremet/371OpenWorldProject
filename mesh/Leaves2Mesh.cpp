@@ -19,21 +19,21 @@ void Leaves2Mesh::loadVertices() {
        
         // positions          // normals           
         // BACK
-        {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
-        {glm::vec3(0.0f,  0.5f, 0.0f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // A
-        {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // E
+        {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.5f, -1.0f)}, // F
+        {glm::vec3(0.0f,  0.5f, 0.0f), BROWN, glm::vec3(0.0f,  0.5f, -1.0f)},  // A
+        {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.5f, -1.0f)},  // E
         // FRONT
-        {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(0.0f,  0.0f,  1.0f)}, // G
-        {glm::vec3(0.5f, -0.5f,  0.5f), BROWN, glm::vec3(0.0f,  0.0f,  1.0f)},  // H
-        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(0.0f,  0.0f,  1.0f)},  // A
+        {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(0.0f,  0.5f,  1.0f)}, // G
+        {glm::vec3(0.5f, -0.5f,  0.5f), BROWN, glm::vec3(0.0f,  0.5f,  1.0f)},  // H
+        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(0.0f,  0.5f,  1.0f)},  // A
         // LEFT
-        {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// F
-        {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// G
-        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(-1.0f,  0.0f,  0.0f)},// A
+        {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(-1.0f,  0.5f,  0.0f)},// F
+        {glm::vec3(-0.5f, -0.5f,  0.5f), BROWN, glm::vec3(-1.0f,  0.5f,  0.0f)},// G
+        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(-1.0f,  0.5f,  0.0f)},// A
         // RIGHT
-        {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(1.0f,  0.0f,  0.0f)},  // E
-        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(1.0f,  0.0f,  0.0f)},  // A
-        {glm::vec3(0.5f, -0.5f,  0.5f), BROWN, glm::vec3(1.0f,  0.0f,  0.0f)},  // H
+        {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(1.0f,  0.5f,  0.0f)},  // E
+        {glm::vec3(0.0f,  0.5f,  0.0f), BROWN, glm::vec3(1.0f,  0.5f,  0.0f)},  // A
+        {glm::vec3(0.5f, -0.5f,  0.5f), BROWN, glm::vec3(1.0f,  0.5f,  0.0f)},  // H
         // BOTTOM
         {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f, -1.0f,  0.0f)}, // F
         {glm::vec3(0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f, -1.0f,  0.0f)},  // E
@@ -63,12 +63,12 @@ void Leaves2Mesh::draw() {
             zPos = allPositions[i].z;
 
             leavesSize = (seed[i] % 4) + 1;
-            size = seed[i] % 2 + 1;
+            size = seed[i] % 3 + 1;
             numberOfLeaves = ((seed[i] / 10) % 5) + 1;
 
             for (int i = 1; i <= numberOfLeaves; i++) {
                 baseplate = mat4(1.0f);
-                baseplate = translate(baseplate, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 1.0f, zPos));
+                baseplate = translate(baseplate, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 2.0f, zPos));
                 baseplate = scale(baseplate, vec3(leavesSize, leavesSize, leavesSize));
 
                 shadersMap["basic"]->setMat4("worldMatrix", baseplate);

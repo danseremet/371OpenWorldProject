@@ -12,7 +12,8 @@ TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::s
 
 void TreeModel::loadMeshes() {
     
-    auto* branchMesh = new BranchMesh{ shadersMap, texturesMap, treeNumber, allPositions, false};
+    //Create the BranchMesh
+    auto* branchMesh = new BranchMesh{ shadersMap, texturesMap, treeNumber, allPositions};
     branchMesh->loadMesh();
     meshes.push_back(branchMesh);
 

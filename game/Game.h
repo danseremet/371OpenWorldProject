@@ -59,6 +59,8 @@ public:
 
     void setScrHeight(GLuint scrHeight);
 
+    void populateTreeSeeds();
+
     Model* getTreeModel() const;
 
     void updateAspectRatio();
@@ -82,7 +84,7 @@ private:
 
     Model* treeModel;
 
-    GLint treeSeed;
+    std::vector<int> treeSeed;
 
     GLfloat lastFrameTime;
 

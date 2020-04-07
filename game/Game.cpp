@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "../keyboard/Keyboard.h"
+#include <ctime>
 
 
 using namespace glm;
@@ -38,19 +39,13 @@ Game::Game() {
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
 
+    //Adding trees to the world
     std::vector<glm::vec3> treeVector;
-    treeVector.push_back(glm::vec3(10.0f, 2.0f, 10.0f));
-    treeVector.push_back(glm::vec3(5.0f, 10.0f, 10.0f));
-    treeVector.push_back(glm::vec3(120.0f, 5.0f, 10.0f));
-    treeVector.push_back(glm::vec3(50.0f, -3.0f, 10.0f));
-    treeVector.push_back(glm::vec3(15.0f, 2.0f, 10.0f));
-    std::vector<int> treeSeed;
-    treeSeed.push_back(3846345);
-    treeSeed.push_back(567567);
-    treeSeed.push_back(384657);
-    treeSeed.push_back(384674);
-    treeSeed.push_back(635234634);
-    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector};
+    for (int i = 0; i < 100; i++) {
+        treeVector.push_back(glm::vec3(i * 3, i % 5, 10.0f));
+    }
+    populateTreeSeeds(); // Generate an array of seeds for the trees
+    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector}; // Call the treeModel
     treeModel->loadModel();
 
     // For frame time
@@ -152,6 +147,14 @@ void Game::setScrWidth(GLuint newScrWidth) {
 
 void Game::setScrHeight(GLuint newScrHeight) {
     this->scrHeight = newScrHeight;
+}
+
+void Game::populateTreeSeeds() {
+    srand((unsigned)time(0));
+    for (int i = 0; i < 1000; i++) {
+        treeSeed.push_back(rand());
+    }
+    
 }
 
 Model* Game::getTreeModel() const {

@@ -15,14 +15,13 @@ private:
 
     GLboolean showTexture{true};
 
-    GLboolean onlyTrunk;
 
     std::vector<int>  seed;
 
     std::vector<glm::vec3> allPositions;
 
 public:
-    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, GLboolean oTrunk);
+    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
 
 
     void draw() override;

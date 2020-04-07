@@ -96,7 +96,7 @@ void LeavesMesh::draw() {
             zPos = allPositions[i].z;
 
             numberOfLeaves = (seed[i] / 69) % 3;
-            size = seed[i] % 2 + 1;
+            size = seed[i] % 3 + 1;
             angleOfBranchY = (seed[i] / 9) % 360;
             angleOfBranchX = ((seed[i] / 11) % 80) + 10;
 

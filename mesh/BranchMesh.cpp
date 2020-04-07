@@ -8,8 +8,8 @@
 #include <utility>
 using namespace glm;
 
-BranchMesh::BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed,  std::vector<glm::vec3> positions, GLboolean oTrunk)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions), onlyTrunk(oTrunk) {
+BranchMesh::BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed,  std::vector<glm::vec3> positions)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions) {
 }
 
 void BranchMesh::loadVertices() {
@@ -28,7 +28,7 @@ void BranchMesh::loadVertices() {
             //  |/        |/
             //  G ------- H
             //
-            // positions          // normals           // texture coords
+            // positions                            // normals           
             // BACK
             {glm::vec3(-0.5f, -0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)}, // F
             {glm::vec3(0.5f,  0.5f, -0.5f), BROWN, glm::vec3(0.0f,  0.0f, -1.0f)},  // B
@@ -94,7 +94,7 @@ void BranchMesh::draw() {
         zPos = allPositions[i].z;
 
         numberOfBranches = (seed[i] / 69) % 3;
-        size = seed[i] % 2 + 1;
+        size = seed[i] % 3 + 1;
         angleOfBranchY = (seed[i] / 9) % 360;
         angleOfBranchX = ((seed[i] / 11) % 80) + 10;
         
