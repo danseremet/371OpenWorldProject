@@ -67,7 +67,6 @@ Game::~Game() {
 void Game::gameLoop() {
     frameSetup();
     drawModels();
-    shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
     frameEnd();
 }
 
@@ -152,6 +151,7 @@ void Game::setupBasicShader() {
     shadersMap["basic"]->setMat4("projectionMatrix", projectionMatrix);
     viewMatrix = camera->getViewMatrix();
     shadersMap["basic"]->setMat4("viewMatrix", viewMatrix);
+    shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
 }
 
 void Game::setupTerrainShader() {
