@@ -9,58 +9,104 @@
 
 using namespace glm;
 
-TerrainMesh::TerrainMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)) {
+TerrainMesh::TerrainMesh(std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
+                         std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), heights(std::move(heights)), colors(std::move(colors)) {
 }
 
 void TerrainMesh::loadVertices() {
-    glm::vec3 GREEN = glm::vec3(0.2f, 0.6f, 0.3f);
-    glm::vec3 BLUE = glm::vec3(0.2f, 0.2f, 0.7f);
+//    std::cout << "PERLIN NOISE\n";
+// Dont remove (for debugging)
+//    for (int i = 0; i < heights.size(); i++) {
+//        for (int j = 0; j < heights.size(); j++) {
+//            std::cout << heights[i][j] << " ";
+//        }
+//        std::cout << std::endl;
+//    }
+//    std::cout << "END\n";
+//    for (int z = 0; z < heights.size(); z++) {
+//        for (int x = 0; x < heights.size(); x++) {
+//            std::cout << '(' << colors[z][x].x << ", " << colors[z][x].y << ", " << colors[z][x].z << ") ";
+//        }
+//        std::cout << std::endl;
+//    }
 
-    // top_left k0     top_right k1
-    //     |-----------
-    //     |        /
-    //     |      /
-    //     |    /
-    //     |  /
-    //     |/         |
-    // bottom_left k2   bottom_right k3
+    // TODO use a chunk int row int col index to offset x and z
 
-    vec3 top_left = vec3(0.0f, 0.0f, 0.0f);
-    vec3 bottom_left = vec3(0.0f, 0.0f, 1.0f);
-    vec3 top_right = vec3(1.0f, 0.0f, 0.0f);
-    vec3 bottom_right = vec3(1.0f, 0.0f, 1.0f);
+    int lastIndex = heights.size() - 1;
 
-    vec3 normal = vec3(0.0f, 0.0f, 0.0f);
+    for (int z{0}; z < lastIndex; z += 2) {
 
-    Vertex L0 = {top_left, GREEN, normal};
-    Vertex L1 = {top_right, GREEN,normal};
-    Vertex R1 = {top_right, BLUE, normal};
-    Vertex L2 = {bottom_left, GREEN, normal};
-    Vertex R2 = {bottom_left, BLUE, normal};
-    Vertex R3 = {bottom_right, BLUE, normal};
+        for (int x{0}; x < lastIndex; x += 2) {
 
-    vertices = {
-            L0,
-            L2,
-            L1,
+//            std::cout << "(x=" << x << ", y=" << heights[z][x] << ", z=" << z << ") ";
 
-            R1,
-            R2,
-            R3
-    };
+            // 9 position vertices based on height
+            std::vector<vec3> positions{};
+            positions.push_back({x, heights[z][x], z});
+            positions.push_back({x + 1, heights[z][x + 1], z});
+            positions.push_back({x + 2, heights[z][x + 2], z});
 
-    for (int z{0}; z < 10; z += 1) {
+            positions.push_back({x, heights[z + 1][x], z + 1});
+            positions.push_back({x + 1, heights[z + 1][x + 1], z + 1});
+            positions.push_back({x + 2, heights[z + 1][x + 2], z + 1});
 
-        for (int x{0}; x < 10; x += 1) {
-            glm::vec3 translation{};
-            translation.x = (float)x;
-            translation.z = (float)z;
-            translations.push_back(translation);
+            positions.push_back({x, heights[z + 2][x], z + 2});
+            positions.push_back({x + 1, heights[z + 2][x + 1], z + 2});
+            positions.push_back({x + 2, heights[z + 2][x + 2], z + 2});
+
+
+            // 6 colors for the 8 triangles
+            std::vector<vec3> orderedColors{};
+            // 0  1 1  2
+            // 3  4 4  5
+            orderedColors.push_back({colors[z][x]});            // 0
+            orderedColors.push_back({colors[z][x + 1]});        // 1
+            orderedColors.push_back({colors[z][x + 1]});        // 1
+            orderedColors.push_back({colors[z][x + 2]});        // 2
+            orderedColors.push_back({colors[z + 1][x]});        // 3
+            orderedColors.push_back({colors[z + 1][x + 1]});    // 4
+            orderedColors.push_back({colors[z + 1][x + 1]});    // 4
+            orderedColors.push_back({colors[z + 1][x + 2]});    // 5
+
+            // 24 ordered indices for drawing 8 triangles
+            std::vector<int> indices = {
+                    0, 3, 4,
+                    0, 4, 1,
+                    1, 4, 2,
+                    4, 5, 2,
+                    3, 6, 4,
+                    6, 7, 4,
+                    4, 7, 8,
+                    4, 8, 5,
+            };
+
+            // 8 ordered normals for 8 triangles
+            std::vector<vec3> orderedNormals{};
+            for (int i{0}; i < indices.size(); i += 3) {
+                vec3 normal = triangleNormal(positions[i / 3], positions[(i + 1) / 3], positions[(i + 2) / 3]);
+                orderedNormals.push_back(normal);
+            }
+
+            // 24 ordered positions for the 8 vertices
+            std::vector<vec3> orderedPositions{};
+            for (auto i : indices) {
+                orderedPositions.push_back(positions[i]);
+            }
+
+            // For every 3 of each data combine into a Vertex in order
+            for (int i{0}; i < indices.size(); i += 3) {
+
+                Vertex v0 = {orderedPositions[i], orderedColors[i / 3], orderedNormals[i / 3]};
+                Vertex v1 = {orderedPositions[i + 1], orderedColors[i / 3], orderedNormals[i / 3]};
+                Vertex v2 = {orderedPositions[i + 2], orderedColors[i / 3], orderedNormals[i / 3]};
+
+                vertices.push_back(v0);
+                vertices.push_back(v1);
+                vertices.push_back(v2);
+            }
         }
-
     }
-
 
 }
 
@@ -68,12 +114,6 @@ void TerrainMesh::setupVertices() { // cube mesh
     // vao
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
-
-    // instance data
-    glGenBuffers(1, &instanceVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 100, &translations[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // vertex vbo
     glGenBuffers(1, &VBO);
@@ -87,16 +127,8 @@ void TerrainMesh::setupVertices() { // cube mesh
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) sizeof(glm::vec3));
     glEnableVertexAttribArray(1);
     // vertex normal
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *) (2 * sizeof(glm::vec3)));
     glEnableVertexAttribArray(2);
-    // instance data
-    glEnableVertexAttribArray(3);
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); // this attribute comes from a different vertex buffer
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glVertexAttribDivisor(3, 1); // tell OpenGL this is an instanced vertex attribute.
-
-
 
 
     glBindVertexArray(0);
@@ -106,8 +138,8 @@ void TerrainMesh::draw() {
     shadersMap["terrain"]->use();
 
     glBindVertexArray(VAO);
-    glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), 100);
-//    glBindVertexArray(0);
+    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    glBindVertexArray(0);
 }
 
 void TerrainMesh::toggleShowTexture() {

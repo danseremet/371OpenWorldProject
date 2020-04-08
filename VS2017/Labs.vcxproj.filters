@@ -41,6 +41,12 @@
     <Filter Include="Source Files\shaders\terrain">
       <UniqueIdentifier>{c498ab07-ea7d-4473-8358-2a101e51608d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\generators">
+      <UniqueIdentifier>{4a9b8539-7523-454a-ba15-d89fadfe14a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\terrain_generator">
+      <UniqueIdentifier>{2dcab931-187f-464a-afa5-ec1fa3ce724b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\basic\fs.glsl">
@@ -99,6 +105,15 @@
     <ClCompile Include="..\mesh\CubeMesh.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
+    <ClCompile Include="..\generators\ColorGenerator.cpp">
+      <Filter>Source Files\generators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\generators\PerlinNoiseGenerator.cpp">
+      <Filter>Source Files\generators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp">
+      <Filter>Source Files\terrain_generator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\shader\Shader.h">
@@ -139,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="..\mesh\CubeMesh.h">
       <Filter>Source Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generators\ColorGenerator.h">
+      <Filter>Source Files\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\generators\PerlinNoiseGenerator.h">
+      <Filter>Source Files\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\terrain_generator\TerrainGenerator.h">
+      <Filter>Source Files\terrain_generator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
