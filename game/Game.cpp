@@ -41,14 +41,14 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int terrainSize{400};
+    int terrainSize{100};
     terrainModel = terrainGenerator->generateTerrain(terrainSize);
     terrainModel->loadModel();
     auto heights = ((TerrainModel *) terrainModel)->getHeights();
     
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
-    rockModel= new RockModel{ shadersMap, texturesMap, vec2(0.0f, 0.0f), 30 };
+    rockModel= new RockModel{ shadersMap, texturesMap, vec2(0.0f, 0.0f), heights, 30 };
     rockModel->loadModel();
 
     // For frame time

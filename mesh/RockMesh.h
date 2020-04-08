@@ -25,12 +25,14 @@ private:
 
     glm::mat4 baseplate{ glm::mat4(1.0f) };
 
+    std::vector<std::vector<float>> heights;
+
     float m = 0.851f;
     float n = 0.526f;
     float o = 0.0f;
 
 public:
-    RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition);
+    RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition, std::vector<std::vector<float>> heights);
 
     void draw() override;
 

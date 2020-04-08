@@ -10,8 +10,8 @@
 
 using namespace glm;
 
-RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition)
-    : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkPosition(chunkPosition) {
+RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition, std::vector<std::vector<float>> heights)
+    : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkPosition(chunkPosition), heights(heights) {
 }
 
 
@@ -222,7 +222,8 @@ void RockMesh::loadTransforms() {
 
     float translationX = randomFloat(0, 100) + 100 * chunkPosition[0];
     float translationZ = randomFloat(0, 100) + 100 * chunkPosition[1];
+    float translationY = heights[translationZ][translationX];
 
-    baseplate = translate(baseplate, vec3(translationX, 0.0f, translationZ));
+    baseplate = translate(baseplate, vec3(translationX, translationY, translationZ));
     baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
 }
