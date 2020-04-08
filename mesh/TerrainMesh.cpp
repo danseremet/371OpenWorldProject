@@ -84,7 +84,7 @@ void TerrainMesh::loadVertices() {
             // 8 ordered normals for 8 triangles
             std::vector<vec3> orderedNormals{};
             for (int i{0}; i < indices.size(); i += 3) {
-                vec3 normal = glm::triangleNormal(positions[i / 3], positions[(i + 1) / 3], positions[(i + 2) / 3]);
+                vec3 normal = triangleNormal(positions[i / 3], positions[(i + 1) / 3], positions[(i + 2) / 3]);
                 orderedNormals.push_back(normal);
             }
 
