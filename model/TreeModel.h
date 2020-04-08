@@ -15,7 +15,7 @@
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, std::vector<int>  tNumber, std::vector<glm::vec3> positions);
+    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, std::vector<int>  tNumber, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights);
 
     void loadMeshes() override;
 
@@ -25,6 +25,8 @@ private:
     std::vector<int>  treeNumber;
 
     std::vector<glm::vec3> allPositions;
+
+    std::vector<std::vector<float>> heights;
 };
 
 

@@ -23,6 +23,10 @@ private:
 
     std::vector<glm::vec3> allPositions;
 
+    glm::vec2 chunkPosition;
+
+    std::vector<std::vector<float>> heights;
+
     int numberOfBranches;
 
     float size;
@@ -34,7 +38,7 @@ private:
     float angleTree;
 
 public:
-    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
+    BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights);
 
 
     void draw() override;

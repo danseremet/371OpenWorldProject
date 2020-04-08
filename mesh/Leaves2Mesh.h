@@ -29,8 +29,10 @@ private:
 
     float angleTree;
 
+    std::vector<std::vector<float>> heights;
+
 public:
-    Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions);
+    Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights);
 
     std::vector<int>  seed;
 

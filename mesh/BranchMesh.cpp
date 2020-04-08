@@ -8,8 +8,8 @@
 #include <utility>
 using namespace glm;
 
-BranchMesh::BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed,  std::vector<glm::vec3> positions)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions) {
+BranchMesh::BranchMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed,  std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions), heights(heights) {
 }
 
 void BranchMesh::loadVertices() {
@@ -93,8 +93,8 @@ void BranchMesh::loadTransforms() {
     for (GLuint i{ 0 }; i < allPositions.size(); i++) {
         mat4 model{ 1.0f };
         float xPos = allPositions[i].x;
-        float yPos = allPositions[i].y;
         float zPos = allPositions[i].z;
+        float yPos = heights[zPos][xPos];
 
         numberOfBranches = (seed[i] / 69) % 3;
         size = seed[i] % 3 + 1;
@@ -103,7 +103,7 @@ void BranchMesh::loadTransforms() {
         angleTree = (seed[i] / 17) % 90;
 
         //This is the trunk
-        model = translate(model, vec3(xPos, yPos, zPos));
+        model = translate(model, vec3(xPos, yPos + size, zPos));
         model = rotate(model, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
         model = scale(model, vec3(size / 2, size * 3, size / 2));
 
@@ -117,7 +117,7 @@ void BranchMesh::loadTransforms() {
                 angleOfBranchX = fmod((angleOfBranchX * i), 80) + 10;
                 angleOfBranchY = fmod((angleOfBranchY * i), 360);
                 model = mat4(1.0f);
-                model = translate(model, vec3(xPos + (2 * sin(angleOfBranchY * PI / 180) * size), yPos - 1.0f + i, zPos + (2 * cos(angleOfBranchY * PI / 180) * size)));
+                model = translate(model, vec3(xPos + (2 * sin(angleOfBranchY * PI / 180) * size), yPos + size + i, zPos + (2 * cos(angleOfBranchY * PI / 180) * size)));
                 model = rotate(model, radians(angleOfBranchY), vec3(0.0f, 1.0f, 0.0f));
                 model = rotate(model, radians(angleOfBranchX), vec3(1.0f, 0.0f, 0.0f));
                 model = scale(model, vec3(size, size * 5, size));

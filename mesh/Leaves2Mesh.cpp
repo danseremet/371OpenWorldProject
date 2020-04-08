@@ -9,8 +9,8 @@
 
 using namespace glm;
 
-Leaves2Mesh::Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions) {
+Leaves2Mesh::Leaves2Mesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions), heights(heights) {
 }
 
 void Leaves2Mesh::loadVertices() {
@@ -64,8 +64,8 @@ void Leaves2Mesh::loadTransforms() {
 
         if (seed[i] % 2 != 0) {
             float xPos = allPositions[i].x;
-            float yPos = allPositions[i].y;
             float zPos = allPositions[i].z;
+            float yPos = heights[zPos][xPos];
 
             leavesSize = (seed[i] % 4) + 1;
             size = seed[i] % 3 + 1;
@@ -74,7 +74,7 @@ void Leaves2Mesh::loadTransforms() {
 
             for (int i = 1; i <= numberOfLeaves; i++) {
                 model = mat4(1.0f);
-                model = translate(model, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 2.0f, zPos));
+                model = translate(model, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos + size - 2.0f, zPos));
                 model = rotate(model, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
                 model = scale(model, vec3(leavesSize, leavesSize, leavesSize));
 

@@ -54,14 +54,14 @@ Game::Game() {
 
     //Adding trees to the world
     std::vector<glm::vec3> treeVector;
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
-            treeVector.push_back(glm::vec3(i * 5, i % 5, j*5));
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            treeVector.push_back(glm::vec3(i * 10, i % 5, j*10));
         }
     }
 
     populateTreeSeeds(); // Generate an array of seeds for the trees
-    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector}; // Call the treeModel
+    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector, heights}; // Call the treeModel
     treeModel->loadModel();
 
     // For frame time
