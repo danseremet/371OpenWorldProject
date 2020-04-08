@@ -13,6 +13,10 @@ class Leaves2Mesh: public Mesh {
 private:
     void loadVertices() override;
 
+    void loadTransforms() override;
+
+    std::vector<glm::mat4> modelMatrices;
+
     GLboolean showTexture{true};
 
     std::vector<glm::vec3> allPositions;

@@ -13,8 +13,11 @@ class BranchMesh: public Mesh {
 private:
     void loadVertices() override;
 
+    void loadTransforms() override;
+
     GLboolean showTexture{true};
 
+    std::vector<glm::mat4> modelMatrices;
 
     std::vector<int>  seed;
 

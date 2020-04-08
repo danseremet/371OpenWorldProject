@@ -77,18 +77,28 @@ void LeavesMesh::loadVertices() {
 }
 
 void LeavesMesh::draw() {
-    mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
+    for (auto model : modelMatrices) {
+        shadersMap["basic"]->setMat4("worldMatrix", model);
+        Mesh::draw();
+    }
 
-    float xPos;
-    float yPos;
-    float zPos;
+}
+
+void LeavesMesh::toggleShowTexture() {
+    showTexture = !showTexture;
+}
+
+void LeavesMesh::loadTransforms() {
+    std::vector<glm::mat4> modelMatrices{ };
 
     for (GLuint i{ 0 }; i < allPositions.size(); i++) {
+        mat4 model{ 1.0f };
+
         if (seed[i] % 2 == 0) {
-            xPos = allPositions[i].x;
-            yPos = allPositions[i].y;
-            zPos = allPositions[i].z;
+            float xPos = allPositions[i].x;
+            float yPos = allPositions[i].y;
+            float zPos = allPositions[i].z;
 
             numberOfLeaves = (seed[i] / 69) % 3;
             size = seed[i] % 3 + 1;
@@ -97,39 +107,27 @@ void LeavesMesh::draw() {
             angleTree = (seed[i] / 17) % 90;
 
             //main leaves
-            baseplate = translate(baseplate, vec3(xPos, yPos + (size * 2.0f), zPos));
-            baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
-            baseplate = scale(baseplate, vec3(size * 2, size * 2, size * 2));
-            shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-            Mesh::draw();
+            model = translate(model, vec3(xPos, yPos + (size * 2.0f), zPos));
+            model = rotate(model, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
+            model = scale(model, vec3(size * 2, size * 2, size * 2));
+
+            modelMatrices.push_back(model);
 
             //small leaves
             for (int i = 1; i <= numberOfLeaves; i++) {
                 angleOfBranchX = fmod((angleOfBranchX * i), 80) + 10;
                 angleOfBranchY = fmod((angleOfBranchY * i), 360);
-                baseplate = mat4(1.0f);
-                baseplate = translate(baseplate, vec3(xPos + (size * sin(angleOfBranchY * PI / 180)), (size * cos(angleOfBranchX * PI / 180)) + i + yPos - 1.0f, zPos + (size * cos(angleOfBranchY * PI / 180))));
-                baseplate = rotate(baseplate, radians(angleOfBranchY), vec3(0.0f, 1.0f, 0.0f));
-                baseplate = rotate(baseplate, radians(angleOfBranchX), vec3(1.0f, 0.0f, 0.0f));
-                baseplate = scale(baseplate, vec3(size, size, size));
+                model = mat4(1.0f);
+                model = translate(model, vec3(xPos + (size * sin(angleOfBranchY * PI / 180)), (size * cos(angleOfBranchX * PI / 180)) + i + yPos - 1.0f, zPos + (size * cos(angleOfBranchY * PI / 180))));
+                model = rotate(model, radians(angleOfBranchY), vec3(0.0f, 1.0f, 0.0f));
+                model = rotate(model, radians(angleOfBranchX), vec3(1.0f, 0.0f, 0.0f));
+                model = scale(model, vec3(size, size, size));
 
-
-                shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-
-                Mesh::draw();
+                modelMatrices.push_back(model);
             }
-            baseplate = mat4(1.0f);
         }
-        
+
     }
 
-    
-}
-
-void LeavesMesh::toggleShowTexture() {
-    showTexture = !showTexture;
-}
-
-void LeavesMesh::loadTransforms() {
-
+    this->modelMatrices = modelMatrices;
 }

@@ -45,17 +45,27 @@ void Leaves2Mesh::loadVertices() {
 }
 
 void Leaves2Mesh::draw() {
-    mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
-    float xPos;
-    float yPos;
-    float zPos;
+    for (auto model : modelMatrices) {
+        shadersMap["basic"]->setMat4("worldMatrix", model);
+        Mesh::draw();
+    }  
+}
+
+void Leaves2Mesh::toggleShowTexture() {
+    showTexture = !showTexture;
+}
+
+void Leaves2Mesh::loadTransforms() {
+    std::vector<glm::mat4> modelMatrices{ };
 
     for (GLuint i{ 0 }; i < allPositions.size(); i++) {
+        mat4 model{ 1.0f };
+
         if (seed[i] % 2 != 0) {
-            xPos = allPositions[i].x;
-            yPos = allPositions[i].y;
-            zPos = allPositions[i].z;
+            float xPos = allPositions[i].x;
+            float yPos = allPositions[i].y;
+            float zPos = allPositions[i].z;
 
             leavesSize = (seed[i] % 4) + 1;
             size = seed[i] % 3 + 1;
@@ -63,23 +73,14 @@ void Leaves2Mesh::draw() {
             angleTree = (seed[i] / 17) % 90;
 
             for (int i = 1; i <= numberOfLeaves; i++) {
-                baseplate = mat4(1.0f);
-                baseplate = translate(baseplate, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 2.0f, zPos));
-                baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
-                baseplate = scale(baseplate, vec3(leavesSize, leavesSize, leavesSize));
+                model = mat4(1.0f);
+                model = translate(model, vec3(xPos, (size * 2.0f) + (i * leavesSize / 2) + yPos - 2.0f, zPos));
+                model = rotate(model, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
+                model = scale(model, vec3(leavesSize, leavesSize, leavesSize));
 
-                shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-                Mesh::draw();
+                modelMatrices.push_back(model);
             }
         }
-        
-
     }
-    
-    
-
-}
-
-void Leaves2Mesh::toggleShowTexture() {
-    showTexture = !showTexture;
+    this->modelMatrices = modelMatrices;
 }

@@ -76,66 +76,61 @@ void BranchMesh::loadVertices() {
 
 void BranchMesh::draw() {
 
-    mat4 baseplate{ mat4(1.0f) };
     shadersMap["basic"]->use();
-    
-    float xPos;
-    float yPos;
-    float zPos;
+    for (auto model : modelMatrices) {
+        shadersMap["basic"]->setMat4("worldMatrix", model);
+        Mesh::draw();
+    }
+}
+
+void BranchMesh::toggleShowTexture() {
+    showTexture = !showTexture;
+}
+
+void BranchMesh::loadTransforms() {
+    std::vector<glm::mat4> modelMatrices{ };
 
     for (GLuint i{ 0 }; i < allPositions.size(); i++) {
-        xPos = allPositions[i].x;
-        yPos = allPositions[i].y;
-        zPos = allPositions[i].z;
+        mat4 model{ 1.0f };
+        float xPos = allPositions[i].x;
+        float yPos = allPositions[i].y;
+        float zPos = allPositions[i].z;
 
         numberOfBranches = (seed[i] / 69) % 3;
         size = seed[i] % 3 + 1;
         angleOfBranchY = (seed[i] / 9) % 360;
         angleOfBranchX = ((seed[i] / 11) % 80) + 10;
         angleTree = (seed[i] / 17) % 90;
-        
+
         //This is the trunk
-        baseplate = translate(baseplate, vec3(xPos, yPos, zPos));
-        baseplate = rotate(baseplate, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
-        baseplate = scale(baseplate, vec3(size / 2, size * 3, size / 2));
-        
+        model = translate(model, vec3(xPos, yPos, zPos));
+        model = rotate(model, radians(angleTree), vec3(0.0f, 1.0f, 0.0f));
+        model = scale(model, vec3(size / 2, size * 3, size / 2));
 
-       
-        shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-        Mesh::draw();
+        modelMatrices.push_back(model);
 
-       
         //Draw other branches on the trunk
-       if (seed[i] % 2 == 0) {
-             size /= 4;
+        if (seed[i] % 2 == 0) {
+
+            size /= 4;
             for (int i = 1; i <= numberOfBranches; i++) {
                 angleOfBranchX = fmod((angleOfBranchX * i), 80) + 10;
                 angleOfBranchY = fmod((angleOfBranchY * i), 360);
-                baseplate = mat4(1.0f);
-                baseplate = translate(baseplate, vec3(xPos + (2 * sin(angleOfBranchY * PI / 180) * size), yPos-1.0f + i, zPos + (2 * cos(angleOfBranchY * PI / 180) * size)));
-                baseplate = rotate(baseplate, radians(angleOfBranchY), vec3(0.0f, 1.0f, 0.0f));
-                baseplate = rotate(baseplate, radians(angleOfBranchX), vec3(1.0f, 0.0f, 0.0f));
-                baseplate = scale(baseplate, vec3(size, size * 5, size));
+                model = mat4(1.0f);
+                model = translate(model, vec3(xPos + (2 * sin(angleOfBranchY * PI / 180) * size), yPos - 1.0f + i, zPos + (2 * cos(angleOfBranchY * PI / 180) * size)));
+                model = rotate(model, radians(angleOfBranchY), vec3(0.0f, 1.0f, 0.0f));
+                model = rotate(model, radians(angleOfBranchX), vec3(1.0f, 0.0f, 0.0f));
+                model = scale(model, vec3(size, size * 5, size));
 
 
-                shadersMap["basic"]->setMat4("worldMatrix", baseplate);
-
-                Mesh::draw();
+                modelMatrices.push_back(model);
             }
-             size *= 4;
-        
-       }
-       baseplate = mat4(1.0f);
-       
+            size *= 4;
 
+        }
     }
 
-    
-   
-    
-   
-}
+    this->modelMatrices = modelMatrices;
 
-void BranchMesh::toggleShowTexture() {
-    showTexture = !showTexture;
+  
 }
