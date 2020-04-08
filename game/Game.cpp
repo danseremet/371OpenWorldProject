@@ -44,6 +44,8 @@ Game::Game() {
     int terrainSize{400};
     terrainModel = terrainGenerator->generateTerrain(terrainSize);
     terrainModel->loadModel();
+    auto heights = ((TerrainModel *) terrainModel)->getHeights();
+    
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
 
