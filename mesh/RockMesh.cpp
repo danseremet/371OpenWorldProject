@@ -220,8 +220,8 @@ void RockMesh::loadTransforms() {
     float scaleY = randomFloat(0.25f, 1.25f);
     float scaleZ = randomFloat(0.25f, 1.25f);
 
-    float translationX = randomFloat(0, 100) + chunkPosition[0];
-    float translationZ = randomFloat(0, 100) + chunkPosition[1];
+    float translationX = randomFloat(0, 100) + 100 * chunkPosition[0];
+    float translationZ = randomFloat(0, 100) + 100 * chunkPosition[1];
 
     baseplate = translate(baseplate, vec3(translationX, 0.0f, translationZ));
     baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
