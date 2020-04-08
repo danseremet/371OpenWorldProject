@@ -62,15 +62,12 @@ public:
 
     void setScrHeight(GLuint scrHeight);
 
-    void populateTreeSeeds();
-
-    Model* getTreeModel() const;
-
     void updateAspectRatio();
 
     void updateProjectionMatrix();
 
     const std::map<int, std::map<int, Model *>> &getRocks() const;
+
 
 private:
 
@@ -89,8 +86,6 @@ private:
     std::map<int, std::map<int, Model*>> trees;
 
     TerrainGenerator *terrainGenerator;
-
-    Model* treeModel;
 
     GLfloat lastFrameTime;
 

@@ -4,7 +4,6 @@
 
 #include "Game.h"
 #include "../keyboard/Keyboard.h"
-#include <ctime>
 
 
 using namespace glm;
@@ -69,9 +68,6 @@ Game::Game() {
             trees[z].insert(make_pair(x, treeModel));
         }
     }
-
-   
-    
 
     // For frame time
     dt = 0.0f;
@@ -188,10 +184,6 @@ void Game::setScrHeight(GLuint newScrHeight) {
     this->scrHeight = newScrHeight;
 }
 
-Model* Game::getTreeModel() const {
-    return treeModel;
-}
-
 void Game::updateAspectRatio() {
     this->aspect = computeAspectRatio();
 }
@@ -218,3 +210,4 @@ void Game::setupTerrainShader() {
 const map<int, std::map<int, Model *>> &Game::getRocks() const {
     return rocks;
 }
+
