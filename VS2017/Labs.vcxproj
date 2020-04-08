@@ -113,9 +113,11 @@
     <ClCompile Include="..\main\main.cpp" />
     <ClCompile Include="..\mesh\CubeMesh.cpp" />
     <ClCompile Include="..\mesh\Mesh.cpp" />
+    <ClCompile Include="..\mesh\RockMesh.cpp" />
     <ClCompile Include="..\mesh\TerrainMesh.cpp" />
     <ClCompile Include="..\model\CubeModel.cpp" />
     <ClCompile Include="..\model\Model.cpp" />
+    <ClCompile Include="..\model\RockModel.cpp" />
     <ClCompile Include="..\model\TerrainModel.cpp" />
     <ClCompile Include="..\shader\Shader.cpp" />
     <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp" />
@@ -131,9 +133,11 @@
     <ClInclude Include="..\keyboard\Keyboard.h" />
     <ClInclude Include="..\mesh\CubeMesh.h" />
     <ClInclude Include="..\mesh\Mesh.h" />
+    <ClInclude Include="..\mesh\RockMesh.h" />
     <ClInclude Include="..\mesh\TerrainMesh.h" />
     <ClInclude Include="..\model\CubeModel.h" />
     <ClInclude Include="..\model\Model.h" />
+    <ClInclude Include="..\model\RockModel.h" />
     <ClInclude Include="..\model\TerrainModel.h" />
     <ClInclude Include="..\shader\Shader.h" />
     <ClInclude Include="..\terrain_generator\TerrainGenerator.h" />
