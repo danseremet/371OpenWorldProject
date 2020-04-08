@@ -141,4 +141,9 @@ void Keyboard::processInput(Game *game) {
         game->polygonMode = GL_FILL;
     }
 
+    // Refresh rock
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+        auto* rockModel = (RockModel*) game->getRockModel();
+        rockModel->resetRock();
+    }
 }

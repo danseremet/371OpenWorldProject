@@ -99,6 +99,12 @@
     <ClCompile Include="..\mesh\CubeMesh.cpp">
       <Filter>Source Files\mesh</Filter>
     </ClCompile>
+    <ClCompile Include="..\mesh\RockMesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\model\RockModel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\shader\Shader.h">
@@ -139,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="..\mesh\CubeMesh.h">
       <Filter>Source Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\RockMesh.h">
+      <Filter>Source Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\model\RockModel.h">
+      <Filter>Source Files\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
