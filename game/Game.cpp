@@ -29,7 +29,7 @@ Game::Game() {
     scrHeight = WindowManager::getDefaultScreenHeight();
     aspect = computeAspectRatio();
     zNear = 0.01f;
-    zFar = 100.0f;
+    zFar = 300.0f;
     projectionMatrix = createProjectionMatrix();
     viewMatrix = camera->getViewMatrix();
 
@@ -42,13 +42,15 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int chunkSize{100};
-    int numberOfChunks{3};
+    int chunkSize{200};
+    int numberOfChunks{2};
     int numberOfRocks = 0.15 * chunkSize;
+    int numberOfTrees = 0.20 * chunkSize;
 
     for (int z{0}; z < numberOfChunks; z++) {
         terrain.insert(make_pair(z, map<int, Model*>()));
         rocks.insert(make_pair(z, map<int, Model*>()));
+        trees.insert(make_pair(z, map<int, Model*>()));
 
         for (int x{0}; x < numberOfChunks; x++) {
 
@@ -61,20 +63,15 @@ Game::Game() {
             Model* rockModel= new RockModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks };
             rockModel->loadModel();
             rocks[z].insert(make_pair(x, rockModel));
+
+            Model* treeModel = new TreeModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees }; // Call the treeModel
+            treeModel->loadModel();
+            trees[z].insert(make_pair(x, treeModel));
         }
     }
 
-    //Adding trees to the world
-    std::vector<glm::vec3> treeVector;
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            treeVector.push_back(glm::vec3(i * 10, i % 5, j*10));
-        }
-    }
-
-    populateTreeSeeds(); // Generate an array of seeds for the trees
-    treeModel = new TreeModel{ shadersMap, texturesMap , treeSeed, treeVector, heights}; // Call the treeModel
-    treeModel->loadModel();
+   
+    
 
     // For frame time
     dt = 0.0f;
@@ -132,6 +129,11 @@ void Game::drawModels() {
             ptr->second->draw();
         }
     }
+    for (itr = trees.begin(); itr != trees.end(); itr++) {
+        for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+            ptr->second->draw();
+        }
+    }
 }
 
 void Game::frameEnd() {
@@ -184,14 +186,6 @@ void Game::setScrWidth(GLuint newScrWidth) {
 
 void Game::setScrHeight(GLuint newScrHeight) {
     this->scrHeight = newScrHeight;
-}
-
-void Game::populateTreeSeeds() {
-    srand((unsigned)time(0));
-    for (int i = 0; i < 2000; i++) {
-        treeSeed.push_back(rand());
-    }
-
 }
 
 Model* Game::getTreeModel() const {

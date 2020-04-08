@@ -86,12 +86,11 @@ private:
 
     std::map<int, std::map<int, Model*>> terrain;
     std::map<int, std::map<int, Model*>> rocks;
+    std::map<int, std::map<int, Model*>> trees;
 
     TerrainGenerator *terrainGenerator;
 
     Model* treeModel;
-
-    std::vector<int> treeSeed;
 
     GLfloat lastFrameTime;
 

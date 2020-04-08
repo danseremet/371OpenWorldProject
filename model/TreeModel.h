@@ -15,18 +15,29 @@
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, std::vector<int>  tNumber, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights);
+    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTrees);
 
     void loadMeshes() override;
 
     void setTreeNumber();
 
 private:
-    std::vector<int>  treeNumber;
-
-    std::vector<glm::vec3> allPositions;
-
     std::vector<std::vector<float>> heights;
+
+    int numberOfTrees;
+
+    int chunkX;
+
+    int chunkZ;
+
+    int chunkSize;
+
+    std::vector<glm::vec3> generateTreesFor1Chunk();
+
+    float randomFloat(float from, float to);
+
+    std::vector<int> populateTreeSeeds();
+
 };
 
 

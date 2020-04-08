@@ -10,8 +10,8 @@
 
 using namespace glm;
 
-LeavesMesh::LeavesMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, std::vector<std::vector<float>> heights)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions), heights(heights) {
+LeavesMesh::LeavesMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, std::vector<int>  tSeed, std::vector<glm::vec3> positions, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights)
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), seed(tSeed), allPositions(positions), chunkX(chunkX), chunkZ(chunkZ), chunkSize(chunkSize), heights(heights) {
 }
 
 void LeavesMesh::loadVertices() {
@@ -96,9 +96,14 @@ void LeavesMesh::loadTransforms() {
         mat4 model{ 1.0f };
 
         if (seed[i] % 2 == 0) {
+            int dx = chunkSize * chunkX;
+            int dz = chunkSize * chunkZ;
+
             float xPos = allPositions[i].x;
             float zPos = allPositions[i].z;
             float yPos = heights[zPos][xPos];
+            xPos += dx;
+            zPos += dz;
 
             numberOfLeaves = (seed[i] / 69) % 3;
             size = seed[i] % 3 + 1;
