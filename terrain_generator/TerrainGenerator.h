@@ -32,9 +32,9 @@ private:
 public:
     TerrainGenerator(PerlinNoiseGenerator *perlinNoiseGenerator, ColorGenerator *colorGenerator, std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
 
-    TerrainModel *generateTerrain(int terrainSize);
+    TerrainModel *generateTerrain(int terrainSize, int chunkX, int chunkZ);
 
-    std::vector<std::vector<float>> generateHeights(int terrainSize);
+    std::vector<std::vector<float>> generateHeights(int terrainSize, int chunkX, int chunkZ);
 };
 
 

@@ -41,15 +41,27 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int terrainSize{100};
-    terrainModel = terrainGenerator->generateTerrain(terrainSize);
-    terrainModel->loadModel();
-    auto heights = ((TerrainModel *) terrainModel)->getHeights();
-    
-    cubeModel = new CubeModel{ shadersMap, texturesMap };
-    cubeModel->loadModel();
-    rockModel= new RockModel{ shadersMap, texturesMap, vec2(0.0f, 0.0f), heights, 30 };
-    rockModel->loadModel();
+    int chunkSize{100};
+    int numberOfChunks{3};
+    int numberOfRocks = 0.15 * chunkSize;
+
+    for (int z{0}; z < numberOfChunks; z++) {
+        terrain.insert(make_pair(z, map<int, Model*>()));
+        rocks.insert(make_pair(z, map<int, Model*>()));
+
+        for (int x{0}; x < numberOfChunks; x++) {
+
+            Model* terrainModel = terrainGenerator->generateTerrain(chunkSize, x, z);
+            terrainModel->loadModel();
+            terrain[z].insert(make_pair(x, terrainModel));
+
+            auto heights = ((TerrainModel *) terrainModel)->getHeights();
+
+            Model* rockModel= new RockModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks };
+            rockModel->loadModel();
+            rocks[z].insert(make_pair(x, rockModel));
+        }
+    }
 
     // For frame time
     dt = 0.0f;
@@ -95,9 +107,18 @@ void Game::frameSetup() {
 }
 
 void Game::drawModels() {
-    terrainModel->draw();
-    //cubeModel->draw();
-    rockModel->draw();
+    map<int, map<int, Model*>>::iterator itr;
+    map<int, Model*>::iterator ptr;
+    for (itr = terrain.begin(); itr != terrain.end(); itr++) {
+        for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+            ptr->second->draw();
+        }
+    }
+    for (itr = rocks.begin(); itr != rocks.end(); itr++) {
+        for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+            ptr->second->draw();
+        }
+    }
 }
 
 void Game::frameEnd() {
@@ -175,6 +196,6 @@ void Game::setupTerrainShader() {
     shadersMap["terrain"]->setMat4("viewMatrix", viewMatrix);
 }
 
-Model* Game::getRockModel() const {
-    return rockModel;
+const map<int, std::map<int, Model *>> &Game::getRocks() const {
+    return rocks;
 }

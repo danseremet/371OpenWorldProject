@@ -64,7 +64,7 @@ public:
 
     void updateProjectionMatrix();
 
-    Model* getRockModel() const;
+    const std::map<int, std::map<int, Model *>> &getRocks() const;
 
 private:
 
@@ -78,16 +78,14 @@ private:
     GLFWwindow *window;
     Shader *shader;
 
-    Model *terrainModel;
-    Model *cubeModel;
-    Model *rockModel;
+    std::map<int, std::map<int, Model*>> terrain;
+    std::map<int, std::map<int, Model*>> rocks;
 
     TerrainGenerator *terrainGenerator;
 
     GLfloat lastFrameTime;
 
     void drawModels();
-    void drawRock();
 
     glm::mat4 createProjectionMatrix();
 
