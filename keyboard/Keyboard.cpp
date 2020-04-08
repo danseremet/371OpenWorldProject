@@ -146,8 +146,17 @@ void Keyboard::processInput(Game *game) {
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
         if (oKeyReleased)
         {
-            auto* rockModel = (RockModel*) game->getRockModel();
-            rockModel->resetRock();
+            auto rocks = game->getRocks();
+
+            std::map<int, std::map<int, Model*>>::iterator itr;
+            std::map<int, Model*>::iterator ptr;
+
+            for (itr = rocks.begin(); itr != rocks.end(); itr++) {
+                for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+                    auto rock = (RockModel*) ptr->second;
+                    rock->resetRock();
+                }
+            }
             oKeyReleased = false;
         }
     }

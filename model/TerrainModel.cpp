@@ -6,13 +6,13 @@
 
 #include <utility>
 
-TerrainModel::TerrainModel(std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
+TerrainModel::TerrainModel(int chunkX, int chunkZ, std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
         std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap) :
-        Model(std::move(shadersMap), std::move(texturesMap)), heights(std::move(heights)), colors(std::move(colors)) {
+        Model(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ), heights(std::move(heights)), colors(std::move(colors)) {
 }
 
 void TerrainModel::loadMeshes() {
-    auto *bMesh = new TerrainMesh{heights, colors, shadersMap, texturesMap};
+    auto *bMesh = new TerrainMesh{chunkX, chunkZ, heights, colors, shadersMap, texturesMap};
     bMesh->loadMesh();
     meshes.push_back(bMesh);
 }

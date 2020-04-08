@@ -21,8 +21,11 @@ private:
 
     std::vector<std::vector<glm::vec3>> colors;
 
+    int chunkX;
+    int chunkZ;
+
 public:
-    TerrainMesh(std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
+    TerrainMesh(int chunkX, int chunkZ, std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
                 std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
 
     void draw() override;
