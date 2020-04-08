@@ -33,18 +33,31 @@ Game::Game() {
     projectionMatrix = createProjectionMatrix();
     viewMatrix = camera->getViewMatrix();
 
+    // Generate Terrain
+    int octaves{3};
+    float amplitude{10.0f}; //dont change : 10 height
+    float roughness{0.35f};
+    auto * perlinNoiseGenerator = new PerlinNoiseGenerator(roughness, octaves, amplitude);
+    auto * colorGenerator = new ColorGenerator(0.55f);
+    terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
+
     // Model creation
-    terrainModel = new TerrainModel{shadersMap, texturesMap};
+    int terrainSize{100};
+    terrainModel = terrainGenerator->generateTerrain(terrainSize);
     terrainModel->loadModel();
+    auto heights = ((TerrainModel *) terrainModel)->getHeights();
+
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
+    rockModel= new RockModel{ shadersMap, texturesMap, vec2(0.0f, 0.0f), heights, 30 };
+    rockModel->loadModel();
 
     //Adding trees to the world
     std::vector<glm::vec3> treeVector;
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
             treeVector.push_back(glm::vec3(i * 5, i % 5, j*5));
-        }        
+        }
     }
 
     populateTreeSeeds(); // Generate an array of seeds for the trees
@@ -98,6 +111,8 @@ void Game::drawModels() {
     terrainModel->draw();
     cubeModel->draw();
     treeModel->draw();
+    //cubeModel->draw();
+    rockModel->draw();
 }
 
 void Game::frameEnd() {
@@ -157,7 +172,7 @@ void Game::populateTreeSeeds() {
     for (int i = 0; i < 2000; i++) {
         treeSeed.push_back(rand());
     }
-    
+
 }
 
 Model* Game::getTreeModel() const {
@@ -185,4 +200,8 @@ void Game::setupTerrainShader() {
     shadersMap["terrain"]->setMat4("projectionMatrix", projectionMatrix);
     viewMatrix = camera->getViewMatrix();
     shadersMap["terrain"]->setMat4("viewMatrix", viewMatrix);
+}
+
+Model* Game::getRockModel() const {
+    return rockModel;
 }

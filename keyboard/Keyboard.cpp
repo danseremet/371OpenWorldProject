@@ -7,6 +7,7 @@
 Keyboard::Keyboard() = default;
 
 GLboolean Keyboard::monitorCounted = false;
+bool Keyboard::oKeyReleased = true;
 
 GLboolean Keyboard::randomTreeSeed = false;
 
@@ -148,4 +149,16 @@ void Keyboard::processInput(Game *game) {
         game->polygonMode = GL_FILL;
     }
 
+    // Refresh rock
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+        if (oKeyReleased)
+        {
+            auto* rockModel = (RockModel*) game->getRockModel();
+            rockModel->resetRock();
+            oKeyReleased = false;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_RELEASE) {
+        oKeyReleased = true;
+    }
 }

@@ -21,8 +21,11 @@
 #include "../model/TerrainModel.h"
 #include "../model/CubeModel.h"
 #include "../model/TreeModel.h"
+#include "../model/RockModel.h"
 #include "../texture/Texture.h"
-
+#include "../terrain_generator/TerrainGenerator.h"
+#include "../generators/PerlinNoiseGenerator.h"
+#include "../generators/ColorGenerator.h"
 
 
 class Game {
@@ -67,6 +70,8 @@ public:
 
     void updateProjectionMatrix();
 
+    Model* getRockModel() const;
+
 private:
 
     void gameLoop();
@@ -81,6 +86,9 @@ private:
 
     Model *terrainModel;
     Model *cubeModel;
+    Model *rockModel;
+
+    TerrainGenerator *terrainGenerator;
 
     Model* treeModel;
 
@@ -89,6 +97,7 @@ private:
     GLfloat lastFrameTime;
 
     void drawModels();
+    void drawRock();
 
     glm::mat4 createProjectionMatrix();
 

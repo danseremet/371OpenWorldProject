@@ -27,6 +27,7 @@ private:
     static GLboolean monitorCounted;
 
     static GLboolean randomTreeSeed;
+    static bool oKeyReleased;
 };
 
 

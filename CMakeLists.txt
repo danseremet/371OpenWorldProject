@@ -18,10 +18,15 @@ set(SOURCE_FILES
         model/Model.cpp
         model/TerrainModel.cpp
         model/CubeModel.cpp
+        model/RockModel.cpp
         mesh/Mesh.cpp
         mesh/TerrainMesh.cpp
         mesh/CubeMesh.cpp
+        mesh/RockMesh.cpp
         texture/Texture.cpp
+        terrain_generator/TerrainGenerator.cpp
+        generators/PerlinNoiseGenerator.cpp
+        generators/ColorGenerator.cpp
         window/WindowManager.cpp
         window/WindowException.cpp
         keyboard/Keyboard.cpp)
