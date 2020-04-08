@@ -8,7 +8,7 @@
 
 #include "Mesh.h"
 
-class TerrainMesh: public Mesh {
+class TerrainMesh : public Mesh {
 
 private:
     void loadVertices() override;
@@ -17,17 +17,18 @@ private:
 
     GLboolean showTexture{true};
 
-    GLuint instanceVBO{};
-    std::vector<glm::vec3> translations;
+    std::vector<std::vector<float>> heights;
+
+    std::vector<std::vector<glm::vec3>> colors;
 
 public:
-    TerrainMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
+    TerrainMesh(std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
+                std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
 
     void draw() override;
 
     void toggleShowTexture();
 };
-
 
 
 #endif //OPENWORLD_TERRAINMESH_H

@@ -32,8 +32,17 @@ Game::Game() {
     projectionMatrix = createProjectionMatrix();
     viewMatrix = camera->getViewMatrix();
 
+    // Generate Terrain
+    int octaves{3};
+    float amplitude{10.0f}; //dont change : 10 height
+    float roughness{0.35f};
+    auto * perlinNoiseGenerator = new PerlinNoiseGenerator(roughness, octaves, amplitude);
+    auto * colorGenerator = new ColorGenerator(0.55f);
+    terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
+
     // Model creation
-    terrainModel = new TerrainModel{shadersMap, texturesMap};
+    int terrainSize{400};
+    terrainModel = terrainGenerator->generateTerrain(terrainSize);
     terrainModel->loadModel();
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
