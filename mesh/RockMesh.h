@@ -12,18 +12,27 @@ class RockMesh : public Mesh {
 
 private:
     void loadVertices() override;
+
     void loadTransforms() override;
+
     std::vector<glm::vec3> generateVertices();
+
     glm::vec3 normal(glm::vec3 a, glm::vec3 b, glm::vec3 c);
+
     void setRandomSeed();
+
     void randomizeVertices();
+
     float randomFloat(float from, float to);
 
-    GLboolean showTexture{ true };
+    GLboolean showTexture{true};
 
-    glm::vec2 chunkPosition;
+    int chunkX;
+    int chunkZ;
 
-    glm::mat4 baseplate{ glm::mat4(1.0f) };
+    int chunkSize;
+
+    glm::mat4 baseplate{glm::mat4(1.0f)};
 
     std::vector<std::vector<float>> heights;
 
@@ -32,13 +41,13 @@ private:
     float o = 0.0f;
 
 public:
-    RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition, std::vector<std::vector<float>> heights);
+    RockMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int chunkX,
+             int chunkZ, int chunkSize, std::vector<std::vector<float>> heights);
 
     void draw() override;
 
     void toggleShowTexture();
 };
-
 
 
 #endif //OPENWORLD_ROCKMESH_H

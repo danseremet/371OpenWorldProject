@@ -13,13 +13,17 @@
 
 class RockModel : public Model {
 public:
-    RockModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition, std::vector<std::vector<float>> heights, int rockNumber);
+    RockModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, int chunkX, int chunkZ,
+              int chunkSize, std::vector<std::vector<float>> heights, int rockNumber);
 
     void loadMeshes() override;
     void resetRock();
 
 private:
-    glm::vec2 chunkPosition;
+    int chunkX;
+    int chunkZ;
+
+    int chunkSize;
     std::vector<std::vector<float>> heights;
     int num;
 };

@@ -9,51 +9,35 @@
 
 using namespace glm;
 
-TerrainMesh::TerrainMesh(std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
+TerrainMesh::TerrainMesh(int chunkX, int chunkZ, std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
                          std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap)
-        : Mesh(std::move(shadersMap), std::move(texturesMap)), heights(std::move(heights)), colors(std::move(colors)) {
+        : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ), heights(std::move(heights)), colors(std::move(colors)) {
 }
 
 void TerrainMesh::loadVertices() {
-//    std::cout << "PERLIN NOISE\n";
-// Dont remove (for debugging)
-//    for (int i = 0; i < heights.size(); i++) {
-//        for (int j = 0; j < heights.size(); j++) {
-//            std::cout << heights[i][j] << " ";
-//        }
-//        std::cout << std::endl;
-//    }
-//    std::cout << "END\n";
-//    for (int z = 0; z < heights.size(); z++) {
-//        for (int x = 0; x < heights.size(); x++) {
-//            std::cout << '(' << colors[z][x].x << ", " << colors[z][x].y << ", " << colors[z][x].z << ") ";
-//        }
-//        std::cout << std::endl;
-//    }
-
-    // TODO use a chunk int row int col index to offset x and z
-
     int lastIndex = heights.size() - 1;
+
+    int terrainSize = heights.size() - 1;
+    int dx = chunkX * terrainSize;
+    int dz = chunkZ * terrainSize;
 
     for (int z{0}; z < lastIndex; z += 2) {
 
         for (int x{0}; x < lastIndex; x += 2) {
 
-//            std::cout << "(x=" << x << ", y=" << heights[z][x] << ", z=" << z << ") ";
-
             // 9 position vertices based on height
             std::vector<vec3> positions{};
-            positions.push_back({x, heights[z][x], z});
-            positions.push_back({x + 1, heights[z][x + 1], z});
-            positions.push_back({x + 2, heights[z][x + 2], z});
+            positions.push_back({x + dx, heights[z][x], z + dz});
+            positions.push_back({x + dx + 1, heights[z][x + 1], z + dz});
+            positions.push_back({x + dx + 2, heights[z][x + 2], z + dz});
 
-            positions.push_back({x, heights[z + 1][x], z + 1});
-            positions.push_back({x + 1, heights[z + 1][x + 1], z + 1});
-            positions.push_back({x + 2, heights[z + 1][x + 2], z + 1});
+            positions.push_back({x + dx, heights[z + 1][x], z + dz + 1});
+            positions.push_back({x + dx + 1, heights[z + 1][x + 1], z + dz + 1});
+            positions.push_back({x + dx + 2, heights[z + 1][x + 2], z + dz + 1});
 
-            positions.push_back({x, heights[z + 2][x], z + 2});
-            positions.push_back({x + 1, heights[z + 2][x + 1], z + 2});
-            positions.push_back({x + 2, heights[z + 2][x + 2], z + 2});
+            positions.push_back({x + dx, heights[z + 2][x], z + dz + 2});
+            positions.push_back({x + dx + 1, heights[z + 2][x + 1], z + dz + 2});
+            positions.push_back({x + dx + 2, heights[z + 2][x + 2], z + dz + 2});
 
 
             // 6 colors for the 8 triangles

@@ -14,27 +14,33 @@ TerrainGenerator::TerrainGenerator(PerlinNoiseGenerator *perlinNoiseGenerator, C
         texturesMap{std::move(texturesMap)} {
 }
 
-TerrainModel *TerrainGenerator::generateTerrain(int terrainSize) {
-    std::vector<std::vector<float>> heights = generateHeights(terrainSize);
+TerrainModel *TerrainGenerator::generateTerrain(int terrainSize, int chunkX, int chunkZ) {
+    std::vector<std::vector<float>> heights = generateHeights(terrainSize, chunkX, chunkZ);
     std::vector<std::vector<glm::vec3>> colors = colorGenerator->generateColors(heights,
             perlinNoiseGenerator->getAmplitude());
 
-    return new TerrainModel{heights, colors, shadersMap, texturesMap};
+    return new TerrainModel{chunkX, chunkZ, heights, colors, shadersMap, texturesMap};
 }
 
-std::vector<std::vector<float>> TerrainGenerator::generateHeights(int terrainSize) {
+std::vector<std::vector<float>> TerrainGenerator::generateHeights(int terrainSize, int chunkX, int chunkZ) {
 
     std::vector<std::vector<float>> heights{};
 
     constexpr double FREQ{40.0f};
-    constexpr int AMPLITUDE{10};
+
+    double dx = chunkX * terrainSize;
+    double dz = chunkZ * terrainSize;
 
     for (int z = 0; z < terrainSize + 1; z++) {
         heights.emplace_back();
         for (int x = 0; x < terrainSize + 1; x++) {
-            double pn2 = perlinNoiseGenerator->noise(x / FREQ, x / FREQ + z / FREQ, z / FREQ);
-            pn2 *= AMPLITUDE;
-            heights.back().push_back(pn2);
+            double x_n = (x + dx) / FREQ;
+            double y_n = ((x + dx) / FREQ) + ((z + dz) / FREQ);
+            double z_n = (z + dz) / FREQ;
+
+            double pn = perlinNoiseGenerator->noise(x_n, y_n, z_n);
+            pn *= perlinNoiseGenerator->getAmplitude();
+            heights.back().push_back(pn);
         }
     }
 

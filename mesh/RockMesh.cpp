@@ -10,8 +10,10 @@
 
 using namespace glm;
 
-RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition, std::vector<std::vector<float>> heights)
-    : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkPosition(chunkPosition), heights(heights) {
+RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap,
+        int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights)
+    : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ),
+    chunkSize(chunkSize), heights(heights) {
 }
 
 
@@ -220,10 +222,12 @@ void RockMesh::loadTransforms() {
     float scaleY = randomFloat(0.25f, 1.25f);
     float scaleZ = randomFloat(0.25f, 1.25f);
 
-    float translationX = randomFloat(0, 100) + 100 * chunkPosition[0];
-    float translationZ = randomFloat(0, 100) + 100 * chunkPosition[1];
+    int dx = chunkSize * chunkX;
+    int dz = chunkSize * chunkZ;
+    float translationX = randomFloat(0, chunkSize);
+    float translationZ = randomFloat(0, chunkSize);
     float translationY = heights[translationZ][translationX];
 
-    baseplate = translate(baseplate, vec3(translationX, translationY, translationZ));
+    baseplate = translate(baseplate, vec3(translationX + dx, translationY, translationZ + dz));
     baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
 }
