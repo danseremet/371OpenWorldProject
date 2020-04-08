@@ -10,36 +10,36 @@
 
 using namespace glm;
 
-RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap)
-    : Mesh(std::move(shadersMap), std::move(texturesMap)) {
+RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition)
+    : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkPosition(chunkPosition) {
 }
 
 
 std::vector<vec3> RockMesh::generateVertices() {
     std::vector<vec3> rockVertices = {};
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ -n, o, m });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ n, o, m });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ -n, o, -m });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ n, o, -m });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ o, m, n });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ o, m, -n });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ o, -m, n });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ o, -m, -n });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ m, n, o });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ -m, n, o });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ m, -n, o });
-    randomize();
+    randomizeVertices();
     rockVertices.push_back({ -m, -n, o });
 
     return rockVertices;
@@ -51,45 +51,53 @@ vec3 RockMesh::normal(vec3 a, vec3 b, vec3 c) {
     return cross(vec1, vec2);
 }
 
-void RockMesh::randomize() {
-    srand(time(0)+rand());
+void RockMesh::setRandomSeed() {
+    srand(time(0) + rand());
+}
+
+float RockMesh::randomFloat(float from = 0, float to = 1) {
+    return static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * (to - from) + from;
+}
+
+void RockMesh::randomizeVertices() {
+    setRandomSeed();
     int option = rand() % 3;
     float r;
 
     if (option)
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 5);
+        r = randomFloat(0, 0.2);
         m += r;
     }
     else
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 15);
+        r = randomFloat(0, 0.07);
         m -= r;
     }
 
-    srand(time(0) + rand());
+    setRandomSeed();
     option = rand() % 3;
     if (option)
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 5);
+        r = randomFloat(0, 0.2);
         n += r;
     }
     else
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 15);
+        r = randomFloat(0, 0.07);
         n -= r;
     }
 
-    srand(time(0) + rand());
+    setRandomSeed();
     option = rand() % 3;
     if (option)
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 5);
+        r = randomFloat(0, 0.2);
         o += r;
     }
     else
     {
-        r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX * 15);
+        r = randomFloat(0, 0.07);
         o -= r;
     }
 }
@@ -195,11 +203,6 @@ void RockMesh::loadVertices() {
 }
 
 void RockMesh::draw() {
-    //mat4 baseplate{ mat4(1.0f) };
-    //baseplate = translate(baseplate, vec3(8.0f, 0.5f, 8.0f));
-    //baseplate = scale(baseplate, vec3(1.0f, 1.0f, 1.0f));
-
-
     shadersMap["basic"]->use();
     shadersMap["basic"]->setMat4("worldMatrix", baseplate);
 
@@ -213,16 +216,13 @@ void RockMesh::toggleShowTexture() {
 void RockMesh::loadTransforms() {
     baseplate = mat4(1.0f);
 
-    float scaleX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) + 0.25f;
-    float scaleY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) + 0.25f;
-    float scaleZ = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) + 0.25f;
+    float scaleX = randomFloat(0.25f, 1.25f);
+    float scaleY = randomFloat(0.25f, 1.25f);
+    float scaleZ = randomFloat(0.25f, 1.25f);
 
-    float translationX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 10;
-    float translationZ = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 10;
+    float translationX = randomFloat(0, 100) + chunkPosition[0];
+    float translationZ = randomFloat(0, 100) + chunkPosition[1];
 
-    baseplate = translate(baseplate, vec3(translationX, 0.5f, translationZ));
+    baseplate = translate(baseplate, vec3(translationX, 0.0f, translationZ));
     baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
-
-    shadersMap["basic"]->use();
-    shadersMap["basic"]->setMat4("worldMatrix", baseplate);
 }

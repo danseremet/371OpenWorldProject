@@ -37,7 +37,7 @@ Game::Game() {
     terrainModel->loadModel();
     cubeModel = new CubeModel{ shadersMap, texturesMap };
     cubeModel->loadModel();
-    rockModel= new RockModel{ shadersMap, texturesMap };
+    rockModel= new RockModel{ shadersMap, texturesMap, vec2(0.0f, 0.0f), 30 };
     rockModel->loadModel();
 
     // For frame time

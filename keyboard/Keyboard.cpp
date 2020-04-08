@@ -7,6 +7,7 @@
 Keyboard::Keyboard() = default;
 
 GLboolean Keyboard::monitorCounted = false;
+bool Keyboard::oKeyReleased = true;
 
 void Keyboard::processInput(Game *game) {
     // Handle keyboard inputs
@@ -143,7 +144,14 @@ void Keyboard::processInput(Game *game) {
 
     // Refresh rock
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
-        auto* rockModel = (RockModel*) game->getRockModel();
-        rockModel->resetRock();
+        if (oKeyReleased)
+        {
+            auto* rockModel = (RockModel*) game->getRockModel();
+            rockModel->resetRock();
+            oKeyReleased = false;
+        }
+    }
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_RELEASE) {
+        oKeyReleased = true;
     }
 }

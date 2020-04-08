@@ -15,9 +15,13 @@ private:
     void loadTransforms() override;
     std::vector<glm::vec3> generateVertices();
     glm::vec3 normal(glm::vec3 a, glm::vec3 b, glm::vec3 c);
-    void randomize();
+    void setRandomSeed();
+    void randomizeVertices();
+    float randomFloat(float from, float to);
 
     GLboolean showTexture{ true };
+
+    glm::vec2 chunkPosition;
 
     glm::mat4 baseplate{ glm::mat4(1.0f) };
 
@@ -26,7 +30,7 @@ private:
     float o = 0.0f;
 
 public:
-    RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap);
+    RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, glm::vec2 chunkPosition);
 
     void draw() override;
 

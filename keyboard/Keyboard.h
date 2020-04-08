@@ -25,6 +25,7 @@ public:
 
 private:
     static GLboolean monitorCounted;
+    static bool oKeyReleased;
 };
 
 
