@@ -22,7 +22,9 @@
 #include "../model/CubeModel.h"
 #include "../model/RockModel.h"
 #include "../texture/Texture.h"
-
+#include "../terrain_generator/TerrainGenerator.h"
+#include "../generators/PerlinNoiseGenerator.h"
+#include "../generators/ColorGenerator.h"
 
 
 class Game {
@@ -79,6 +81,8 @@ private:
     Model *terrainModel;
     Model *cubeModel;
     Model *rockModel;
+
+    TerrainGenerator *terrainGenerator;
 
     GLfloat lastFrameTime;
 
