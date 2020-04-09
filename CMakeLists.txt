@@ -19,7 +19,11 @@ set(SOURCE_FILES
         model/TerrainModel.cpp
         model/CubeModel.cpp
         model/RockModel.cpp
+	model/TreeModel.cpp
         mesh/Mesh.cpp
+	mesh/BranchMesh.cpp
+	mesh/LeavesMesh.cpp
+	mesh/Leaves2Mesh.cpp
         mesh/TerrainMesh.cpp
         mesh/CubeMesh.cpp
         mesh/RockMesh.cpp
