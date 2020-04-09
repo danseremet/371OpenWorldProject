@@ -24,6 +24,7 @@ private:
     int chunkX;
     int chunkZ;
 
+    glm::vec3 normal(glm::vec3 a, glm::vec3 b, glm::vec3 c);
 public:
     TerrainMesh(int chunkX, int chunkZ, std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
                 std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);

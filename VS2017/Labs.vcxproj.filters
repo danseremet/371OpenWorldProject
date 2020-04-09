@@ -38,9 +38,6 @@
     <Filter Include="Source Files\window">
       <UniqueIdentifier>{df1133e8-c64b-4d9f-b663-325400521bc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\shaders\terrain">
-      <UniqueIdentifier>{c498ab07-ea7d-4473-8358-2a101e51608d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\generators">
       <UniqueIdentifier>{4a9b8539-7523-454a-ba15-d89fadfe14a5}</UniqueIdentifier>
     </Filter>
@@ -54,12 +51,6 @@
     </None>
     <None Include="..\shaders\basic\vs.glsl">
       <Filter>Source Files\shaders\basic</Filter>
-    </None>
-    <None Include="..\shaders\terrain\fs.glsl">
-      <Filter>Source Files\shaders\terrain</Filter>
-    </None>
-    <None Include="..\shaders\terrain\vs.glsl">
-      <Filter>Source Files\shaders\terrain</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

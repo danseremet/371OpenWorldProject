@@ -101,8 +101,6 @@
   <ItemGroup>
     <None Include="..\shaders\basic\fs.glsl" />
     <None Include="..\shaders\basic\vs.glsl" />
-    <None Include="..\shaders\terrain\fs.glsl" />
-    <None Include="..\shaders\terrain\vs.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\camera\Camera.cpp" />

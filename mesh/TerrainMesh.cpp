@@ -67,10 +67,15 @@ void TerrainMesh::loadVertices() {
 
             // 8 ordered normals for 8 triangles
             std::vector<vec3> orderedNormals{};
-            for (int i{0}; i < indices.size(); i += 3) {
-                vec3 normal = triangleNormal(positions[i / 3], positions[(i + 1) / 3], positions[(i + 2) / 3]);
-                orderedNormals.push_back(normal);
-            }
+
+            orderedNormals.push_back(normal(positions[indices[0]], positions[indices[1]], positions[indices[2]]));
+            orderedNormals.push_back(normal(positions[indices[3]], positions[indices[4]], positions[indices[5]]));
+            orderedNormals.push_back(normal(positions[indices[6]], positions[indices[7]], positions[indices[8]]));
+            orderedNormals.push_back(normal(positions[indices[9]], positions[indices[10]], positions[indices[11]]));
+            orderedNormals.push_back(normal(positions[indices[12]], positions[indices[13]], positions[indices[14]]));
+            orderedNormals.push_back(normal(positions[indices[15]], positions[indices[16]], positions[indices[17]]));
+            orderedNormals.push_back(normal(positions[indices[18]], positions[indices[19]], positions[indices[20]]));
+            orderedNormals.push_back(normal(positions[indices[21]], positions[indices[22]], positions[indices[23]]));
 
             // 24 ordered positions for the 8 vertices
             std::vector<vec3> orderedPositions{};
@@ -119,8 +124,9 @@ void TerrainMesh::setupVertices() { // cube mesh
 }
 
 void TerrainMesh::draw() {
-    shadersMap["terrain"]->use();
-
+    shadersMap["basic"]->use();
+    mat4 model{1.0f};
+    shadersMap["basic"]->setMat4("worldMatrix", model);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     glBindVertexArray(0);
@@ -128,4 +134,10 @@ void TerrainMesh::draw() {
 
 void TerrainMesh::toggleShowTexture() {
     showTexture = !showTexture;
+}
+
+vec3 TerrainMesh::normal(vec3 a, vec3 b, vec3 c) {
+    vec3 vec1 = a - b;
+    vec3 vec2 = b - c;
+    return cross(vec1, vec2);
 }

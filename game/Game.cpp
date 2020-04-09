@@ -20,7 +20,6 @@ Game::Game() {
     // Shader loading
     shadersMap = std::map<std::string, Shader*>{};
     shadersMap["basic"] = new Shader{"basic"};
-    shadersMap["terrain"] = new Shader{"terrain"};
 
     // Setup P & V matrix properties
     fovy = 70.0f;
@@ -109,7 +108,6 @@ void Game::frameSetup() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     setupBasicShader();
-    setupTerrainShader();
 }
 
 void Game::drawModels() {
@@ -198,13 +196,6 @@ void Game::setupBasicShader() {
     viewMatrix = camera->getViewMatrix();
     shadersMap["basic"]->setMat4("viewMatrix", viewMatrix);
     shadersMap["basic"]->setVec3("viewPos", camera->cameraPosition);
-}
-
-void Game::setupTerrainShader() {
-    shadersMap["terrain"]->use();
-    shadersMap["terrain"]->setMat4("projectionMatrix", projectionMatrix);
-    viewMatrix = camera->getViewMatrix();
-    shadersMap["terrain"]->setMat4("viewMatrix", viewMatrix);
 }
 
 const map<int, std::map<int, Model *>> &Game::getRocks() const {
