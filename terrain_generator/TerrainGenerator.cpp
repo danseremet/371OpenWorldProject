@@ -26,7 +26,7 @@ std::vector<std::vector<float>> TerrainGenerator::generateHeights(int terrainSiz
 
     std::vector<std::vector<float>> heights{};
 
-    constexpr double FREQ{400.0f};
+    constexpr double FREQ{800.0f};
 
     double dx = chunkX * terrainSize;
     double dz = chunkZ * terrainSize;
