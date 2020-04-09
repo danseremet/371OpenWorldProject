@@ -22,7 +22,7 @@ void Camera::initCamera() {
     cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
     // Other camera parameters
-    cameraSpeed = 15.0f;
+    cameraSpeed = 150.0f;
     cameraHorizontalAngle = 90.0f;
     cameraVerticalAngle = -20.0f;
 }
