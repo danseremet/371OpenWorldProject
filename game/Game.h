@@ -117,7 +117,6 @@ private:
     std::map<std::string, Texture*> texturesMap;
 
     void setupBasicShader();
-    void setupTerrainShader();
 };
 
 #endif //OPENWORLD_GAME_H
