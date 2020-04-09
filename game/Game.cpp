@@ -27,21 +27,21 @@ Game::Game() {
     scrHeight = WindowManager::getDefaultScreenHeight();
     aspect = computeAspectRatio();
     zNear = 0.01f;
-    zFar = 300.0f;
+    zFar = 3000.0f;     // careful
     projectionMatrix = createProjectionMatrix();
     viewMatrix = camera->getViewMatrix();
 
     // Generate Terrain
-    int octaves{3};
-    float amplitude{10.0f}; //dont change : 10 height
-    float roughness{0.35f};
+    int octaves{3}; // unused
+    float amplitude{100.0f}; // USED
+    float roughness{0.35f}; // unused
     auto * perlinNoiseGenerator = new PerlinNoiseGenerator(roughness, octaves, amplitude);
     auto * colorGenerator = new ColorGenerator(0.55f);
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
     int chunkSize{100};
-    int numberOfChunks{3};
+    int numberOfChunks{10}; // careful N*2 memory
     int numberOfRocks = 0.15 * chunkSize;
     int numberOfTrees = 0.20 * chunkSize;
 
