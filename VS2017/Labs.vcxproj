@@ -112,6 +112,9 @@
     <ClCompile Include="..\keyboard\Keyboard.cpp" />
     <ClCompile Include="..\main\main.cpp" />
     <ClCompile Include="..\mesh\CubeMesh.cpp" />
+    <ClCompile Include="..\mesh\BranchMesh.cpp" />
+    <ClCompile Include="..\mesh\Leaves2Mesh.cpp" />
+    <ClCompile Include="..\mesh\LeavesMesh.cpp" />
     <ClCompile Include="..\mesh\Mesh.cpp" />
     <ClCompile Include="..\mesh\RockMesh.cpp" />
     <ClCompile Include="..\mesh\TerrainMesh.cpp" />
@@ -119,6 +122,7 @@
     <ClCompile Include="..\model\Model.cpp" />
     <ClCompile Include="..\model\RockModel.cpp" />
     <ClCompile Include="..\model\TerrainModel.cpp" />
+    <ClCompile Include="..\model\TreeModel.cpp" />
     <ClCompile Include="..\shader\Shader.cpp" />
     <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp" />
     <ClCompile Include="..\texture\Texture.cpp" />
@@ -131,6 +135,9 @@
     <ClInclude Include="..\generators\ColorGenerator.h" />
     <ClInclude Include="..\generators\PerlinNoiseGenerator.h" />
     <ClInclude Include="..\keyboard\Keyboard.h" />
+    <ClInclude Include="..\mesh\BranchMesh.h" />
+    <ClInclude Include="..\mesh\Leaves2Mesh.h" />
+    <ClInclude Include="..\mesh\LeavesMesh.h" />
     <ClInclude Include="..\mesh\CubeMesh.h" />
     <ClInclude Include="..\mesh\Mesh.h" />
     <ClInclude Include="..\mesh\RockMesh.h" />
@@ -139,6 +146,7 @@
     <ClInclude Include="..\model\Model.h" />
     <ClInclude Include="..\model\RockModel.h" />
     <ClInclude Include="..\model\TerrainModel.h" />
+    <ClInclude Include="..\model\TreeModel.h" />
     <ClInclude Include="..\shader\Shader.h" />
     <ClInclude Include="..\terrain_generator\TerrainGenerator.h" />
     <ClInclude Include="..\texture\Texture.h" />

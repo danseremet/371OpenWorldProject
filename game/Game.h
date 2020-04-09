@@ -20,6 +20,7 @@
 #include "../model/Model.h"
 #include "../model/TerrainModel.h"
 #include "../model/CubeModel.h"
+#include "../model/TreeModel.h"
 #include "../model/RockModel.h"
 #include "../texture/Texture.h"
 #include "../terrain_generator/TerrainGenerator.h"
@@ -44,6 +45,7 @@ public:
 
     GLint vbo;
 
+
     GLint polygonMode;
 
     void launch();
@@ -66,6 +68,7 @@ public:
 
     const std::map<int, std::map<int, Model *>> &getRocks() const;
 
+
 private:
 
     void gameLoop();
@@ -80,6 +83,7 @@ private:
 
     std::map<int, std::map<int, Model*>> terrain;
     std::map<int, std::map<int, Model*>> rocks;
+    std::map<int, std::map<int, Model*>> trees;
 
     TerrainGenerator *terrainGenerator;
 

@@ -99,6 +99,16 @@
     <ClCompile Include="..\window\WindowManager.cpp">
       <Filter>Source Files\window</Filter>
     </ClCompile>
+    <ClCompile Include="..\mesh\BranchMesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mesh\LeavesMesh.cpp">
+      <Filter>Source Files\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\model\TreeModel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\mesh\Leaves2Mesh.cpp">
     <ClCompile Include="..\model\CubeModel.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
@@ -154,6 +164,16 @@
     <ClInclude Include="..\window\WindowManager.h">
       <Filter>Source Files\window</Filter>
     </ClInclude>
+    <ClInclude Include="..\mesh\BranchMesh.h">
+      <Filter>Source Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\LeavesMesh.h">
+      <Filter>Source Files\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\model\TreeModel.h">
+      <Filter>Source Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mesh\Leaves2Mesh.h">
     <ClInclude Include="..\model\CubeModel.h">
       <Filter>Source Files\model</Filter>
     </ClInclude>

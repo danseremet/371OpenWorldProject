@@ -19,7 +19,11 @@ set(SOURCE_FILES
         model/TerrainModel.cpp
         model/CubeModel.cpp
         model/RockModel.cpp
+        model/TreeModel.cpp
         mesh/Mesh.cpp
+        mesh/BranchMesh.cpp
+        mesh/LeavesMesh.cpp
+        mesh/Leaves2Mesh.cpp
         mesh/TerrainMesh.cpp
         mesh/CubeMesh.cpp
         mesh/RockMesh.cpp
@@ -41,6 +45,3 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDE_DIRECTORIES})
 # Link libraries
 set(LINK_LIBRARIES ${CMAKE_SOURCE_DIR}/libs/glew-2.1.0/lib/libGLEW.a -lglfw -lGL -lX11 -lpthread -lXi -ldl)
 target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES})
-
-
-

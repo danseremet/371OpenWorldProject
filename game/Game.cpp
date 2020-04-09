@@ -28,7 +28,7 @@ Game::Game() {
     scrHeight = WindowManager::getDefaultScreenHeight();
     aspect = computeAspectRatio();
     zNear = 0.01f;
-    zFar = 100.0f;
+    zFar = 300.0f;
     projectionMatrix = createProjectionMatrix();
     viewMatrix = camera->getViewMatrix();
 
@@ -41,13 +41,15 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int chunkSize{100};
-    int numberOfChunks{3};
+    int chunkSize{200};
+    int numberOfChunks{2};
     int numberOfRocks = 0.15 * chunkSize;
+    int numberOfTrees = 0.20 * chunkSize;
 
     for (int z{0}; z < numberOfChunks; z++) {
         terrain.insert(make_pair(z, map<int, Model*>()));
         rocks.insert(make_pair(z, map<int, Model*>()));
+        trees.insert(make_pair(z, map<int, Model*>()));
 
         for (int x{0}; x < numberOfChunks; x++) {
 
@@ -60,6 +62,10 @@ Game::Game() {
             Model* rockModel= new RockModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks };
             rockModel->loadModel();
             rocks[z].insert(make_pair(x, rockModel));
+
+            Model* treeModel = new TreeModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees }; // Call the treeModel
+            treeModel->loadModel();
+            trees[z].insert(make_pair(x, treeModel));
         }
     }
 
@@ -115,6 +121,11 @@ void Game::drawModels() {
         }
     }
     for (itr = rocks.begin(); itr != rocks.end(); itr++) {
+        for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+            ptr->second->draw();
+        }
+    }
+    for (itr = trees.begin(); itr != trees.end(); itr++) {
         for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
             ptr->second->draw();
         }
@@ -199,3 +210,4 @@ void Game::setupTerrainShader() {
 const map<int, std::map<int, Model *>> &Game::getRocks() const {
     return rocks;
 }
+
