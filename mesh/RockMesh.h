@@ -27,6 +27,8 @@ private:
 
     GLboolean showTexture{true};
 
+    static int seed;
+
     int chunkX;
     int chunkZ;
 

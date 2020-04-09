@@ -10,6 +10,8 @@
 
 using namespace glm;
 
+int RockMesh::seed = time(0);
+
 RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap,
         int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights)
     : Mesh(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ),
@@ -54,7 +56,8 @@ vec3 RockMesh::normal(vec3 a, vec3 b, vec3 c) {
 }
 
 void RockMesh::setRandomSeed() {
-    srand(time(0) + rand());
+    seed += chunkX + chunkZ;
+    srand(seed);
 }
 
 float RockMesh::randomFloat(float from = 0, float to = 1) {

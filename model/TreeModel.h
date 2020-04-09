@@ -23,6 +23,8 @@ public:
 
 private:
     std::vector<std::vector<float>> heights;
+    
+    static int seed;
 
     int numberOfTrees;
 

@@ -7,6 +7,8 @@
 #include <utility>
 #include <ctime>
 
+int TreeModel::seed = time(0);
+
 TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTrees) :
         Model(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ), chunkSize(chunkSize), heights(heights), numberOfTrees(numberOfTrees){
 }
@@ -55,7 +57,8 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
 
 std::vector<int> TreeModel::populateTreeSeeds() {
     std::vector<int> treeSeed;
-    srand((unsigned)time(0));
+    seed += chunkX + chunkZ;
+    srand(seed);
     for (int i = 0; i < chunkSize; i++) {
         treeSeed.push_back(rand());
     }
