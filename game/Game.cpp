@@ -5,9 +5,9 @@
 #include "Game.h"
 #include "../keyboard/Keyboard.h"
 
-
 using namespace glm;
 using namespace std;
+using namespace irrklang;
 
 
 Game::Game() {
@@ -16,6 +16,8 @@ Game::Game() {
     window = WindowManager::getWindow();
     // Camera setup
     camera = new Camera{};
+
+  
 
     // Shader loading
     shadersMap = std::map<std::string, Shader*>{};
@@ -80,6 +82,12 @@ Game::Game() {
     glEnable(GL_DEPTH_TEST);
     polygonMode = GL_FILL;
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
+
+    ISoundEngine* SoundEngine = createIrrKlangDevice();
+    if (SoundEngine) {
+        SoundEngine->play2D("../audio/audioDemo.wav", GL_TRUE);
+    }
+   
 }
 
 void Game::launch() {

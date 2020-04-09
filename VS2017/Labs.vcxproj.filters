@@ -1,189 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Source Files\main">
-      <UniqueIdentifier>{f9689d7b-4e32-4a5c-b233-06ca760bf098}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\shader">
-      <UniqueIdentifier>{d63b33fc-4cd6-40ae-8845-d1142dc18cba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\shaders">
-      <UniqueIdentifier>{f54d5147-af7d-45a6-8868-fbe583cb54b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\shaders\basic">
-      <UniqueIdentifier>{9468e2d4-4af5-4189-87c7-500876bf5d10}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\camera">
-      <UniqueIdentifier>{fa9c0c60-cedc-45e9-98a7-b7ed9d502ae6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\game">
-      <UniqueIdentifier>{3c399537-01d3-444f-b755-91473a0cbcbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\keyboard">
-      <UniqueIdentifier>{72192f1d-a7b2-486a-8d3d-2e18a278c7c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\mesh">
-      <UniqueIdentifier>{daee1cd8-e6e6-4887-ba88-4ad48dd69477}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\model">
-      <UniqueIdentifier>{137bc91d-66e7-4b61-a20a-790dbb34fd21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\texture">
-      <UniqueIdentifier>{a5e5b89d-b3f0-467f-9c40-913e0c439a46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\window">
-      <UniqueIdentifier>{df1133e8-c64b-4d9f-b663-325400521bc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generators">
-      <UniqueIdentifier>{4a9b8539-7523-454a-ba15-d89fadfe14a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\terrain_generator">
-      <UniqueIdentifier>{2dcab931-187f-464a-afa5-ec1fa3ce724b}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\camera\Camera.cpp" />
+    <ClCompile Include="..\game\Game.cpp" />
+    <ClCompile Include="..\generators\ColorGenerator.cpp" />
+    <ClCompile Include="..\generators\PerlinNoiseGenerator.cpp" />
+    <ClCompile Include="..\keyboard\Keyboard.cpp" />
+    <ClCompile Include="..\main\main.cpp" />
+    <ClCompile Include="..\mesh\CubeMesh.cpp" />
+    <ClCompile Include="..\mesh\BranchMesh.cpp" />
+    <ClCompile Include="..\mesh\Leaves2Mesh.cpp" />
+    <ClCompile Include="..\mesh\LeavesMesh.cpp" />
+    <ClCompile Include="..\mesh\Mesh.cpp" />
+    <ClCompile Include="..\mesh\RockMesh.cpp" />
+    <ClCompile Include="..\mesh\TerrainMesh.cpp" />
+    <ClCompile Include="..\model\CubeModel.cpp" />
+    <ClCompile Include="..\model\Model.cpp" />
+    <ClCompile Include="..\model\RockModel.cpp" />
+    <ClCompile Include="..\model\TerrainModel.cpp" />
+    <ClCompile Include="..\model\TreeModel.cpp" />
+    <ClCompile Include="..\shader\Shader.cpp" />
+    <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp" />
+    <ClCompile Include="..\texture\Texture.cpp" />
+    <ClCompile Include="..\window\WindowException.cpp" />
+    <ClCompile Include="..\window\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\shaders\basic\fs.glsl">
-      <Filter>Source Files\shaders\basic</Filter>
-    </None>
-    <None Include="..\shaders\basic\vs.glsl">
-      <Filter>Source Files\shaders\basic</Filter>
-    </None>
+    <ClInclude Include="..\camera\Camera.h" />
+    <ClInclude Include="..\game\Game.h" />
+    <ClInclude Include="..\generators\ColorGenerator.h" />
+    <ClInclude Include="..\generators\PerlinNoiseGenerator.h" />
+    <ClInclude Include="..\keyboard\Keyboard.h" />
+    <ClInclude Include="..\mesh\BranchMesh.h" />
+    <ClInclude Include="..\mesh\Leaves2Mesh.h" />
+    <ClInclude Include="..\mesh\LeavesMesh.h" />
+    <ClInclude Include="..\mesh\CubeMesh.h" />
+    <ClInclude Include="..\mesh\Mesh.h" />
+    <ClInclude Include="..\mesh\RockMesh.h" />
+    <ClInclude Include="..\mesh\TerrainMesh.h" />
+    <ClInclude Include="..\model\CubeModel.h" />
+    <ClInclude Include="..\model\Model.h" />
+    <ClInclude Include="..\model\RockModel.h" />
+    <ClInclude Include="..\model\TerrainModel.h" />
+    <ClInclude Include="..\model\TreeModel.h" />
+    <ClInclude Include="..\shader\Shader.h" />
+    <ClInclude Include="..\terrain_generator\TerrainGenerator.h" />
+    <ClInclude Include="..\texture\Texture.h" />
+    <ClInclude Include="..\window\WindowException.h" />
+    <ClInclude Include="..\window\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\main\main.cpp">
-      <Filter>Source Files\main</Filter>
-    </ClCompile>
-    <ClCompile Include="..\shader\Shader.cpp">
-      <Filter>Source Files\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\camera\Camera.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\Game.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\keyboard\Keyboard.cpp">
-      <Filter>Source Files\keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\Mesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\TerrainMesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\model\Model.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\model\TerrainModel.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\texture\Texture.cpp">
-      <Filter>Source Files\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\window\WindowException.cpp">
-      <Filter>Source Files\window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\window\WindowManager.cpp">
-      <Filter>Source Files\window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\BranchMesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\LeavesMesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\model\TreeModel.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\Leaves2Mesh.cpp">
-    <ClCompile Include="..\model\CubeModel.cpp">
-      <Filter>Source Files\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\CubeMesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\mesh\RockMesh.cpp">
-      <Filter>Source Files\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\model\RockModel.cpp">
-      <Filter>Source Files\model</Filter>
-    <ClCompile Include="..\generators\ColorGenerator.cpp">
-      <Filter>Source Files\generators</Filter>
-    </ClCompile>
-    <ClCompile Include="..\generators\PerlinNoiseGenerator.cpp">
-      <Filter>Source Files\generators</Filter>
-    </ClCompile>
-    <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp">
-      <Filter>Source Files\terrain_generator</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\shader\Shader.h">
-      <Filter>Source Files\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\camera\Camera.h">
-      <Filter>Source Files\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\Game.h">
-      <Filter>Source Files\game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\keyboard\Keyboard.h">
-      <Filter>Source Files\keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\Mesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\TerrainMesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\model\Model.h">
-      <Filter>Source Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\model\TerrainModel.h">
-      <Filter>Source Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\texture\Texture.h">
-      <Filter>Source Files\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\window\WindowException.h">
-      <Filter>Source Files\window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\window\WindowManager.h">
-      <Filter>Source Files\window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\BranchMesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\LeavesMesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\model\TreeModel.h">
-      <Filter>Source Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\Leaves2Mesh.h">
-    <ClInclude Include="..\model\CubeModel.h">
-      <Filter>Source Files\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\CubeMesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mesh\RockMesh.h">
-      <Filter>Source Files\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\model\RockModel.h">
-      <Filter>Source Files\model</Filter>
-    <ClInclude Include="..\generators\ColorGenerator.h">
-      <Filter>Source Files\generators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\generators\PerlinNoiseGenerator.h">
-      <Filter>Source Files\generators</Filter>
-    </ClInclude>
-    <ClInclude Include="..\terrain_generator\TerrainGenerator.h">
-      <Filter>Source Files\terrain_generator</Filter>
-    </ClInclude>
+    <None Include="..\shaders\basic\fs.glsl" />
+    <None Include="..\shaders\basic\vs.glsl" />
   </ItemGroup>
 </Project>
