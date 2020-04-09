@@ -9,8 +9,8 @@
 
 int TreeModel::seed = time(0);
 
-TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTrees) :
-        Model(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ), chunkSize(chunkSize), heights(heights), numberOfTrees(numberOfTrees){
+TreeModel::TreeModel(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTreesMax, PerlinNoiseGenerator* perlinNoiseGenerator) :
+        Model(std::move(shadersMap), std::move(texturesMap)), chunkX(chunkX), chunkZ(chunkZ), chunkSize(chunkSize), heights(heights), numberOfTreesMax(numberOfTreesMax), perlinNoiseGenerator(perlinNoiseGenerator){
 }
 
 void TreeModel::loadMeshes() {
@@ -42,16 +42,54 @@ void TreeModel::setTreeNumber() {
 }
 
 float TreeModel::randomFloat(float from = 0, float to = 1) {
+    
     return static_cast <float> (rand()) / static_cast <float> (RAND_MAX)* (to - from) + from;
 }
 
 std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
-    srand((unsigned)time(0));
     std::vector<glm::vec3> treeVector;
-    for (int i = 0; i < numberOfTrees; i++) {
-        treeVector.push_back(glm::vec3(randomFloat(0, chunkSize), 0.0f, randomFloat(0, chunkSize)));
+    srand(seed * seed + seed);
+
+    int counter = 0;
+   
+    std::vector<std::vector<float>> pnValues{};
+    double pn;
+    for (int x = 0; x <= chunkSize; x++) {
+        pnValues.emplace_back();
+        for (int y = 0; y <= chunkSize; y++) {
+            pn = perlinNoiseGenerator->noise(x / 1000.0f, y / 1000.0f, (x / 1000.0f + y / 1000.0f));
+            pnValues.back().push_back(pn);
+        }
     }
 
+
+    while (treeVector.size() < numberOfTreesMax) {
+        glm::vec3 tree = glm::vec3(randomFloat(1, chunkSize), 0.0f, randomFloat(1, chunkSize));
+        bool overlapping = false;
+        
+        if (pnValues[tree.x][tree.z] > 0.1f && heights[tree.x][tree.z] > 1.5f ) {
+            for (int j = 0; j < treeVector.size(); j++) {
+                glm::vec3 other = treeVector.at(j);
+                float dx = abs(tree.x - other.x);
+                float dz = abs(tree.z - other.z);
+                if (dx < 0.3f || dz < 0.3f) {
+                    overlapping = true;
+                    break;
+                }
+            }
+            if (!overlapping) {
+                counter = 0;
+                treeVector.push_back(tree);
+            }
+        }
+        counter++;
+        if (counter >= 100) {
+            break;
+        }
+
+    }
+   
+   
     return treeVector;
 }
 
@@ -59,7 +97,7 @@ std::vector<int> TreeModel::populateTreeSeeds() {
     std::vector<int> treeSeed;
     seed += chunkX + chunkZ;
     srand(seed);
-    for (int i = 0; i < chunkSize; i++) {
+    for (int i = 0; i < numberOfTreesMax; i++) {
         treeSeed.push_back(rand());
     }
     return treeSeed;

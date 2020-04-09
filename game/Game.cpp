@@ -40,10 +40,10 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int chunkSize{100};
-    int numberOfChunks{10}; // careful N*2 memory
+    int chunkSize{200};
+    int numberOfChunks{4}; // careful N*2 memory
     int numberOfRocks = 0.15 * chunkSize;
-    int numberOfTrees = 0.20 * chunkSize;
+    int numberOfTrees = 2.0 * chunkSize;
 
     for (int z{0}; z < numberOfChunks; z++) {
         terrain.insert(make_pair(z, map<int, Model*>()));
@@ -62,7 +62,7 @@ Game::Game() {
             rockModel->loadModel();
             rocks[z].insert(make_pair(x, rockModel));
 
-            Model* treeModel = new TreeModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees }; // Call the treeModel
+            Model* treeModel = new TreeModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees, perlinNoiseGenerator }; // Call the treeModel
             treeModel->loadModel();
             trees[z].insert(make_pair(x, treeModel));
         }
