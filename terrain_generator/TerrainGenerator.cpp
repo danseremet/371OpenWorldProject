@@ -31,6 +31,10 @@ std::vector<std::vector<float>> TerrainGenerator::generateHeights(int terrainSiz
     double dx = chunkX * terrainSize;
     double dz = chunkZ * terrainSize;
 
+    std::random_device rd;
+    std::mt19937 rng{rd()};
+    std::uniform_int_distribution<int> uni{-10, 10};
+
     for (int z = 0; z < terrainSize + 1; z++) {
         heights.emplace_back();
         for (int x = 0; x < terrainSize + 1; x++) {
@@ -40,6 +44,9 @@ std::vector<std::vector<float>> TerrainGenerator::generateHeights(int terrainSiz
 
             double pn = perlinNoiseGenerator->noise(x_n, y_n, z_n);
             pn *= perlinNoiseGenerator->getAmplitude();
+            if (z != 0 && x != 0 && z != terrainSize && x != terrainSize) {
+                pn += uni(rng) / 70.0f;
+            }
             heights.back().push_back(pn);
         }
     }
