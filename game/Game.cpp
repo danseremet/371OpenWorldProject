@@ -104,7 +104,7 @@ void Game::frameSetup() {
     // Frame duration
     dt = static_cast<float>(glfwGetTime()) - lastFrameTime;
     lastFrameTime += dt;
-    glClearColor(0.2f, 0.4f, 0.9f, 1.0f);
+    glClearColor(0.02f, 0.602f, 0.953f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     setupBasicShader();

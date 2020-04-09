@@ -1,13 +1,13 @@
 #version 330 core
 
-uniform vec3 lightColor = vec3(1.0, 1.0, 1.0);
+uniform vec3 lightColor = vec3(0.8, 0.8, 0.9);
 uniform vec3 lightDirection = vec3(-0.3, -1.0, -0.4);
 
 uniform vec3 viewPos;
 
-uniform float ambientStrength = 0.2;
+uniform float ambientStrength = 0.3;
 uniform float diffuseStrength = 0.85;
-uniform float specularStrength = 0.5;
+uniform float specularStrength = 0.3;
 
 in vec3 FragPos;
 in vec3 Normal;
