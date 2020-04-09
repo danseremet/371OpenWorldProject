@@ -41,8 +41,8 @@ Game::Game() {
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int chunkSize{200};
-    int numberOfChunks{2};
+    int chunkSize{100};
+    int numberOfChunks{3};
     int numberOfRocks = 0.15 * chunkSize;
     int numberOfTrees = 0.20 * chunkSize;
 
