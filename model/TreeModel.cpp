@@ -50,29 +50,32 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
     std::vector<glm::vec3> treeVector;
     srand(seed * seed + seed);
 
-    int counter = 0;
+   
    
     std::vector<std::vector<float>> pnValues{};
     double pn;
     for (int x = 0; x <= chunkSize; x++) {
         pnValues.emplace_back();
         for (int y = 0; y <= chunkSize; y++) {
-            pn = perlinNoiseGenerator->noise(x / 1000.0f, y / 1000.0f, (x / 1000.0f + y / 1000.0f));
-            pnValues.back().push_back(pn);
+            pn = perlinNoiseGenerator->noise(x / 800.0f, y / 800.0f, (x / 800.0f + y / 800.0f));
+            pnValues.back().push_back(abs(pn));
         }
     }
 
+    int counter = 0;
 
     while (treeVector.size() < numberOfTreesMax) {
         glm::vec3 tree = glm::vec3(randomFloat(1, chunkSize), 0.0f, randomFloat(1, chunkSize));
         bool overlapping = false;
-        
-        if (pnValues[tree.x][tree.z] > 0.1f && heights[tree.x][tree.z] > 1.5f ) {
+        float heightOfTree = heights[tree.z][tree.x] / perlinNoiseGenerator->getAmplitude();
+
+
+        if ( (heightOfTree > -0.25f && heightOfTree < 0.2f) && pnValues[tree.z][tree.x] > 0.05f) {
             for (int j = 0; j < treeVector.size(); j++) {
                 glm::vec3 other = treeVector.at(j);
                 float dx = abs(tree.x - other.x);
                 float dz = abs(tree.z - other.z);
-                if (dx < 0.3f || dz < 0.3f) {
+                if (dx < 0.4f || dz < 0.4f) {
                     overlapping = true;
                     break;
                 }
@@ -83,7 +86,7 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
             }
         }
         counter++;
-        if (counter >= 100) {
+        if (counter >= 20 * chunkSize) {
             break;
         }
 

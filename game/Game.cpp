@@ -41,9 +41,9 @@ Game::Game() {
 
     // Model creation
     int chunkSize{200};
-    int numberOfChunks{4}; // careful N*2 memory
+    int numberOfChunks{2}; // careful N*2 memory
     int numberOfRocks = 0.15 * chunkSize;
-    int numberOfTrees = 2.0 * chunkSize;
+    int numberOfTrees = 3 * chunkSize;
 
     for (int z{0}; z < numberOfChunks; z++) {
         terrain.insert(make_pair(z, map<int, Model*>()));
