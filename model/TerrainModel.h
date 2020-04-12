@@ -23,7 +23,7 @@ public:
     TerrainModel(int chunkX, int chunkZ, std::vector<std::vector<float>> heights, std::vector<std::vector<glm::vec3>> colors,
             std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
 
-    const std::vector<std::vector<float>> &getHeights() const;
+    const std::vector<std::vector<float>> getHeights() const;
 
     void loadMeshes() override;
 };

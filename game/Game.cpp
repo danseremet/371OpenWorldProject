@@ -14,11 +14,9 @@ Game::Game() {
 
     // Window setup
     window = WindowManager::getWindow();
-    // Camera setup
-    camera = new Camera{};
 
     // Shader loading
-    shadersMap = std::map<std::string, Shader*>{};
+    shadersMap = std::map<std::string, Shader *>{};
     shadersMap["basic"] = new Shader{"basic"};
 
     // Setup P & V matrix properties
@@ -29,36 +27,51 @@ Game::Game() {
     zNear = 0.01f;
     zFar = 3000.0f;     // careful
     projectionMatrix = createProjectionMatrix();
-    viewMatrix = camera->getViewMatrix();
 
     // Generate Terrain
-    int octaves{3}; // unused
-    float amplitude{100.0f}; // USED
-    float roughness{0.35f}; // unused
-    auto * perlinNoiseGenerator = new PerlinNoiseGenerator(roughness, octaves, amplitude);
-    auto * colorGenerator = new ColorGenerator(0.55f);
+    auto *perlinNoiseGenerator = new PerlinNoiseGenerator(0.35f, 3, 100.0f);
+    auto *colorGenerator = new ColorGenerator(0.55f);
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
-    int chunkSize{200};
-    int numberOfChunks{2}; // careful N*2 memory
-    int numberOfRocks = 0.15 * chunkSize;
-    int numberOfTrees = 3 * chunkSize;
+    startChunk = 20;
 
-    for (int z{0}; z < numberOfChunks; z++) {
-        terrain.insert(make_pair(z, map<int, Model*>()));
-        rocks.insert(make_pair(z, map<int, Model*>()));
-        trees.insert(make_pair(z, map<int, Model*>()));
+    this->chunkLoadingCounter = 0;
+    this->chunkUnloadingCounter = 0;
+    chunkUnloadingDuration = 1;
+    chunkLoadingDuration = 1;
+    chunkSize = 50;
+    numberOfChunks = 4; // careful N*2 memory
 
-        for (int x{0}; x < numberOfChunks; x++) {
+    int initialPos{startChunk * chunkSize};
+    int chunkX_neg{startChunk - numberOfChunks};
+    int chunkX_pos{startChunk + numberOfChunks};
+    int chunkZ_neg{startChunk - numberOfChunks};
+    int chunkZ_pos{startChunk + numberOfChunks};
 
-            Model* terrainModel = terrainGenerator->generateTerrain(chunkSize, x, z);
+
+    numberOfRocks = 0.15 * chunkSize;
+    numberOfTrees = 0.20 * chunkSize;
+
+    float cameraHeight{0.0f};
+
+    for (int z{chunkZ_neg}; z <= chunkZ_pos; z++) {
+        terrain.insert(make_pair(z, map<int, Model *>()));
+        rocks.insert(make_pair(z, map<int, Model *>()));
+        trees.insert(make_pair(z, map<int, Model *>()));
+
+        for (int x{chunkX_neg}; x <= chunkX_pos; x++) {
+
+            Model *terrainModel = terrainGenerator->generateTerrain(chunkSize, x, z);
             terrainModel->loadModel();
             terrain[z].insert(make_pair(x, terrainModel));
 
             auto heights = ((TerrainModel *) terrainModel)->getHeights();
+            if (z == startChunk && x == startChunk) {
+                cameraHeight = heights[0][0];
+            }
 
-            Model* rockModel= new RockModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks };
+            Model *rockModel = new RockModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks};
             rockModel->loadModel();
             rocks[z].insert(make_pair(x, rockModel));
 
@@ -67,6 +80,13 @@ Game::Game() {
             trees[z].insert(make_pair(x, treeModel));
         }
     }
+
+    // Camera setup
+    glm::vec3 camera_pos{initialPos, cameraHeight + 2.0f, initialPos};
+    camera = new Camera{camera_pos};
+    lastCameraChunkPos = camera->cameraPosition;
+
+    viewMatrix = camera->getViewMatrix();
 
     // For frame time
     dt = 0.0f;
@@ -97,6 +117,8 @@ Game::~Game() {
 void Game::gameLoop() {
     frameSetup();
     drawModels();
+    chunkLoading();
+    chunkUnloading();
     frameEnd();
 }
 
@@ -111,8 +133,8 @@ void Game::frameSetup() {
 }
 
 void Game::drawModels() {
-    map<int, map<int, Model*>>::iterator itr;
-    map<int, Model*>::iterator ptr;
+    map<int, map<int, Model *>>::iterator itr;
+    map<int, Model *>::iterator ptr;
     for (itr = terrain.begin(); itr != terrain.end(); itr++) {
         for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
             ptr->second->draw();
@@ -126,6 +148,133 @@ void Game::drawModels() {
     for (itr = trees.begin(); itr != trees.end(); itr++) {
         for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
             ptr->second->draw();
+        }
+    }
+}
+
+void Game::chunkLoading() {
+
+    // Run chunk loading every 100 frames
+    this->chunkLoadingCounter++;
+    if (chunkLoadingCounter != chunkLoadingDuration) {
+        return;
+    }
+    // reset chunk loading counter
+    this->chunkLoadingCounter = 0;
+
+    // center of chunk loading
+    int chunkCenterX = static_cast<int>(camera->cameraPosition.x / chunkSize);
+    int chunkCenterZ = static_cast<int>(camera->cameraPosition.z / chunkSize);
+
+    // boundaries of chunk loading
+    int chunkXHigh = chunkCenterX + numberOfChunks;
+    int chunkXLow = chunkCenterX - numberOfChunks;
+    int chunkZHigh = chunkCenterZ + numberOfChunks;
+    int chunkZLow = chunkCenterZ - numberOfChunks;
+
+    // load one chunk
+    bool oneChunkLoaded = false;
+
+    // loop over z chunks
+    for (int z{chunkZLow}; z <= chunkZHigh; z++) {
+
+        // add a row if z key doesn't exist
+        if (terrain.find(z) == terrain.end()) {
+            terrain.insert(make_pair(z, map<int, Model *>()));
+            rocks.insert(make_pair(z, map<int, Model *>()));
+            trees.insert(make_pair(z, map<int, Model *>()));
+        }
+
+        // loop over x chunks
+        for (int x{chunkXLow}; x <= chunkXHigh; x++) {
+
+            // add a column of models if x key doesn't exit
+            if (terrain[z].find(x) == terrain[z].end()) {
+
+                // Add terrain
+                Model *terrainModel = terrainGenerator->generateTerrain(chunkSize, x, z);
+                terrainModel->loadModel();
+                terrain[z].insert(make_pair(x, terrainModel));
+
+                auto heights = ((TerrainModel *) terrainModel)->getHeights();
+
+                // Add rocks
+                Model *rockModel = new RockModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks};
+                rockModel->loadModel();
+                rocks[z].insert(make_pair(x, rockModel));
+
+                // Add trees
+                auto *perlinNoiseGenerator = new PerlinNoiseGenerator(0.35f, 3, 100.0f);
+                Model *treeModel = new TreeModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees, perlinNoiseGenerator};
+                treeModel->loadModel();
+                trees[z].insert(make_pair(x, treeModel));
+
+                oneChunkLoaded = true;
+                break;
+            }
+
+        }
+
+        // stop loading more chunks after one chunk is loaded for these 100 frames
+        if (oneChunkLoaded) {
+            break;
+        }
+
+    }
+}
+
+void Game::chunkUnloading() {
+
+    // Run chunk unloading every 100 frames
+    this->chunkUnloadingCounter++;
+    if (chunkUnloadingCounter != chunkUnloadingDuration) {
+        return;
+    }
+    // reset chunk unloading counter
+    this->chunkUnloadingCounter = 0;
+
+    // center of chunk unloading
+    int chunkCenterX = static_cast<int>(camera->cameraPosition.x / chunkSize);
+    int chunkCenterZ = static_cast<int>(camera->cameraPosition.z / chunkSize);
+
+    // boundaries of chunk unloading
+    int chunkXHigh = chunkCenterX + numberOfChunks;
+    int chunkXLow = chunkCenterX - numberOfChunks;
+    int chunkZHigh = chunkCenterZ + numberOfChunks;
+    int chunkZLow = chunkCenterZ - numberOfChunks;
+
+    // unload one chunk
+    bool oneChunkUnloaded = false;
+
+    // loop over every z key
+    for (auto it = terrain.cbegin(); it != terrain.cend() ; it++) {
+
+        int z = it->first;
+
+        // loop over every x col key in a loaded z row
+        for (auto it_inner = terrain[z].cbegin(); it_inner != terrain[z].cend(); it_inner++) {
+
+            int x = it_inner->first;
+
+            // unload a chunk if outside X bounds
+            if (x < chunkXLow || x > chunkXHigh || z < chunkZLow || z > chunkZHigh) {
+                terrain[z].erase(x);
+                rocks[z].erase(x);
+                trees[z].erase(x);
+
+                oneChunkUnloaded = true;
+                break;
+            }
+        }
+
+        // when the row is empty remove it
+        if (terrain[z].empty()) {
+            terrain.erase(z);
+        }
+
+        // stop unloading more chunks after one chunk is unloaded for these 100 frames
+        if (oneChunkUnloaded) {
+            break;
         }
     }
 }

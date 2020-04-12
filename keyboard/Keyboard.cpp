@@ -123,7 +123,7 @@ void Keyboard::processInput(Game *game) {
 
     // Return Home
     if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
-        camera->initCamera();
+        camera->initCamera(camera->getDefaultPosition());
         game->setFovy(70.0f);
         game->updateProjectionMatrix();
     }

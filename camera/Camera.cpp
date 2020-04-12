@@ -4,8 +4,9 @@
 
 #include "Camera.h"
 
-Camera::Camera() {
-    initCamera();
+Camera::Camera(glm::vec3 pos) {
+    defaultPosition = pos;
+    initCamera(pos);
 }
 
 glm::mat4 Camera::getViewMatrix() {
@@ -16,8 +17,8 @@ glm::mat4 Camera::getViewMatrix() {
 
 }
 
-void Camera::initCamera() {
-    cameraPosition = glm::vec3(0.0f, 20.0f, 10.0f);
+void Camera::initCamera(glm::vec3 pos) {
+    cameraPosition = pos;
     cameraLookAt = glm::vec3(0.0f, -20.0f, -30.0f);
     cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -25,4 +26,8 @@ void Camera::initCamera() {
     cameraSpeed = 150.0f;
     cameraHorizontalAngle = 90.0f;
     cameraVerticalAngle = -20.0f;
+}
+
+const glm::vec3 &Camera::getDefaultPosition() const {
+    return defaultPosition;
 }
