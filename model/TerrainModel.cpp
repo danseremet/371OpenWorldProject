@@ -17,6 +17,6 @@ void TerrainModel::loadMeshes() {
     meshes.push_back(bMesh);
 }
 
-const std::vector<std::vector<float>> &TerrainModel::getHeights() const {
+const std::vector<std::vector<float>> TerrainModel::getHeights() const {
     return heights;
 }
