@@ -11,7 +11,7 @@ PerlinNoiseGenerator::PerlinNoiseGenerator(float roughness, int octaves, float a
     std::uniform_int_distribution<int> zeroTo256(0, 255);
 
     seed = uni(rng);
-    std::cout << seed << '\n';
+//    std::cout << seed << '\n';
 
     int a[] = {52, 140, 199, 36, 223, 172, 70, 55, 124, 66, 242, 126, 125, 205, 51, 112, 5, 26, 191, 60, 8, 41, 26, 170, 27, 159, 205,
                106, 15, 104, 111, 86, 152, 52, 30, 73, 128, 211, 253, 36, 180, 118, 3, 90, 197, 3, 71, 247, 139, 9, 91, 198, 117, 58,

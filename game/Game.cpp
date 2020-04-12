@@ -29,19 +29,16 @@ Game::Game() {
     projectionMatrix = createProjectionMatrix();
 
     // Generate Terrain
-    int octaves{3}; // unused
-    float amplitude{100.0f}; // USED
-    float roughness{0.35f}; // unused
-    auto *perlinNoiseGenerator = new PerlinNoiseGenerator(roughness, octaves, amplitude);
+    auto *perlinNoiseGenerator = new PerlinNoiseGenerator(0.35f, 3, 100.0f);
     auto *colorGenerator = new ColorGenerator(0.55f);
     terrainGenerator = new TerrainGenerator(perlinNoiseGenerator, colorGenerator, shadersMap, texturesMap);
 
     // Model creation
+    startChunk = 20;
+    chunkUnloadingDuration = 1;
+    chunkLoadingDuration = 1;
     chunkSize = 50;
     numberOfChunks = 4; // careful N*2 memory
-    chunkLoadingDuration = 1;
-    chunkUnloadingDuration = 1;
-    startChunk = 20;
 
     int initialPos{startChunk * chunkSize};
     int chunkX_neg{startChunk - numberOfChunks};
@@ -75,8 +72,7 @@ Game::Game() {
             rockModel->loadModel();
             rocks[z].insert(make_pair(x, rockModel));
 
-            Model *treeModel = new TreeModel{shadersMap, texturesMap, x, z, chunkSize, heights,
-                                             numberOfTrees}; // Call the treeModel
+            Model* treeModel = new TreeModel{ shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees, perlinNoiseGenerator }; // Call the treeModel
             treeModel->loadModel();
             trees[z].insert(make_pair(x, treeModel));
         }
@@ -205,7 +201,8 @@ void Game::chunkLoading() {
                 rocks[z].insert(make_pair(x, rockModel));
 
                 // Add trees
-                Model *treeModel = new TreeModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees};
+                auto *perlinNoiseGenerator = new PerlinNoiseGenerator(0.35f, 3, 100.0f);
+                Model *treeModel = new TreeModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfTrees, perlinNoiseGenerator};
                 treeModel->loadModel();
                 trees[z].insert(make_pair(x, treeModel));
 
