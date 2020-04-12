@@ -39,9 +39,9 @@ set(SOURCE_FILES
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Include directories (ALL STATIC)
-set(INCLUDE_DIRECTORIES libs/glfw-3.3/include libs/glew-2.1.0/include libs/glm)
+set(INCLUDE_DIRECTORIES libs/glfw-3.3/include libs/glew-2.1.0/include libs/glm libs/irrKlang-64bit-1.6.0/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDE_DIRECTORIES})
 
 # Link libraries
-set(LINK_LIBRARIES ${CMAKE_SOURCE_DIR}/libs/glew-2.1.0/lib/libGLEW.a -lglfw -lGL -lX11 -lpthread -lXi -ldl)
+set(LINK_LIBRARIES ${CMAKE_SOURCE_DIR}/libs/glew-2.1.0/lib/libGLEW.a -lglfw -lGL -lX11 -lpthread -lXi -ldl ${CMAKE_SOURCE_DIR}/libs/irrKlang-64bit-1.6.0/bin/linux-gcc-64/libIrrKlang.so)
 target_link_libraries(${PROJECT_NAME} ${LINK_LIBRARIES})
