@@ -11,6 +11,8 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include <limits>
+#include <cmath>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

@@ -12,10 +12,11 @@
 #include "../mesh/LeavesMesh.h"
 #include "../mesh/Leaves2Mesh.h"
 #include "../texture/Texture.h"
+#include "../generators/PerlinNoiseGenerator.h"
 
 class TreeModel: public Model {
 public:
-    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTrees);
+    TreeModel(std::map<std::string, Shader*> shadersMap, std::map<std::string, Texture*> texturesMap, int chunkX, int chunkZ, int chunkSize, std::vector<std::vector<float>> heights, int numberOfTreesMax, PerlinNoiseGenerator* perlinNoiseGenerator);
 
     void loadMeshes() override;
 
@@ -26,7 +27,9 @@ private:
     
     static int seed;
 
-    int numberOfTrees;
+    PerlinNoiseGenerator* perlinNoiseGenerator;
+
+    int numberOfTreesMax;
 
     int chunkX;
 

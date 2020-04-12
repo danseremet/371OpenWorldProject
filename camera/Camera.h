@@ -15,12 +15,13 @@
 class Camera {
 public:
 
-    Camera();
+    Camera(glm::vec3 pos);
 
-    void initCamera();
+    void initCamera(glm::vec3 pos);
 
     glm::mat4 getViewMatrix();
     glm::vec3 cameraPosition;
+    glm::vec3 defaultPosition;
     glm::vec3 cameraLookAt;
     glm::vec3 cameraUp;
 
@@ -28,6 +29,8 @@ public:
     GLfloat cameraSpeed;
     GLfloat cameraHorizontalAngle;
     GLfloat cameraVerticalAngle;
+
+    const glm::vec3 &getDefaultPosition() const;
 };
 
 

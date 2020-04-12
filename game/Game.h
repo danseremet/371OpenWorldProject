@@ -93,6 +93,10 @@ private:
 
     void drawModels();
 
+    void chunkLoading();
+
+    void chunkUnloading();
+
     glm::mat4 createProjectionMatrix();
 
     GLfloat computeAspectRatio();
@@ -114,11 +118,27 @@ private:
     const GLuint SHADOW_WIDTH = 1024;
     const GLuint SHADOW_HEIGHT = 1024;
 
+    glm::vec3 lastCameraChunkPos;
+
+    int chunkSize;
+
+    int numberOfChunks;
+
+    int startChunk;
+
+    int numberOfRocks;
+    int numberOfTrees;
+
     std::map<std::string, Shader*> shadersMap;
 
     std::map<std::string, Texture*> texturesMap;
 
     void setupBasicShader();
+
+    int chunkLoadingCounter;
+    int chunkUnloadingCounter;
+    int chunkLoadingDuration;
+    int chunkUnloadingDuration;
 };
 
 #endif //OPENWORLD_GAME_H
