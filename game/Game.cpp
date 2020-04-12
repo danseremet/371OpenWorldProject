@@ -35,6 +35,9 @@ Game::Game() {
 
     // Model creation
     startChunk = 20;
+
+    this->chunkLoadingCounter = 0;
+    this->chunkUnloadingCounter = 0;
     chunkUnloadingDuration = 1;
     chunkLoadingDuration = 1;
     chunkSize = 50;
