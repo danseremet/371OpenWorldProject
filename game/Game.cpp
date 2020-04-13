@@ -53,7 +53,7 @@ Game::Game() {
 
 
     numberOfRocks = 0.15 * chunkSize;
-    numberOfTrees = 0.20 * chunkSize;
+    numberOfTrees = 0.90 * chunkSize;
 
     float cameraHeight{0.0f};
 
