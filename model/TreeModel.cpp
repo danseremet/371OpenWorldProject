@@ -86,7 +86,7 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
             }
         }
         counter++;
-        if (counter >= 10 * chunkSize) {
+        if (counter >= 15 * chunkSize) {
             break;
         }
 
