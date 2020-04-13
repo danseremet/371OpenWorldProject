@@ -75,7 +75,7 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
                 glm::vec3 other = treeVector.at(j);
                 float dx = abs(tree.x - other.x);
                 float dz = abs(tree.z - other.z);
-                if (dx < 0.4f || dz < 0.4f) {
+                if (dx < 0.5f || dz < 0.5f) {
                     overlapping = true;
                     break;
                 }
@@ -86,7 +86,7 @@ std::vector<glm::vec3> TreeModel::generateTreesFor1Chunk() {
             }
         }
         counter++;
-        if (counter >= 20 * chunkSize) {
+        if (counter >= 10 * chunkSize) {
             break;
         }
 
