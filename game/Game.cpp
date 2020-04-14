@@ -105,7 +105,7 @@ Game::Game() {
 
     ISoundEngine* SoundEngine = createIrrKlangDevice();
     if (SoundEngine) {
-        SoundEngine->play2D("../audio/audioDemo.wav", GL_TRUE);
+        SoundEngine->play2D("../audio/Ground Waves.wav", GL_TRUE);
     }
    
 }
