@@ -19,6 +19,7 @@ void Keyboard::processInput(Game *game) {
         glfwSetWindowShouldClose(window, true);
 
     Camera *camera = game->getCamera();
+    Player* player = game->getPlayer();
     GLfloat dt = game->dt;
 
 
@@ -46,7 +47,9 @@ void Keyboard::processInput(Game *game) {
         }
     }
 
-    float currentCameraSpeed;
+    const float currentCameraSpeed = camera->cameraSpeed;
+    float currentPlayerSpeed = player->playerSpeed;
+    float currentPlayerHeight = player->height;
 
     // Camera logic from a lab (modified for separating panning/tilting/zooming)
     double mousePosX, mousePosY;
@@ -64,7 +67,6 @@ void Keyboard::processInput(Game *game) {
 
     if (game->cameraFirstPerson)
     {
-        currentCameraSpeed = camera->cameraFpSpeed;
         cameraAngularSpeed = SPEED_MULTIPLIER * 3.0f;
 
         camera->cameraHorizontalAngle -= dx * cameraAngularSpeed * dt;
@@ -90,30 +92,46 @@ void Keyboard::processInput(Game *game) {
         glm::normalize(cameraSideVector);
 
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) { // shift
-            currentCameraSpeed = camera->cameraFpSpeed * 3.0f;
+            currentPlayerSpeed = player->playerSpeed * 2.0f;
         }
         else
         {
-            currentCameraSpeed = camera->cameraFpSpeed;
+            currentPlayerSpeed = player->playerSpeed;
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) { // control
+            currentPlayerHeight = player->height / 2;
+        }
+        else
+        {
+            currentPlayerHeight = player->height;
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { // forward W
-            camera->cameraPosition += camera->cameraLookAt * dt * currentCameraSpeed;
+            player->x += camera->cameraLookAt[0] * dt * currentPlayerSpeed;
+            player->z += camera->cameraLookAt[2] * dt * currentPlayerSpeed;
+            player->y += camera->cameraLookAt[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { // backward S
-            camera->cameraPosition -= camera->cameraLookAt * dt * currentCameraSpeed;
+            player->x -= camera->cameraLookAt[0] * dt * currentPlayerSpeed;
+            player->z -= camera->cameraLookAt[2] * dt * currentPlayerSpeed;
+            player->y -= camera->cameraLookAt[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { // left A
-            camera->cameraPosition -= cameraSideVector * dt * currentCameraSpeed;
+            player->x -= cameraSideVector[0] * dt * currentPlayerSpeed;
+            player->z -= cameraSideVector[2] * dt * currentPlayerSpeed;
+            player->y -= cameraSideVector[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { // right D
-            camera->cameraPosition += cameraSideVector * dt * currentCameraSpeed;
+            player->x += cameraSideVector[0] * dt * currentPlayerSpeed;
+            player->z += cameraSideVector[2] * dt * currentPlayerSpeed;
+            player->y += cameraSideVector[1] * dt * currentPlayerSpeed;
         }
+        camera->cameraPosition = glm::vec3(player->x, player->y + currentPlayerHeight, player->z);
 
     }
     else
     {
-        currentCameraSpeed = camera->cameraSpeed;
         cameraAngularSpeed = SPEED_MULTIPLIER * 6.0f;
 
         // RIGHT MOUSE BUTTON PAN X

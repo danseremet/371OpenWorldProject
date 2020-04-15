@@ -121,6 +121,7 @@
     <ClCompile Include="..\model\RockModel.cpp" />
     <ClCompile Include="..\model\TerrainModel.cpp" />
     <ClCompile Include="..\model\TreeModel.cpp" />
+    <ClCompile Include="..\player\Player.cpp" />
     <ClCompile Include="..\shader\Shader.cpp" />
     <ClCompile Include="..\terrain_generator\TerrainGenerator.cpp" />
     <ClCompile Include="..\texture\Texture.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="..\model\RockModel.h" />
     <ClInclude Include="..\model\TerrainModel.h" />
     <ClInclude Include="..\model\TreeModel.h" />
+    <ClInclude Include="..\player\Player.h" />
     <ClInclude Include="..\shader\Shader.h" />
     <ClInclude Include="..\terrain_generator\TerrainGenerator.h" />
     <ClInclude Include="..\texture\Texture.h" />

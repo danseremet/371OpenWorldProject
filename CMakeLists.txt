@@ -14,6 +14,7 @@ set(SOURCE_FILES
         main/main.cpp
         shader/Shader.cpp
         camera/Camera.cpp
+        player/Player.cpp
         game/Game.cpp
         model/Model.cpp
         model/TerrainModel.cpp

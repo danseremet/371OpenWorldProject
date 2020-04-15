@@ -18,6 +18,7 @@
 #include <map>
 #include "../shader/Shader.h"
 #include "../window/WindowManager.h"
+#include "../player/Player.h"
 #include "../camera/Camera.h"
 #include "../model/Model.h"
 #include "../model/TerrainModel.h"
@@ -36,6 +37,7 @@ public:
 
     ~Game();
 
+    Player* getPlayer() const;
     Camera* getCamera() const;
     Shader* getShader() const;
     GLFWwindow* getWindow() const;
@@ -72,6 +74,7 @@ public:
 
     bool  cameraFirstPerson;
 
+
 private:
 
     void gameLoop();
@@ -80,6 +83,7 @@ private:
 
     void frameEnd();
 
+    Player* player;
     Camera *camera;
     GLFWwindow *window;
     Shader *shader;
@@ -118,8 +122,6 @@ private:
 
     const GLuint SHADOW_WIDTH = 1024;
     const GLuint SHADOW_HEIGHT = 1024;
-
-    glm::vec3 lastCameraChunkPos;
 
     int chunkSize;
 
