@@ -70,6 +70,7 @@ public:
 
     const std::map<int, std::map<int, Model *>> &getRocks() const;
 
+    bool  cameraFirstPerson;
 
 private:
 

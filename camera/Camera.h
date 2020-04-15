@@ -27,6 +27,7 @@ public:
 
     // Other camera parameters
     GLfloat cameraSpeed;
+    GLfloat cameraFpSpeed;
     GLfloat cameraHorizontalAngle;
     GLfloat cameraVerticalAngle;
 

@@ -87,6 +87,7 @@ Game::Game() {
     glm::vec3 camera_pos{initialPos, cameraHeight + 2.0f, initialPos};
     camera = new Camera{camera_pos};
     lastCameraChunkPos = camera->cameraPosition;
+    cameraFirstPerson = true;
 
     viewMatrix = camera->getViewMatrix();
 
@@ -358,4 +359,3 @@ void Game::setupBasicShader() {
 const map<int, std::map<int, Model *>> &Game::getRocks() const {
     return rocks;
 }
-

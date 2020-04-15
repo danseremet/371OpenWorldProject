@@ -24,6 +24,7 @@ void Camera::initCamera(glm::vec3 pos) {
 
     // Other camera parameters
     cameraSpeed = 150.0f;
+    cameraFpSpeed = 15.0f;
     cameraHorizontalAngle = 90.0f;
     cameraVerticalAngle = -20.0f;
 }
