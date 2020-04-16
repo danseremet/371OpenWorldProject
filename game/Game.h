@@ -74,6 +74,10 @@ public:
 
     bool  cameraFirstPerson;
 
+    GLfloat findTerrainYat(float z, float x);
+    bool playerOnGround();
+
+    GLfloat gravity;
 
 private:
 
@@ -101,6 +105,8 @@ private:
     void chunkLoading();
 
     void chunkUnloading();
+
+    void playerPhysics();
 
     glm::mat4 createProjectionMatrix();
 

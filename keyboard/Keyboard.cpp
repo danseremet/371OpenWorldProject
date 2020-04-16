@@ -94,39 +94,36 @@ void Keyboard::processInput(Game *game) {
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) { // shift
             currentPlayerSpeed = player->playerSpeed * 2.0f;
         }
-        else
-        {
-            currentPlayerSpeed = player->playerSpeed;
-        }
 
         if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) { // control
             currentPlayerHeight = player->height / 2;
-        }
-        else
-        {
-            currentPlayerHeight = player->height;
+            currentPlayerSpeed = player->playerSpeed * 0.4f;
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { // forward W
             player->x += camera->cameraLookAt[0] * dt * currentPlayerSpeed;
             player->z += camera->cameraLookAt[2] * dt * currentPlayerSpeed;
-            player->y += camera->cameraLookAt[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { // backward S
             player->x -= camera->cameraLookAt[0] * dt * currentPlayerSpeed;
             player->z -= camera->cameraLookAt[2] * dt * currentPlayerSpeed;
-            player->y -= camera->cameraLookAt[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { // left A
             player->x -= cameraSideVector[0] * dt * currentPlayerSpeed;
             player->z -= cameraSideVector[2] * dt * currentPlayerSpeed;
-            player->y -= cameraSideVector[1] * dt * currentPlayerSpeed;
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { // right D
             player->x += cameraSideVector[0] * dt * currentPlayerSpeed;
             player->z += cameraSideVector[2] * dt * currentPlayerSpeed;
-            player->y += cameraSideVector[1] * dt * currentPlayerSpeed;
         }
+
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            if (game->playerOnGround())
+            {
+                player->verticalVelocity = 25.0f;
+            }
+        }
+
         camera->cameraPosition = glm::vec3(player->x, player->y + currentPlayerHeight, player->z);
 
     }

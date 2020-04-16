@@ -86,6 +86,7 @@ Game::Game() {
     // Player setup
     glm::vec3 player_pos{ initialPos, playerY, initialPos };
     player = new Player{ player_pos };
+    gravity = 3.0f;
 
     // Camera setup
     glm::vec3 camera_pos{ player->x, player->y + player->height, player->z};
@@ -131,6 +132,7 @@ void Game::gameLoop() {
     drawModels();
     chunkLoading();
     chunkUnloading();
+    playerPhysics();
     frameEnd();
 }
 
@@ -291,6 +293,26 @@ void Game::chunkUnloading() {
     }
 }
 
+void Game::playerPhysics() {
+    if (playerOnGround())
+    {
+        float terrainY = findTerrainYat(player->z, player->x);
+        player->y = terrainY;
+        if (player->verticalVelocity < 0)
+        {
+            player->verticalVelocity = 0;
+        }
+    } else
+    {
+        player->verticalVelocity -= gravity;
+        if (player->verticalVelocity < -20)
+        {
+            player->verticalVelocity = -20;
+        }
+    }
+    player->y += player->verticalVelocity * dt;
+}
+
 void Game::frameEnd() {
     glfwSwapBuffers(window);            // Double buffering
     glfwPollEvents();                    // Detect IO events
@@ -365,4 +387,24 @@ void Game::setupBasicShader() {
 
 const map<int, std::map<int, Model *>> &Game::getRocks() const {
     return rocks;
+}
+
+
+GLfloat Game::findTerrainYat(float z, float x) {
+    int positionChunkZ = static_cast<int>(z / chunkSize);
+    int positionChunkX = static_cast<int>(x / chunkSize);
+
+    auto heights = ((TerrainModel*)terrain[positionChunkZ][positionChunkX])->getHeights();
+
+    float relativePosZ = player->z - positionChunkZ * chunkSize;
+    float relativePosX = player->x - positionChunkX * chunkSize;
+
+    float terrainY = heights[relativePosZ][relativePosX];
+
+    return terrainY;
+}
+
+bool Game::playerOnGround() {
+    float terrainY = findTerrainYat(player->z, player->x);
+    return player->y <= terrainY;
 }

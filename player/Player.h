@@ -27,6 +27,7 @@ public:
     // Other camera parameters
     GLfloat playerSpeed;
     GLfloat height;
+    GLfloat verticalVelocity;
 
     const glm::vec3& getDefaultPosition() const;
 };
