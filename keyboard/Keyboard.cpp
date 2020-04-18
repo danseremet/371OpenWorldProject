@@ -120,7 +120,7 @@ void Keyboard::processInput(Game *game) {
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
             if (game->playerOnGround())
             {
-                player->verticalVelocity = 25.0f;
+                player->verticalVelocity = player->jumpSpeed;
             }
         }
 

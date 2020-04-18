@@ -148,6 +148,8 @@ private:
     int chunkUnloadingCounter;
     int chunkLoadingDuration;
     int chunkUnloadingDuration;
+
+    const GLfloat bilerp(GLfloat P00, GLfloat P10, GLfloat P01, GLfloat P11, GLfloat FracX, GLfloat FracY) const;
 };
 
 #endif //OPENWORLD_GAME_H

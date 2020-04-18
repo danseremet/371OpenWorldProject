@@ -24,8 +24,8 @@ public:
 
     glm::vec3 defaultPosition;
 
-    // Other camera parameters
     GLfloat playerSpeed;
+    GLfloat jumpSpeed;
     GLfloat height;
     GLfloat verticalVelocity;
 

@@ -16,6 +16,7 @@ void Player::initPlayer(glm::vec3 pos) {
 
     // Other camera parameters
     playerSpeed = 15.0f;
+    jumpSpeed = 30.0f;
     height = 2.0f;
     verticalVelocity = 0.0f;
 }

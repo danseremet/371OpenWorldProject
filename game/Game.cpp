@@ -86,7 +86,7 @@ Game::Game() {
     // Player setup
     glm::vec3 player_pos{ initialPos, playerY, initialPos };
     player = new Player{ player_pos };
-    gravity = 3.0f;
+    gravity = 3.5f;
 
     // Camera setup
     glm::vec3 camera_pos{ player->x, player->y + player->height, player->z};
@@ -298,9 +298,9 @@ void Game::playerPhysics() {
     {
         float terrainY = findTerrainYat(player->z, player->x);
         player->y = terrainY;
-        if (player->verticalVelocity < 0)
+        if (player->verticalVelocity < -gravity)
         {
-            player->verticalVelocity = 0;
+            player->verticalVelocity = -gravity;
         }
     } else
     {
@@ -311,6 +311,7 @@ void Game::playerPhysics() {
         }
     }
     player->y += player->verticalVelocity * dt;
+    cout << player->z << endl;
 }
 
 void Game::frameEnd() {
@@ -391,20 +392,40 @@ const map<int, std::map<int, Model *>> &Game::getRocks() const {
 
 
 GLfloat Game::findTerrainYat(float z, float x) {
-    int positionChunkZ = static_cast<int>(z / chunkSize);
-    int positionChunkX = static_cast<int>(x / chunkSize);
+    int positionChunkZ = floor(z / chunkSize);
+    int positionChunkX = floor(x / chunkSize);
 
     auto heights = ((TerrainModel*)terrain[positionChunkZ][positionChunkX])->getHeights();
 
     float relativePosZ = player->z - positionChunkZ * chunkSize;
     float relativePosX = player->x - positionChunkX * chunkSize;
 
-    float terrainY = heights[relativePosZ][relativePosX];
+    int relativePosZ0 = floor(relativePosZ);
+    int relativePosX0 = floor(relativePosX);
+    int relativePosZ1 = floor(relativePosZ + 1);
+    int relativePosX1 = floor(relativePosX + 1);
 
+    float terrainY00 = heights[relativePosZ0][relativePosX0];
+    float terrainY01 = heights[relativePosZ0][relativePosX1];
+    float terrainY10 = heights[relativePosZ1][relativePosX0];
+    float terrainY11 = heights[relativePosZ1][relativePosX1];
+
+    float terrainY = bilerp(terrainY00, terrainY10, terrainY01, terrainY11,
+        (relativePosZ - relativePosZ0) / (relativePosZ1 - relativePosZ0),
+        (relativePosX - relativePosX0) / (relativePosX1 - relativePosX0));
     return terrainY;
 }
 
 bool Game::playerOnGround() {
     float terrainY = findTerrainYat(player->z, player->x);
     return player->y <= terrainY;
+}
+
+
+const GLfloat Game::bilerp(GLfloat P00, GLfloat P10, GLfloat P01, GLfloat P11, GLfloat FracZ, GLfloat FracX) const {
+    GLfloat value = P00 * (1 - FracZ) * (1 - FracX)
+                  + P10 * FracZ * (1 - FracX)
+                  + P01 * (1 - FracZ) * FracX
+                  + P11 * FracZ * FracX;
+    return value;
 }
