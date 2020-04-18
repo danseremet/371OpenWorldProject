@@ -311,7 +311,6 @@ void Game::playerPhysics() {
         }
     }
     player->y += player->verticalVelocity * dt;
-    cout << player->z << endl;
 }
 
 void Game::frameEnd() {
@@ -397,8 +396,8 @@ GLfloat Game::findTerrainYat(float z, float x) {
 
     auto heights = ((TerrainModel*)terrain[positionChunkZ][positionChunkX])->getHeights();
 
-    float relativePosZ = player->z - positionChunkZ * chunkSize;
-    float relativePosX = player->x - positionChunkX * chunkSize;
+    float relativePosZ = z - positionChunkZ * chunkSize;
+    float relativePosX = x - positionChunkX * chunkSize;
 
     int relativePosZ0 = floor(relativePosZ);
     int relativePosX0 = floor(relativePosX);

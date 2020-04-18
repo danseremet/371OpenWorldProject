@@ -18,6 +18,8 @@ public:
 
     void initPlayer(glm::vec3 pos);
 
+    void movePlayer(GLfloat x, GLfloat y, GLfloat z);
+
     GLfloat x;
     GLfloat y;
     GLfloat z;

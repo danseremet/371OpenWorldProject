@@ -21,6 +21,12 @@ void Player::initPlayer(glm::vec3 pos) {
     verticalVelocity = 0.0f;
 }
 
+void Player::movePlayer(GLfloat x, GLfloat y, GLfloat z) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+}
+
 const glm::vec3& Player::getDefaultPosition() const {
     return defaultPosition;
 }
