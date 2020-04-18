@@ -8,6 +8,7 @@ Keyboard::Keyboard() = default;
 
 GLboolean Keyboard::monitorCounted = false;
 bool Keyboard::oKeyReleased = true;
+bool Keyboard::fpKeyReleased = true;
 
 void Keyboard::processInput(Game *game) {
     // Handle keyboard inputs
@@ -18,6 +19,7 @@ void Keyboard::processInput(Game *game) {
         glfwSetWindowShouldClose(window, true);
 
     Camera *camera = game->getCamera();
+    Player* player = game->getPlayer();
     GLfloat dt = game->dt;
 
 
@@ -45,7 +47,9 @@ void Keyboard::processInput(Game *game) {
         }
     }
 
-    float currentCameraSpeed = camera->cameraSpeed;
+    const float currentCameraSpeed = camera->cameraSpeed;
+    float currentPlayerSpeed = player->playerSpeed;
+    float currentPlayerHeight = player->height;
 
     // Camera logic from a lab (modified for separating panning/tilting/zooming)
     double mousePosX, mousePosY;
@@ -56,20 +60,26 @@ void Keyboard::processInput(Game *game) {
     game->lastMousePosX = mousePosX;
     game->lastMousePosY = mousePosY;
 
-    const float cameraAngularSpeed = SPEED_MULTIPLIER * 6.0f;
+    float cameraAngularSpeed = SPEED_MULTIPLIER * 6.0f;
+
 
     glm::vec3 cameraSideVector = glm::cross(camera->cameraLookAt, glm::vec3(0.0f, 1.0f, 0.0f));
 
+    if (game->cameraFirstPerson)
+    {
+        cameraAngularSpeed = SPEED_MULTIPLIER * 3.0f;
 
-
-    // RIGHT MOUSE BUTTON PAN X
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
         camera->cameraHorizontalAngle -= dx * cameraAngularSpeed * dt;
+        camera->cameraVerticalAngle -= dy * cameraAngularSpeed * dt;
 
         // Clamp vertical angle to [-85, 85] degrees
-        if (camera->cameraHorizontalAngle > 360) {
+        camera->cameraVerticalAngle = std::fmax(-85.0f, std::fmin(85.0f, camera->cameraVerticalAngle));
+        if (camera->cameraHorizontalAngle > 360)
+        {
             camera->cameraHorizontalAngle -= 360;
-        } else if (camera->cameraHorizontalAngle < -360) {
+        }
+        else if (camera->cameraHorizontalAngle < -360)
+        {
             camera->cameraHorizontalAngle += 360;
         }
 
@@ -80,55 +90,103 @@ void Keyboard::processInput(Game *game) {
         cameraSideVector = glm::cross(camera->cameraLookAt, glm::vec3(0.0f, 1.0f, 0.0f));
 
         glm::normalize(cameraSideVector);
-    }
 
-    // MIDDLE MOUSE BUTTON TILT Y
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS) {
-        camera->cameraVerticalAngle -= dy * cameraAngularSpeed * dt;
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) { // shift
+            currentPlayerSpeed = player->playerSpeed * 2.0f;
+        }
 
-        // Clamp vertical angle to [-85, 85] degrees
-        camera->cameraVerticalAngle = std::max(-85.0f, std::min(85.0f, camera->cameraVerticalAngle));
-        float theta = glm::radians(camera->cameraHorizontalAngle);
-        float phi = glm::radians(camera->cameraVerticalAngle);
+        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) { // control
+            currentPlayerHeight = player->height / 2;
+            currentPlayerSpeed = player->playerSpeed * 0.4f;
+        }
 
-        camera->cameraLookAt = glm::vec3(cosf(phi) * cosf(theta), sinf(phi), -cosf(phi) * sinf(theta));
-        cameraSideVector = glm::cross(camera->cameraLookAt, glm::vec3(0.0f, 1.0f, 0.0f));
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { // forward W
+            player->x += camera->cameraLookAt[0] * dt * currentPlayerSpeed;
+            player->z += camera->cameraLookAt[2] * dt * currentPlayerSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { // backward S
+            player->x -= camera->cameraLookAt[0] * dt * currentPlayerSpeed;
+            player->z -= camera->cameraLookAt[2] * dt * currentPlayerSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { // left A
+            player->x -= cameraSideVector[0] * dt * currentPlayerSpeed;
+            player->z -= cameraSideVector[2] * dt * currentPlayerSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { // right D
+            player->x += cameraSideVector[0] * dt * currentPlayerSpeed;
+            player->z += cameraSideVector[2] * dt * currentPlayerSpeed;
+        }
 
-        glm::normalize(cameraSideVector);
-    }
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            if (game->playerOnGround())
+            {
+                player->verticalVelocity = player->jumpSpeed;
+            }
+        }
 
-    // LEFT MOUSE BUTTON ZOOM IN AND OUT of scene
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && dy > 0) {
-        game->setFovy(game->getFovy() + 0.01f);
-        game->updateProjectionMatrix();
-    }
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && dy < 0) {
-        game->setFovy(game->getFovy() - 0.01f);
-        game->updateProjectionMatrix();
-    }
+        camera->cameraPosition = glm::vec3(player->x, player->y + currentPlayerHeight, player->z);
 
-    // Extra camera movement keys (not a requirement, but easier to work with)
-    if (glfwGetKey(window, GLFW_KEY_KP_8) == GLFW_PRESS) { // forward W
-        camera->cameraPosition += camera->cameraLookAt * dt * currentCameraSpeed;
     }
-    if (glfwGetKey(window, GLFW_KEY_KP_5) == GLFW_PRESS) { // backward S
-        camera->cameraPosition -= camera->cameraLookAt * dt * currentCameraSpeed;
-    }
-    if (glfwGetKey(window, GLFW_KEY_KP_6) == GLFW_PRESS) { // right D
-        camera->cameraPosition += cameraSideVector * dt * currentCameraSpeed;
-    }
-    if (glfwGetKey(window, GLFW_KEY_KP_4) == GLFW_PRESS) { // left A
-        camera->cameraPosition -= cameraSideVector * dt * currentCameraSpeed;
-    }
+    else
+    {
+        cameraAngularSpeed = SPEED_MULTIPLIER * 3.0f;
 
-    // Return Home
-    if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
-        camera->initCamera(camera->getDefaultPosition());
-        game->setFovy(70.0f);
-        game->updateProjectionMatrix();
+            camera->cameraHorizontalAngle -= dx * cameraAngularSpeed * dt;
+            camera->cameraVerticalAngle -= dy * cameraAngularSpeed * dt;
+
+            // Clamp vertical angle to [-85, 85] degrees
+            camera->cameraVerticalAngle = std::fmax(-85.0f, std::fmin(85.0f, camera->cameraVerticalAngle));
+            if (camera->cameraHorizontalAngle > 360)
+            {
+                camera->cameraHorizontalAngle -= 360;
+            }
+            else if (camera->cameraHorizontalAngle < -360)
+            {
+                camera->cameraHorizontalAngle += 360;
+            }
+
+            float theta = glm::radians(camera->cameraHorizontalAngle);
+            float phi = glm::radians(camera->cameraVerticalAngle);
+
+            camera->cameraLookAt = glm::vec3(cosf(phi) * cosf(theta), sinf(phi), -cosf(phi) * sinf(theta));
+            cameraSideVector = glm::cross(camera->cameraLookAt, glm::vec3(0.0f, 1.0f, 0.0f));
+
+            glm::normalize(cameraSideVector);
+
+        // LEFT MOUSE BUTTON ZOOM IN AND OUT of scene
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && dy > 0) {
+            game->setFovy(game->getFovy() + 0.01f);
+            game->updateProjectionMatrix();
+        }
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && dy < 0) {
+            game->setFovy(game->getFovy() - 0.01f);
+            game->updateProjectionMatrix();
+        }
+
+        // Extra camera movement keys (not a requirement, but easier to work with)
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { // forward W
+            camera->cameraPosition += camera->cameraLookAt * dt * currentCameraSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { // backward S
+            camera->cameraPosition -= camera->cameraLookAt * dt * currentCameraSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { // right D
+            camera->cameraPosition += cameraSideVector * dt * currentCameraSpeed;
+        }
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { // left A
+            camera->cameraPosition -= cameraSideVector * dt * currentCameraSpeed;
+        }
+
+        player->movePlayer(camera->cameraPosition[0], game->findTerrainYat(camera->cameraPosition[2], camera->cameraPosition[0]), camera->cameraPosition[2]);
+
+        // Return Home
+        if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
+            camera->initCamera(camera->getDefaultPosition());
+            game->setFovy(70.0f);
+            game->updateProjectionMatrix();
+        }
     }
-
-
+    
     // Show Points
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
         game->polygonMode = GL_POINT;
@@ -162,5 +220,17 @@ void Keyboard::processInput(Game *game) {
     }
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_RELEASE) {
         oKeyReleased = true;
+    }
+
+    // Toggle first person view
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        if (fpKeyReleased)
+        {
+            game->cameraFirstPerson = !game->cameraFirstPerson;
+        }
+        fpKeyReleased = false;
+    }
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_RELEASE) {
+        fpKeyReleased = true;
     }
 }
