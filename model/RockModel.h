@@ -27,7 +27,7 @@ private:
 
     int chunkSize;
     std::vector<std::vector<float>> heights;
-    std::vector<Vertex> rockVertices; 
+    std::vector<Vertex> rockVertices; wa
     int num;
 };
 

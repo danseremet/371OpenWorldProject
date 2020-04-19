@@ -52,6 +52,9 @@ public:
 
     void toggleShowTexture();
 
+    glm::mat4 returnTransformation();
+
+
 
 };
 

@@ -33,14 +33,16 @@ public:
     virtual void draw();
 
     void loadMesh();
-
+    
     std::vector<Vertex> returnVertices();
 
+
 protected:
-    std::vector<Vertex> vertices;
 
     GLuint VAO{};
     GLuint VBO{};
+
+    std::vector<Vertex> vertices;
 
 
     virtual void loadVertices();

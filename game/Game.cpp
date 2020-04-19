@@ -131,7 +131,6 @@ void Game::gameLoop() {
     chunkLoading();
     chunkUnloading();
     playerPhysics();
-    handleCollisions();
     frameEnd();
 }
 
@@ -213,7 +212,6 @@ void Game::chunkLoading() {
                 // Add rocks
                 Model *rockModel = new RockModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks};
                 rockModel->loadModel();
-                rockVertices = ((RockModel*) rockModel)->returnRockMeshVertices(); //used to return Rock Vertices
                 rocks[z].insert(make_pair(x, rockModel));
 
                 // Add trees
@@ -417,19 +415,6 @@ bool Game::playerOnGround() {
     return player->y <= terrainY;
 }
 
-void Game::handleCollisions() {
-    //for (int i = 0;  i <= rockVertices.size; i++)//OFFENDING LINE
-        if (player->x >= rockVertices[0].Position.x && player->y >= rockVertices[0].Position.y && player->z >= rockVertices[0].Position.z)
-        {
-            collisionDetected = true;
-            fixCollisions();
-        }
-
-}
-void Game::fixCollisions() {
-    player->movePlayer(10, 5, 2);
-
-}
 const GLfloat Game::bilerp(GLfloat P00, GLfloat P10, GLfloat P01, GLfloat P11, GLfloat FracZ, GLfloat FracX) const {
     GLfloat value = P00 * (1 - FracZ) * (1 - FracX)
                   + P10 * FracZ * (1 - FracX)

@@ -1,4 +1,4 @@
-//
+  //
 // Created by danseremet on 2020-04-04.
 //
 
@@ -16,7 +16,7 @@ void Model::loadModel() {
 
 void Model::draw() {
     for (GLuint i{0}; i < meshes.size(); i++) {
-        meshes[i]->draw();
+        meshes[i]->draw(); 
     }
 }
 

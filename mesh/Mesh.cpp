@@ -15,9 +15,11 @@ void Mesh::loadMesh() {
     loadTransforms();
 }
 
-std::vector<Vertex> Mesh::returnVertices() {
+std::vector<Vertex> Mesh::returnVertices()
+{
     return vertices;
 }
+
 void Mesh::loadVertices() {
     glm::vec3 BLUE = glm::vec3(0.0f, 0.0f, 0.5f);
     vertices = {

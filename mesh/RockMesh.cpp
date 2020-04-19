@@ -18,7 +18,6 @@ RockMesh::RockMesh(std::map<std::string, Shader*> shadersMap, std::map<std::stri
     chunkSize(chunkSize), heights(heights) {
 }
 
-
 std::vector<vec3> RockMesh::generateVertices() {
     std::vector<vec3> rockVertices = {};
     randomizeVertices();
@@ -218,7 +217,6 @@ void RockMesh::toggleShowTexture() {
     showTexture = !showTexture;
 }
 
-
 void RockMesh::loadTransforms() {
     baseplate = mat4(1.0f);
 
@@ -234,4 +232,8 @@ void RockMesh::loadTransforms() {
 
     baseplate = translate(baseplate, vec3(translationX + dx, translationY, translationZ + dz));
     baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
+}
+
+glm::mat4 RockMesh::returnTransformation() {
+    return baseplate;
 }
