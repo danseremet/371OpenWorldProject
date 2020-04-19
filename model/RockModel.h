@@ -19,12 +19,15 @@ public:
     void loadMeshes() override;
     void resetRock();
 
+    std::vector<Vertex> returnRockMeshVertices();
+
 private:
     int chunkX;
     int chunkZ;
 
     int chunkSize;
     std::vector<std::vector<float>> heights;
+    std::vector<Vertex> rockVertices; 
     int num;
 };
 

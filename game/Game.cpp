@@ -15,8 +15,6 @@ Game::Game() {
     // Window setup
     window = WindowManager::getWindow();
 
-  
-
     // Shader loading
     shadersMap = std::map<std::string, Shader *>{};
     shadersMap["basic"] = new Shader{"basic"};
@@ -133,6 +131,7 @@ void Game::gameLoop() {
     chunkLoading();
     chunkUnloading();
     playerPhysics();
+    handleCollisions();
     frameEnd();
 }
 
@@ -209,12 +208,12 @@ void Game::chunkLoading() {
                 Model *terrainModel = terrainGenerator->generateTerrain(chunkSize, x, z);
                 terrainModel->loadModel();
                 terrain[z].insert(make_pair(x, terrainModel));
-
                 auto heights = ((TerrainModel *) terrainModel)->getHeights();
 
                 // Add rocks
                 Model *rockModel = new RockModel{shadersMap, texturesMap, x, z, chunkSize, heights, numberOfRocks};
                 rockModel->loadModel();
+                rockVertices = ((RockModel*) rockModel)->returnRockMeshVertices(); //used to return Rock Vertices
                 rocks[z].insert(make_pair(x, rockModel));
 
                 // Add trees
@@ -347,7 +346,6 @@ glm::mat4 Game::createProjectionMatrix() {
     return glm::perspective(fovy, aspect, zNear, zFar);
 }
 
-
 void Game::updateProjectionMatrix() {
     projectionMatrix = createProjectionMatrix();
     shader->setMat4("projectionMatrix", projectionMatrix);
@@ -389,7 +387,6 @@ const map<int, std::map<int, Model *>> &Game::getRocks() const {
     return rocks;
 }
 
-
 GLfloat Game::findTerrainYat(float z, float x) {
     int positionChunkZ = floor(z / chunkSize);
     int positionChunkX = floor(x / chunkSize);
@@ -420,7 +417,19 @@ bool Game::playerOnGround() {
     return player->y <= terrainY;
 }
 
+void Game::handleCollisions() {
+    //for (int i = 0;  i <= rockVertices.size; i++)//OFFENDING LINE
+        if (player->x >= rockVertices[0].Position.x && player->y >= rockVertices[0].Position.y && player->z >= rockVertices[0].Position.z)
+        {
+            collisionDetected = true;
+            fixCollisions();
+        }
 
+}
+void Game::fixCollisions() {
+    player->movePlayer(10, 5, 2);
+
+}
 const GLfloat Game::bilerp(GLfloat P00, GLfloat P10, GLfloat P01, GLfloat P11, GLfloat FracZ, GLfloat FracX) const {
     GLfloat value = P00 * (1 - FracZ) * (1 - FracX)
                   + P10 * FracZ * (1 - FracX)

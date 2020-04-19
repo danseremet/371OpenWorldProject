@@ -34,6 +34,8 @@ public:
 
     void loadMesh();
 
+    std::vector<Vertex> returnVertices();
+
 protected:
     std::vector<Vertex> vertices;
 

@@ -49,7 +49,6 @@ public:
 
     GLint vbo;
 
-
     GLint polygonMode;
 
     void launch();
@@ -90,6 +89,10 @@ private:
     Player* player;
     Camera *camera;
     GLFWwindow *window;
+    std::vector<Vertex> rockVertices; //related to Collision Detection
+
+    bool collisionDetected;
+
     Shader *shader;
 
     std::map<int, std::map<int, Model*>> terrain;
@@ -148,6 +151,10 @@ private:
     int chunkUnloadingCounter;
     int chunkLoadingDuration;
     int chunkUnloadingDuration;
+
+    void handleCollisions();
+
+    void fixCollisions();
 
     const GLfloat bilerp(GLfloat P00, GLfloat P10, GLfloat P01, GLfloat P11, GLfloat FracX, GLfloat FracY) const;
 };

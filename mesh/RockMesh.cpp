@@ -111,7 +111,7 @@ void RockMesh::loadVertices() {
     Vertex vertex;
     vec3 GREY = vec3(0.8f, 0.8f, 0.8f);
 
-    std::vector<vec3> rockVertices = generateVertices();
+    rockVertices = generateVertices();
 
     std::vector<vec3> triangles = {
         rockVertices[1],
@@ -217,6 +217,7 @@ void RockMesh::draw() {
 void RockMesh::toggleShowTexture() {
     showTexture = !showTexture;
 }
+
 
 void RockMesh::loadTransforms() {
     baseplate = mat4(1.0f);

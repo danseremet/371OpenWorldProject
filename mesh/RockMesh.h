@@ -21,6 +21,8 @@ private:
 
     void setRandomSeed();
 
+    std::vector<glm::vec3> rockVertices;
+
     void randomizeVertices();
 
     float randomFloat(float from, float to);
@@ -49,6 +51,8 @@ public:
     void draw() override;
 
     void toggleShowTexture();
+
+
 };
 
 

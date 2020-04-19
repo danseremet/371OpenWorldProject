@@ -19,10 +19,15 @@ void RockModel::loadMeshes() {
         auto* rockMesh = new RockMesh{ shadersMap, texturesMap, chunkX, chunkZ, chunkSize, heights };
         rockMesh->loadMesh();
         meshes.push_back(rockMesh);
+        rockVertices = rockMesh-> returnVertices();
     }
 }
 
 void RockModel::resetRock() {
     meshes.clear();
     loadMeshes();
+}
+
+std::vector<Vertex> RockModel::returnRockMeshVertices() {
+    return rockVertices;
 }
