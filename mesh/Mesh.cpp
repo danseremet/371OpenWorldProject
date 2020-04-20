@@ -107,3 +107,8 @@ void Mesh::draw() { // cube draw
 void Mesh::loadTransforms() {
 
 }
+
+
+BoxCollider* Mesh::getCollider() {
+    return collider;
+}

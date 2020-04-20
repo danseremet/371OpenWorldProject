@@ -231,6 +231,11 @@ void RockMesh::loadTransforms() {
     float translationZ = randomFloat(0, chunkSize);
     float translationY = heights[translationZ][translationX];
 
-    baseplate = translate(baseplate, vec3(translationX + dx, translationY, translationZ + dz));
-    baseplate = scale(baseplate, vec3(scaleX, scaleY, scaleZ));
+    scaleVec = vec3(scaleX, scaleY, scaleZ);
+    translationVec = vec3(translationX + dx, translationY, translationZ + dz);
+
+    baseplate = translate(baseplate, translationVec);
+    baseplate = scale(baseplate, scaleVec);
+
+    collider = new BoxCollider(scaleVec, translationVec);
 }

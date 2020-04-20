@@ -29,6 +29,7 @@
 #include "../terrain_generator/TerrainGenerator.h"
 #include "../generators/PerlinNoiseGenerator.h"
 #include "../generators/ColorGenerator.h"
+#include "../collision/BoxCollider.h"
 
 
 class Game {
@@ -107,6 +108,8 @@ private:
     void chunkUnloading();
 
     void playerPhysics();
+
+    void collisionDetection();
 
     glm::mat4 createProjectionMatrix();
 

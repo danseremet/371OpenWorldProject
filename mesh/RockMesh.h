@@ -42,6 +42,7 @@ private:
     float n = 0.526f;
     float o = 0.0f;
 
+
 public:
     RockMesh(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap, int chunkX,
              int chunkZ, int chunkSize, std::vector<std::vector<float>> heights);
@@ -49,6 +50,9 @@ public:
     void draw() override;
 
     void toggleShowTexture();
+
+    glm::vec3 scaleVec;
+    glm::vec3 translationVec;
 };
 
 

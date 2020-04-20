@@ -133,6 +133,7 @@ void Game::gameLoop() {
     chunkLoading();
     chunkUnloading();
     playerPhysics();
+    collisionDetection();
     frameEnd();
 }
 
@@ -311,6 +312,19 @@ void Game::playerPhysics() {
         }
     }
     player->y += player->verticalVelocity * dt;
+
+
+}
+
+void Game::collisionDetection() {
+    int positionChunkZ = floor(player->z / chunkSize);
+    int positionChunkX = floor(player->x / chunkSize);
+    for (BoxCollider* collider : rocks[positionChunkZ][positionChunkX]->colliders) {
+        if (player->x <= collider->xMax && player->x >= collider->xMin && player->z <= collider->zMax && player->z >= collider->zMin)
+        {
+            cout << "collision detected" << endl;
+        }
+    }
 }
 
 void Game::frameEnd() {

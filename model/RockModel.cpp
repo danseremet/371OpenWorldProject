@@ -19,6 +19,7 @@ void RockModel::loadMeshes() {
         auto* rockMesh = new RockMesh{ shadersMap, texturesMap, chunkX, chunkZ, chunkSize, heights };
         rockMesh->loadMesh();
         meshes.push_back(rockMesh);
+        colliders.push_back(rockMesh->getCollider());
     }
 }
 

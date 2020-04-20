@@ -19,6 +19,7 @@
 #include <glm/gtx/normal.hpp>
 #include "../shader/Shader.h"
 #include "../texture/Texture.h"
+#include "../collision/BoxCollider.h"
 
 struct Vertex {
     glm::vec3 Position;
@@ -34,6 +35,8 @@ public:
 
     void loadMesh();
 
+    BoxCollider* getCollider();
+
 protected:
     std::vector<Vertex> vertices;
 
@@ -47,6 +50,8 @@ protected:
 
     virtual void setupVertices();
     virtual void loadTransforms();
+
+    BoxCollider* collider;
 };
 
 #endif //OPENWORLD_MESH_H

@@ -16,6 +16,7 @@
 #include "../mesh/Mesh.h"
 #include "../shader/Shader.h"
 #include "../texture/Texture.h"
+#include "../collision/BoxCollider.h"
 
 // Abstract class
 class Model {
@@ -24,6 +25,7 @@ public:
     explicit Model(std::map<std::string, Shader *> shadersMap, std::map<std::string, Texture *> texturesMap);
 
     std::vector<Mesh*> meshes;
+    std::vector<BoxCollider*> colliders;
 
     void draw();
 

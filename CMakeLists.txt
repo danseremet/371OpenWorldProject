@@ -16,6 +16,7 @@ set(SOURCE_FILES
         camera/Camera.cpp
         player/Player.cpp
         game/Game.cpp
+        collision/BoxCollider.cpp
         model/Model.cpp
         model/TerrainModel.cpp
         model/CubeModel.cpp

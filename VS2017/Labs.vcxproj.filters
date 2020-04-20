@@ -25,6 +25,7 @@
     <ClCompile Include="..\window\WindowException.cpp" />
     <ClCompile Include="..\window\WindowManager.cpp" />
     <ClCompile Include="..\player\Player.cpp" />
+    <ClCompile Include="..\collision\BoxCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\camera\Camera.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\window\WindowException.h" />
     <ClInclude Include="..\window\WindowManager.h" />
     <ClInclude Include="..\player\Player.h" />
+    <ClInclude Include="..\collision\BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\basic\fs.glsl" />

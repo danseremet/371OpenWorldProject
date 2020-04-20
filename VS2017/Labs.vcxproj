@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\camera\Camera.cpp" />
+    <ClCompile Include="..\collision\BoxCollider.cpp" />
     <ClCompile Include="..\game\Game.cpp" />
     <ClCompile Include="..\generators\ColorGenerator.cpp" />
     <ClCompile Include="..\generators\PerlinNoiseGenerator.cpp" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\camera\Camera.h" />
+    <ClInclude Include="..\collision\BoxCollider.h" />
     <ClInclude Include="..\game\Game.h" />
     <ClInclude Include="..\generators\ColorGenerator.h" />
     <ClInclude Include="..\generators\PerlinNoiseGenerator.h" />

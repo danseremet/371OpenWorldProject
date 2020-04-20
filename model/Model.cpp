@@ -24,4 +24,5 @@ void Model::loadMeshes() {
     std::cout << "loadMeshes cube\n";
     auto *mesh = new Mesh{shadersMap, texturesMap};
     meshes.push_back(mesh);
+    colliders.push_back(mesh->getCollider());
 }
