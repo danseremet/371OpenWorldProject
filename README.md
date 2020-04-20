@@ -8,7 +8,7 @@ To build and run execute:
 `./build-and-run.sh` in a terminal in this project's root folder.
 
 #### On Windows
-"Insert instructions"
+Using Visual Studio 2019, open the Labs.sln file in the VS2017 folder. If using Visual Studio 2017, you will need to retarget the solution.
 
 ### Keys
 #### Camera Rotation
